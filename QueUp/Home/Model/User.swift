@@ -8,7 +8,7 @@
 import Foundation
 
 struct User {
-    var id: String = ""
-    var roomCode: String = ""
-    var displayName: String = ""
+    var id: String
+    var roomCode: String
+    var displayName: String
 }
