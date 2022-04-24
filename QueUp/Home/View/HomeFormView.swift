@@ -8,9 +8,6 @@
 import UIKit
 
 protocol HomeFormViewDelegate: AnyObject {
-    func homeFormView(_ homeFormView: HomeFormView, selectedSegmentDidChange selectedSegmentIndex: Int)
-    func homeFormView(_ homeFormView: HomeFormView, displayNameTextFieldDidChange text: String?)
-    func homeFormView(_ homeFormView: HomeFormView, roomCodeTextFieldDidChange text: String?)
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed button: UIButton)
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed button: UIButton)
 }
@@ -39,19 +36,16 @@ class HomeFormView: UIStackView {
         } else {
             showCreateRoomOptions()
         }
-        delegate?.homeFormView(self, selectedSegmentDidChange: sender.selectedSegmentIndex)
     }
     
     @IBAction func displayNameTextFieldDidChange(_ sender: UITextField) {
         joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
         hostButton.isEnabled = !displayNameTextField.text!.isEmpty
-        delegate?.homeFormView(self, displayNameTextFieldDidChange: sender.text)
     }
     
     @IBAction func roomCodeTextFieldDidChange(_ sender: UITextField) {
         roomCodeTextField.text = roomCodeTextField.text?.uppercased()
         joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
-        delegate?.homeFormView(self, roomCodeTextFieldDidChange: sender.text)
     }
     
     @IBAction func joinButtonPressed(_ sender: UIButton) {

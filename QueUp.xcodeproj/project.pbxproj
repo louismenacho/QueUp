@@ -18,6 +18,10 @@
 		95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087928143E6B0073A058 /* FirebaseFirestore */; };
 		95C7087C28143E6B0073A058 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087B28143E6B0073A058 /* FirebaseFirestoreSwift-Beta */; };
 		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
+		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
+		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
+		95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CE2815079800E98B91 /* AuthService.swift */; };
+		95CDF5D12815777700E98B91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5D02815777700E98B91 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		9559FB9E28143211008E6FF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9559FBA028143211008E6FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		95CDF5CE2815079800E98B91 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		95CDF5D02815777700E98B91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				9524FE5A2814DF7D00031980 /* Controller */,
+				95CDF5CA2815070900E98B91 /* ViewModel */,
 				9524FE592814DF7900031980 /* Model */,
 				9524FE582814DF7300031980 /* View */,
 			);
@@ -68,6 +77,7 @@
 		9524FE592814DF7900031980 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				95CDF5D02815777700E98B91 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -75,6 +85,7 @@
 		9524FE5A2814DF7D00031980 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				95CDF5C8281506E000E98B91 /* HomeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -98,6 +109,7 @@
 		9559FB9128143210008E6FF3 /* QueUp */ = {
 			isa = PBXGroup;
 			children = (
+				95CDF5CD2815077000E98B91 /* Service */,
 				9524FE572814DF5500031980 /* Home */,
 				9559FB9228143210008E6FF3 /* AppDelegate.swift */,
 				9559FB9428143210008E6FF3 /* SceneDelegate.swift */,
@@ -108,6 +120,22 @@
 				95C7087E2814C23B0073A058 /* GoogleService-Info.plist */,
 			);
 			path = QueUp;
+			sourceTree = "<group>";
+		};
+		95CDF5CA2815070900E98B91 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		95CDF5CD2815077000E98B91 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				95CDF5CE2815079800E98B91 /* AuthService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +245,10 @@
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
+				95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */,
+				95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */,
+				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
+				95CDF5D12815777700E98B91 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
