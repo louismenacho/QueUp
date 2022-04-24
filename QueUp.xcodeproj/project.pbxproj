@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524FE5B2814DF9300031980 /* HomeFormView.swift */; };
 		9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559FB9228143210008E6FF3 /* AppDelegate.swift */; };
 		9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559FB9428143210008E6FF3 /* SceneDelegate.swift */; };
 		9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9828143210008E6FF3 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9524FE5B2814DF9300031980 /* HomeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFormView.swift; sourceTree = "<group>"; };
 		9559FB8F28143210008E6FF3 /* QueUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QueUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9559FB9228143210008E6FF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9559FB9428143210008E6FF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9524FE572814DF5500031980 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9524FE5A2814DF7D00031980 /* Controller */,
+				9524FE592814DF7900031980 /* Model */,
+				9524FE582814DF7300031980 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9524FE582814DF7300031980 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9524FE5B2814DF9300031980 /* HomeFormView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9524FE592814DF7900031980 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9524FE5A2814DF7D00031980 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		9559FB8628143210008E6FF3 = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +98,7 @@
 		9559FB9128143210008E6FF3 /* QueUp */ = {
 			isa = PBXGroup;
 			children = (
+				9524FE572814DF5500031980 /* Home */,
 				9559FB9228143210008E6FF3 /* AppDelegate.swift */,
 				9559FB9428143210008E6FF3 /* SceneDelegate.swift */,
 				9559FB9828143210008E6FF3 /* Main.storyboard */,
@@ -179,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
 			);
@@ -327,7 +363,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VBG939BMVJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QueUp/Info.plist;
