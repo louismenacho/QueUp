@@ -23,7 +23,7 @@ class HomeViewModel {
     func createRoom(host: User) async throws {
         var room = Room(id: host.id, code: randomString(of: 4))
         //TODO: - check here if exists, else regenerate
-        room.members.append(host)
+        room.users.append(host)
         try RoomRepository.shared.create(room, with: room.id)
     }
     
