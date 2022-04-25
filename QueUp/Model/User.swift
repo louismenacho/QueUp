@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct User: Codable {
-    var id: String
+    @DocumentID var id: String?
     var roomCode: String
     var displayName: String
 }

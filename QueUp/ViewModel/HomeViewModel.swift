@@ -6,15 +6,28 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Firebase
 
 class HomeViewModel {
     
-    func signIn(as displayName: String) async throws -> User {
-        try await AuthService.shared.signIn(with: displayName)
+    func firebaseSignIn() async throws -> Firebase.User {
+        try await AuthService.shared.signIn()
     }
     
-    func createUser(_ user: User) throws {
-        try UsersRepository.shared.create(id: user.id, user)
+    func createUser(_ user: Firebase.User, displayName: String) throws -> User {
+        let user = User(id: user.uid, roomCode: "", displayName: displayName)
+        try UserRepository.shared.create(id: user.id, user)
+        return user
+    }
+    
+    func createRoom(host: User) throws {
+        let room = Room(code: randomString(of: 4), host: host)
+        try RoomRepository.shared.create(id: room.code, room)
+    }
+    
+    func randomString(of length: Int) -> String {
+        let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let string = String(repeating: "_", count: length)
+        return String( string.map { _ in letters.randomElement()! } )
     }
 }

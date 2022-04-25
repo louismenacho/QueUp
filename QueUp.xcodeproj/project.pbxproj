@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524FE5B2814DF9300031980 /* HomeFormView.swift */; };
-		95535B4B28164415001FFC19 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95535B4A28164415001FFC19 /* UsersRepository.swift */; };
+		95535B4B28164415001FFC19 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95535B4A28164415001FFC19 /* UserRepository.swift */; };
 		9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559FB9228143210008E6FF3 /* AppDelegate.swift */; };
 		9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559FB9428143210008E6FF3 /* SceneDelegate.swift */; };
 		9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9828143210008E6FF3 /* Main.storyboard */; };
@@ -24,11 +24,13 @@
 		95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CE2815079800E98B91 /* AuthService.swift */; };
 		95CDF5D12815777700E98B91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5D02815777700E98B91 /* User.swift */; };
 		95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */; };
+		95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D526D3281665E000E633B4 /* RoomRepository.swift */; };
+		95D526D62816661F00E633B4 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D526D52816661F00E633B4 /* Room.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9524FE5B2814DF9300031980 /* HomeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFormView.swift; sourceTree = "<group>"; };
-		95535B4A28164415001FFC19 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRepository.swift; sourceTree = "<group>"; };
+		95535B4A28164415001FFC19 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		9559FB8F28143210008E6FF3 /* QueUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QueUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9559FB9228143210008E6FF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9559FB9428143210008E6FF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,8 @@
 		95CDF5CE2815079800E98B91 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		95CDF5D02815777700E98B91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirestoreRepository.swift; sourceTree = "<group>"; };
+		95D526D3281665E000E633B4 /* RoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRepository.swift; sourceTree = "<group>"; };
+		95D526D52816661F00E633B4 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				95CDF5D02815777700E98B91 /* User.swift */,
+				95D526D52816661F00E633B4 /* Room.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,7 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */,
-				95535B4A28164415001FFC19 /* UsersRepository.swift */,
+				95535B4A28164415001FFC19 /* UserRepository.swift */,
+				95D526D3281665E000E633B4 /* RoomRepository.swift */,
 			);
 			path = Respository;
 			sourceTree = "<group>";
@@ -281,14 +287,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
-				95535B4B28164415001FFC19 /* UsersRepository.swift in Sources */,
+				95535B4B28164415001FFC19 /* UserRepository.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
 				95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */,
 				95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */,
 				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
 				95CDF5D12815777700E98B91 /* User.swift in Sources */,
+				95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */,
 				95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */,
+				95D526D62816661F00E633B4 /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
