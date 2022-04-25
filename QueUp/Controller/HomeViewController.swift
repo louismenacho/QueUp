@@ -32,7 +32,7 @@ extension HomeViewController: HomeFormViewDelegate {
         Task {
             let firebaseAuthUser = try await vm.firebaseSignIn()
             let user = try vm.createUser(firebaseAuthUser, displayName: homeFormView.displayNameTextField.text!)
-            _ = try vm.createRoom(host: user)
+            _ = try await vm.createRoom(host: user)
         }
     }
 }

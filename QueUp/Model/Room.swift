@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct Room: Codable {
-    @DocumentID var id: String?
-    var code: String
+    var id: String
     var host: User
 }
