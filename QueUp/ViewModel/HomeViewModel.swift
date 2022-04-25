@@ -13,4 +13,8 @@ class HomeViewModel {
     func signIn(as displayName: String) async throws -> User {
         try await AuthService.shared.signIn(with: displayName)
     }
+    
+    func createUser(_ user: User) throws {
+        try UsersRepository.shared.create(id: user.id, user)
+    }
 }
