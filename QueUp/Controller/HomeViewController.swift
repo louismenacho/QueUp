@@ -23,14 +23,14 @@ extension HomeViewController: HomeFormViewDelegate {
     
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed button: UIButton) {
         Task {
-            let user = try await vm.signIn(as: "Louis")
+            let user = try await vm.signIn(as: homeFormView.displayNameTextField.text!)
             try vm.createUser(user)
         }
     }
     
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed button: UIButton) {
         Task {
-            let user = try await vm.signIn(as: "Jessenia")
+            let user = try await vm.signIn(as: homeFormView.displayNameTextField.text!)
             try vm.createUser(user)
         }
     }
