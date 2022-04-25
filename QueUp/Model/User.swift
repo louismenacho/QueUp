@@ -10,6 +10,5 @@ import FirebaseFirestoreSwift
 
 struct User: Codable {
     var id: String
-    var roomID: String
     var displayName: String
 }

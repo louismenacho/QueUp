@@ -15,13 +15,15 @@ class HomeViewModel {
     }
     
     func createUser(_ user: Firebase.User, displayName: String) throws -> User {
-        let user = User(id: user.uid, roomID: "", displayName: displayName)
+        let user = User(id: user.uid, displayName: displayName)
         try UserRepository.shared.create(user, with: user.id)
         return user
     }
     
     func createRoom(host: User) async throws {
-        let room = Room(id: randomString(of: 4), host: host)
+        var room = Room(id: host.id, code: randomString(of: 4))
+        //TODO: - check here if exists, else regenerate
+        room.members.append(host)
         try RoomRepository.shared.create(room, with: room.id)
     }
     
