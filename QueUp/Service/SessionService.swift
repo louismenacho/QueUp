@@ -29,6 +29,10 @@ class SessionService {
             print("Room does not exist")
             return
         }
+        guard room.users.count == 8 else {
+            print("Room is full")
+            return
+        }
         room.users[user.id] = user
         try roomRepo.update(room, with: room.id)
     }
