@@ -8,8 +8,8 @@
 import UIKit
 
 protocol HomeFormViewDelegate: AnyObject {
-    func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed button: UIButton)
-    func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed button: UIButton)
+    func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String)
+    func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String)
 }
 
 
@@ -19,14 +19,14 @@ class HomeFormView: UIStackView {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var displayNameTextField: UITextField!
-    @IBOutlet weak var roomCodeTextField: UITextField!
+    @IBOutlet weak var roomIdTextField: UITextField!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var hostButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         displayNameTextField.delegate = self
-        roomCodeTextField.delegate = self
+        roomIdTextField.delegate = self
         showJoinRoomOptions()
     }
     
@@ -39,45 +39,45 @@ class HomeFormView: UIStackView {
     }
     
     @IBAction func displayNameTextFieldDidChange(_ sender: UITextField) {
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
+        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
         hostButton.isEnabled = !displayNameTextField.text!.isEmpty
     }
     
-    @IBAction func roomCodeTextFieldDidChange(_ sender: UITextField) {
-        roomCodeTextField.text = roomCodeTextField.text?.uppercased()
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
+    @IBAction func roomIdTextFieldDidChange(_ sender: UITextField) {
+        roomIdTextField.text = roomIdTextField.text?.uppercased()
+        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
     }
     
     @IBAction func joinButtonPressed(_ sender: UIButton) {
-        delegate?.homeFormView(self, joinButtonPressed: sender)
+        delegate?.homeFormView(self, joinButtonPressed: displayNameTextField.text!, roomId: roomIdTextField.text!)
     }
     
     @IBAction func hostButtonPressed(_ sender: UIButton) {
-        delegate?.homeFormView(self, hostButtonPressed: sender)
+        delegate?.homeFormView(self, hostButtonPressed: displayNameTextField.text!)
     }
     
     private func showJoinRoomOptions() {
-        roomCodeTextField.isHidden = false
+        roomIdTextField.isHidden = false
         joinButton.isHidden = false
         hostButton.isHidden = true
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
+        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
     }
     
     private func showCreateRoomOptions() {
-        roomCodeTextField.isHidden = true
+        roomIdTextField.isHidden = true
         joinButton.isHidden = true
         hostButton.isHidden = false
         hostButton.isEnabled = !displayNameTextField.text!.isEmpty
     }
     
-    func setRoomCode(_ roomCode: String) {
-        roomCodeTextField.text = roomCode
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
+    func setRoomId(_ roomId: String) {
+        roomIdTextField.text = roomId
+        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
     }
     
     func setDisplayName(_ displayName: String) {
         displayNameTextField.text = displayName
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomCodeTextField.text!.count == 4
+        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
         hostButton.isEnabled = !displayNameTextField.text!.isEmpty
     }
 }
@@ -106,7 +106,7 @@ extension HomeFormView: UITextFieldDelegate {
         }
         
         // make sure the result is under 4 characters if room ID text field
-        if textField == roomCodeTextField {
+        if textField == roomIdTextField {
             return updatedText.count <= 4
         }
         

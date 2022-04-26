@@ -38,12 +38,12 @@
                                             <action selector="displayNameTextFieldDidChange:" destination="TlU-X9-dM2" eventType="editingChanged" id="Cmv-gU-PGt"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ROOM CODE" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tDT-fS-9Cv">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ROOM ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tDT-fS-9Cv">
                                         <rect key="frame" x="0.0" y="81" width="199" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="roomCodeTextFieldDidChange:" destination="TlU-X9-dM2" eventType="editingChanged" id="b0f-Yp-TkD"/>
+                                            <action selector="roomIdTextFieldDidChange:" destination="TlU-X9-dM2" eventType="editingChanged" id="b0f-Yp-TkD"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7AK-5A-rhZ">
@@ -67,7 +67,7 @@
                                     <outlet property="displayNameTextField" destination="i6V-XK-sX7" id="gh8-96-mqc"/>
                                     <outlet property="hostButton" destination="eKL-hW-4sK" id="LiX-5b-GwD"/>
                                     <outlet property="joinButton" destination="7AK-5A-rhZ" id="Dub-Kl-2kZ"/>
-                                    <outlet property="roomCodeTextField" destination="tDT-fS-9Cv" id="Y6F-Ch-knH"/>
+                                    <outlet property="roomIdTextField" destination="tDT-fS-9Cv" id="Y6F-Ch-knH"/>
                                     <outlet property="segmentedControl" destination="V5W-BY-HVe" id="e6Z-tC-pbn"/>
                                 </connections>
                             </stackView>

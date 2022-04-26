@@ -21,18 +21,15 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: HomeFormViewDelegate {
     
-    func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed button: UIButton) {
+    func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String) {
         Task {
-            let firebaseAuthUser = try await vm.firebaseSignIn()
-            _ = try vm.createUser(firebaseAuthUser, displayName: homeFormView.displayNameTextField.text!)
+            await vm.join(roomId: roomId, displayName: displayName)
         }
     }
     
-    func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed button: UIButton) {
+    func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String) {
         Task {
-            let firebaseAuthUser = try await vm.firebaseSignIn()
-            let user = try vm.createUser(firebaseAuthUser, displayName: homeFormView.displayNameTextField.text!)
-            _ = try await vm.createRoom(host: user)
+            await vm.host(displayName: displayName)
         }
     }
 }

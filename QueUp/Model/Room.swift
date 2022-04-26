@@ -10,12 +10,6 @@ import FirebaseFirestoreSwift
 
 struct Room: Codable {
     var id: String
-    var code: String
-    var users: [User]
-    
-    init(id: String, code: String) {
-        self.id = id
-        self.code = code
-        self.users = []
-    }
+    var hostId: String
+    var users: [String:User] = [:]
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 class AuthService {
     
@@ -14,7 +14,7 @@ class AuthService {
     
     private init() {}
     
-    func signIn() async throws -> Firebase.User {
+    func signIn() async throws -> FirebaseAuth.User {
         let authData = try await Auth.auth().signInAnonymously()
         return authData.user
     }
