@@ -18,9 +18,9 @@ class FirestoreRepository<Object: Codable> {
         collectionReference = Firestore.firestore().collection(collectionPath)
     }
     
-    func get(id: String) async throws -> Object? {
+    func get(id: String) async throws -> Object {
         let documentSnapshot = try await collectionReference.document(id).getDocument()
-        let object = try? documentSnapshot.data(as: Object.self)
+        let object = try documentSnapshot.data(as: Object.self)
         return object
     }
     

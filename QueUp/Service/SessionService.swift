@@ -25,11 +25,8 @@ class SessionService {
     }
     
     func join(user: User, to roomId: String) async throws {
-        guard var room = try await roomRepo.get(id: roomId) else {
-            print("Room does not exist")
-            return
-        }
-        guard room.users.count == 8 else {
+        var room = try await roomRepo.get(id: roomId)
+        guard room.users.count < 8 else {
             print("Room is full")
             return
         }
