@@ -41,7 +41,7 @@ class SessionService {
         try roomRepo.create(room, with: room.id)
     }
     
-    func randomString(of length: Int) -> String {
+    private func randomString(of length: Int) -> String {
         let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let string = String(repeating: "_", count: length)
         return String(string.map { _ in letters.randomElement()! })

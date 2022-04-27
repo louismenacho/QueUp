@@ -12,4 +12,5 @@ struct Room: Codable {
     var id: String
     var hostId: String
     var users: [String:User] = [:]
+    var playlist: Playlist = Playlist()
 }

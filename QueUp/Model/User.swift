@@ -9,6 +9,6 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct User: Codable {
-    var id: String
-    var displayName: String
+    var id: String = ""
+    var displayName: String = ""
 }

@@ -12,6 +12,8 @@ class PlaylistViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addSongButton: UIButton!
     
+    var vm = PlaylistViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -26,11 +28,12 @@ class PlaylistViewController: UIViewController {
 extension PlaylistViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return vm.playlist.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
+        cell.update(with: vm.playlist.items[indexPath.row])
         return cell
     }
 }

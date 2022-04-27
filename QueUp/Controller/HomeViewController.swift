@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    let vm = HomeViewModel()
+    var vm = HomeViewModel()
     
     @IBOutlet weak var homeFormView: HomeFormView!
     

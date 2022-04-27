@@ -16,9 +16,12 @@ class PlaylistTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        songTitleLabel.text = "Song"
-        artistNamesLabel.text = "Artists"
-        addedByUserLabel.text = "User"
+    }
+    
+    func update(with playlistItem: PlaylistItem) {
+        songTitleLabel.text = playlistItem.song.title
+        artistNamesLabel.text = playlistItem.song.artists.joined(separator: ",")
+        addedByUserLabel.text = playlistItem.addedBy.displayName
         albumImageView.image = UIImage(systemName: "photo.fill")
     }
 }
