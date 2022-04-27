@@ -21,6 +21,9 @@
 		95B334232819A352001BF021 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B334222819A352001BF021 /* Song.swift */; };
 		95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B334242819A5CF001BF021 /* PlaylistItem.swift */; };
 		95B334292819C03A001BF021 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B334282819C03A001BF021 /* Playlist.swift */; };
+		95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342A2819D20A001BF021 /* SearchViewController.swift */; };
+		95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342C2819D50E001BF021 /* SearchViewModel.swift */; };
+		95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */; };
 		95C7087628143E6B0073A058 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087528143E6B0073A058 /* FirebaseAuth */; };
 		95C7087828143E6B0073A058 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087728143E6B0073A058 /* FirebaseCrashlytics */; };
 		95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087928143E6B0073A058 /* FirebaseFirestore */; };
@@ -52,6 +55,9 @@
 		95B334222819A352001BF021 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		95B334242819A5CF001BF021 /* PlaylistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistItem.swift; sourceTree = "<group>"; };
 		95B334282819C03A001BF021 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		95B3342A2819D20A001BF021 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		95B3342C2819D50E001BF021 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -82,6 +88,7 @@
 			children = (
 				95B3341C28199253001BF021 /* Home */,
 				95B3341D28199272001BF021 /* Playlist */,
+				95B3342E2819E8C7001BF021 /* Search */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -103,6 +110,7 @@
 			children = (
 				95CDF5C8281506E000E98B91 /* HomeViewController.swift */,
 				95B3341A281990CF001BF021 /* PlaylistViewController.swift */,
+				95B3342A2819D20A001BF021 /* SearchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -156,11 +164,20 @@
 			path = Playlist;
 			sourceTree = "<group>";
 		};
+		95B3342E2819E8C7001BF021 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		95CDF5CA2815070900E98B91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */,
 				95B3342028199A6A001BF021 /* PlaylistViewModel.swift */,
+				95B3342C2819D50E001BF021 /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -327,7 +344,9 @@
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				95535B4B28164415001FFC19 /* UserRepository.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
+				95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */,
 				95B334292819C03A001BF021 /* Playlist.swift in Sources */,
+				95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */,
 				95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
 				95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */,
@@ -335,6 +354,7 @@
 				95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */,
 				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
 				95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */,
+				95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */,
 				95CDF5D12815777700E98B91 /* User.swift in Sources */,
 				95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */,
 				95B334232819A352001BF021 /* Song.swift in Sources */,

@@ -13,7 +13,7 @@ class PlaylistViewModel {
         var playlist = Playlist()
         let item = PlaylistItem(
             song: Song(title: "title", artists: ["artist"], album: "album", artworkURL: ""),
-            addedBy: User(id: "", displayName: "Louis")
+            addedBy: User(id: "", displayName: "user")
         )
         playlist.items = Array(repeating: item, count: 3)
         return playlist

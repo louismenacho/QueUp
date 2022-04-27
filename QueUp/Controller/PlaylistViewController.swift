@@ -9,6 +9,7 @@ import UIKit
 
 class PlaylistViewController: UIViewController {
 
+    lazy var searchViewController = storyboard?.instantiateViewController(identifier: "SearchViewController") as! SearchViewController
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addSongButton: UIButton!
     
@@ -16,8 +17,11 @@ class PlaylistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.searchController = searchViewController.parentSearchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         tableView.dataSource = self
         tableView.delegate = self
+        searchViewController.delegate = self
     }
     
     @IBAction func addSongButtonPressed(_ sender: UIButton) {
@@ -46,5 +50,12 @@ extension PlaylistViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
+    }
+}
+
+extension PlaylistViewController: SearchViewControllerDelegate {
+    
+    func searchViewController(_ searchViewController: SearchViewController, didAdd song: Song) {
+        
     }
 }
