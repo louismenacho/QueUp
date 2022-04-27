@@ -23,13 +23,29 @@ extension HomeViewController: HomeFormViewDelegate {
     
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String) {
         Task {
-            await vm.join(roomId: roomId, displayName: displayName)
+            let result = await vm.join(roomId: roomId, displayName: displayName)
+            switch result {
+            case.success:
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "PlaylistViewController", sender: self)
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String) {
         Task {
-            await vm.host(displayName: displayName)
+            let result = await vm.host(displayName: displayName)
+            switch result {
+            case.success:
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "PlaylistViewController", sender: self)
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
