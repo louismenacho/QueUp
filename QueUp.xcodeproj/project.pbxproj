@@ -15,6 +15,8 @@
 		9559FB9C28143211008E6FF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9B28143211008E6FF3 /* Assets.xcassets */; };
 		9559FB9F28143211008E6FF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9D28143211008E6FF3 /* LaunchScreen.storyboard */; };
 		958698E628176ADA00FA3E15 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958698E528176ADA00FA3E15 /* SessionService.swift */; };
+		95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3341A281990CF001BF021 /* PlaylistViewController.swift */; };
+		95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */; };
 		95C7087628143E6B0073A058 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087528143E6B0073A058 /* FirebaseAuth */; };
 		95C7087828143E6B0073A058 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087728143E6B0073A058 /* FirebaseCrashlytics */; };
 		95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087928143E6B0073A058 /* FirebaseFirestore */; };
@@ -40,6 +42,8 @@
 		9559FB9E28143211008E6FF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9559FBA028143211008E6FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		958698E528176ADA00FA3E15 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		95B3341A281990CF001BF021 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -68,7 +72,8 @@
 		9524FE582814DF7300031980 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9524FE5B2814DF9300031980 /* HomeFormView.swift */,
+				95B3341C28199253001BF021 /* Home */,
+				95B3341D28199272001BF021 /* Playlist */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				95CDF5C8281506E000E98B91 /* HomeViewController.swift */,
+				95B3341A281990CF001BF021 /* PlaylistViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -121,6 +127,22 @@
 				95CDF5D62815D68F00E98B91 /* SupportFiles */,
 			);
 			path = QueUp;
+			sourceTree = "<group>";
+		};
+		95B3341C28199253001BF021 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9524FE5B2814DF9300031980 /* HomeFormView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		95B3341D28199272001BF021 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */,
+			);
+			path = Playlist;
 			sourceTree = "<group>";
 		};
 		95CDF5CA2815070900E98B91 /* ViewModel */ = {
@@ -293,10 +315,12 @@
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				95535B4B28164415001FFC19 /* UserRepository.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
+				95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
 				95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */,
 				95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */,
 				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
+				95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */,
 				95CDF5D12815777700E98B91 /* User.swift in Sources */,
 				95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */,
 				95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */,
