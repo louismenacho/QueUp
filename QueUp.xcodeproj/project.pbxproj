@@ -24,6 +24,9 @@
 		95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342A2819D20A001BF021 /* SearchViewController.swift */; };
 		95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342C2819D50E001BF021 /* SearchViewModel.swift */; };
 		95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */; };
+		95B3344B281A44C4001BF021 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3344A281A44C4001BF021 /* APIClient.swift */; };
+		95B3344D281A6B02001BF021 /* SpotifyiOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */; };
+		95B3344E281A6B02001BF021 /* SpotifyiOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95C7087628143E6B0073A058 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087528143E6B0073A058 /* FirebaseAuth */; };
 		95C7087828143E6B0073A058 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087728143E6B0073A058 /* FirebaseCrashlytics */; };
 		95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087928143E6B0073A058 /* FirebaseFirestore */; };
@@ -37,6 +40,20 @@
 		95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D526D3281665E000E633B4 /* RoomRepository.swift */; };
 		95D526D62816661F00E633B4 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D526D52816661F00E633B4 /* Room.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		95B3344F281A6B02001BF021 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				95B3344E281A6B02001BF021 /* SpotifyiOS.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9524FE5B2814DF9300031980 /* HomeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFormView.swift; sourceTree = "<group>"; };
@@ -58,6 +75,9 @@
 		95B3342A2819D20A001BF021 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		95B3342C2819D50E001BF021 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SpotifyiOS.xcframework; sourceTree = "<group>"; };
+		95B33446281A0034001BF021 /* QueUp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QueUp-Bridging-Header.h"; sourceTree = "<group>"; };
+		95B3344A281A44C4001BF021 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -76,6 +96,7 @@
 				95C7087628143E6B0073A058 /* FirebaseAuth in Frameworks */,
 				95C7087C28143E6B0073A058 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				95C7087828143E6B0073A058 /* FirebaseCrashlytics in Frameworks */,
+				95B3344D281A6B02001BF021 /* SpotifyiOS.xcframework in Frameworks */,
 				95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +141,7 @@
 			children = (
 				9559FB9128143210008E6FF3 /* QueUp */,
 				9559FB9028143210008E6FF3 /* Products */,
+				95B3344C281A6B02001BF021 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,16 +156,18 @@
 		9559FB9128143210008E6FF3 /* QueUp */ = {
 			isa = PBXGroup;
 			children = (
-				95CDF5D22815D59A00E98B91 /* App */,
+				95B33448281A43CC001BF021 /* App */,
+				95B33449281A44AD001BF021 /* Client */,
 				95CDF5D72815E1B900E98B91 /* Respository */,
 				95CDF5CD2815077000E98B91 /* Service */,
-				9524FE5A2814DF7D00031980 /* Controller */,
+				9524FE592814DF7900031980 /* Model */,
 				95CDF5CA2815070900E98B91 /* ViewModel */,
 				9524FE582814DF7300031980 /* View */,
-				9524FE592814DF7900031980 /* Model */,
+				9524FE5A2814DF7D00031980 /* Controller */,
 				95CDF5D52815D5E600E98B91 /* StoryBoard */,
 				95CDF5D32815D5A600E98B91 /* Resource */,
 				95CDF5D62815D68F00E98B91 /* SupportFiles */,
+				95B334432819FFD2001BF021 /* Framework */,
 			);
 			path = QueUp;
 			sourceTree = "<group>";
@@ -172,6 +196,38 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		95B334432819FFD2001BF021 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		95B33448281A43CC001BF021 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9559FB9228143210008E6FF3 /* AppDelegate.swift */,
+				9559FB9428143210008E6FF3 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		95B33449281A44AD001BF021 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				95B3344A281A44C4001BF021 /* APIClient.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		95B3344C281A6B02001BF021 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		95CDF5CA2815070900E98B91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,15 +245,6 @@
 				958698E528176ADA00FA3E15 /* SessionService.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		95CDF5D22815D59A00E98B91 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				9559FB9228143210008E6FF3 /* AppDelegate.swift */,
-				9559FB9428143210008E6FF3 /* SceneDelegate.swift */,
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 		95CDF5D32815D5A600E98B91 /* Resource */ = {
@@ -222,6 +269,7 @@
 			children = (
 				9559FBA028143211008E6FF3 /* Info.plist */,
 				95C7087E2814C23B0073A058 /* GoogleService-Info.plist */,
+				95B33446281A0034001BF021 /* QueUp-Bridging-Header.h */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -247,6 +295,7 @@
 				9559FB8C28143210008E6FF3 /* Frameworks */,
 				9559FB8D28143210008E6FF3 /* Resources */,
 				95C7087D2814BEF60073A058 /* ShellScript */,
+				95B3344F281A6B02001BF021 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -345,6 +394,7 @@
 				95535B4B28164415001FFC19 /* UserRepository.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
 				95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */,
+				95B3344B281A44C4001BF021 /* APIClient.swift in Sources */,
 				95B334292819C03A001BF021 /* Playlist.swift in Sources */,
 				95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */,
 				95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */,
@@ -525,6 +575,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.louismenacho.queup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QueUp/SupportFiles/QueUp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -555,6 +606,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.louismenacho.queup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QueUp/SupportFiles/QueUp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
