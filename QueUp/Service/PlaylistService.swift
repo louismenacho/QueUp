@@ -18,6 +18,6 @@ class PlaylistService {
     func addSong(_ song: Song) throws {
         let currentUserId = SessionService.shared.currentUserId
         let item = PlaylistItem(song: song, addedBy: currentUserId, dateAdded: Date())
-        return try playlistRepo.create(id: song.id, with: item)
+        try playlistRepo.create(id: song.id, with: item)
     }
 }

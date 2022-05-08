@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol SearchViewControllerDelegate: AnyObject {
-    func searchViewController(_ searchViewController: SearchViewController, didAdd song: Song)
-}
-
 class SearchViewController: UIViewController {
-    
-    weak var delegate: SearchViewControllerDelegate?
     
     lazy var parentSearchController = UISearchController(searchResultsController: self)
     @IBOutlet weak var tableViewHeaderLabel: UILabel!

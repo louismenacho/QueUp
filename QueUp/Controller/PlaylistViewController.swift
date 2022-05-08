@@ -21,7 +21,6 @@ class PlaylistViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         tableView.dataSource = self
         tableView.delegate = self
-        searchViewController.delegate = self
     }
     
     @IBAction func addSongButtonPressed(_ sender: UIButton) {
@@ -50,12 +49,5 @@ extension PlaylistViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
-    }
-}
-
-extension PlaylistViewController: SearchViewControllerDelegate {
-    
-    func searchViewController(_ searchViewController: SearchViewController, didAdd song: Song) {
-        
     }
 }

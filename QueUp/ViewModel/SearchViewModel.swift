@@ -44,7 +44,7 @@ class SearchViewModel {
         }
     }
     
-    func addSong(at index: Int) -> Result<(), Error> {
+    func addSong(at index: Int) -> Result<(()), Error> {
         searchResult[index].isAdded = true
         do {
             try playlistService.addSong(searchResult[index].song)
