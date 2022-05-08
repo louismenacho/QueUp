@@ -15,10 +15,10 @@ class SessionService {
     let userRepo = UserRepository.shared
     let roomRepo = RoomRepository.shared
     
-    var currentUserId = ""
-    var currentRoomId = ""
+    var currentUser = User()
+    var currentRoom = Room()
     var currentRoomPath: String {
-        roomRepo.collectionReference.path+"/"+currentRoomId
+        roomRepo.collectionReference.path+"/"+currentRoom.id
     }
     
     private init() {}
@@ -27,7 +27,7 @@ class SessionService {
         let firebaseUser = try await AuthService.shared.signIn()
         let user = User(id: firebaseUser.uid, displayName: displayName)
         try userRepo.create(id: user.id, with: user)
-        currentUserId = user.id
+        currentUser = user
         return user
     }
     
@@ -39,7 +39,7 @@ class SessionService {
         }
         room.users[user.id] = user
         try roomRepo.update(id: room.id, with: room)
-        currentRoomId = roomId
+        currentRoom = room
     }
     
     func createRoom(host: User) async throws {
@@ -47,7 +47,7 @@ class SessionService {
         //TODO: - check here if exists, else regenerate
         room.users[host.id] = host
         try roomRepo.create(id: room.id, with: room)
-        currentRoomId = room.id
+        currentRoom = room
     }
     
     private func randomString(of length: Int) -> String {

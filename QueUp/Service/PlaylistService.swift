@@ -16,8 +16,14 @@ class PlaylistService {
     private init() {}
     
     func addSong(_ song: Song) throws {
-        let currentUserId = SessionService.shared.currentUserId
+        let currentUserId = SessionService.shared.currentUser.id
         let item = PlaylistItem(song: song, addedBy: currentUserId, dateAdded: Date())
         try playlistRepo.create(id: song.id, with: item)
+    }
+    
+    func addListener(completion: @escaping (Result<([PlaylistItem]), Error>) -> Void) {
+        playlistRepo.addListener { result in
+            completion(result)
+        }
     }
 }

@@ -21,6 +21,18 @@ class PlaylistViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         tableView.dataSource = self
         tableView.delegate = self
+        addSongButton.isHidden = !vm.playlistItems.isEmpty
+        
+        vm.playlistChangeListener { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     @IBAction func addSongButtonPressed(_ sender: UIButton) {
@@ -31,12 +43,12 @@ class PlaylistViewController: UIViewController {
 extension PlaylistViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.playlist.items.count
+        return vm.playlistItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
-        cell.update(with: vm.playlist.items[indexPath.row])
+        cell.update(with: vm.playlistItems[indexPath.row])
         return cell
     }
 }
