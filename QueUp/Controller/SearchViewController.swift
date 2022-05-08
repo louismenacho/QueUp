@@ -30,6 +30,16 @@ class SearchViewController: UIViewController {
         updateSearchBarFont()
         tableView.dataSource = self
         tableView.delegate = self
+        
+        Task {
+            let result = await vm.initialize()
+            switch result {
+            case.success:
+                print("SpotifyService initialized")
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func updateSearchBarFont() {
@@ -44,7 +54,18 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
+        Task {
+            let result = await vm.search(query: searchText)
+            switch result {
+            case.success:
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
