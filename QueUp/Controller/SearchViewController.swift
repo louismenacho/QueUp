@@ -85,6 +85,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultTableViewCell", for: indexPath) as! SearchResultTableViewCell
         cell.update(with: vm.searchResult[indexPath.row])
+        cell.delegate = self
         return cell
     }
 }
@@ -97,5 +98,21 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension SearchViewController: SearchResultTableViewCellDelegate {
+    
+    func searchTableViewCell(addButtonPressedFor cell: SearchResultTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let result = vm.addSong(at: indexPath.row)
+        switch result {
+        case.success:
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        case .failure(let error):
+            print(error)
+        }
     }
 }

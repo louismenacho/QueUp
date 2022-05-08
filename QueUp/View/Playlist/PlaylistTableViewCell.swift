@@ -21,7 +21,7 @@ class PlaylistTableViewCell: UITableViewCell {
     func update(with playlistItem: PlaylistItem) {
         songTitleLabel.text = playlistItem.song.title
         artistNamesLabel.text = playlistItem.song.artists.joined(separator: ",")
-        addedByUserLabel.text = "Added by " + playlistItem.addedBy.displayName
+        addedByUserLabel.text = "Added by " + playlistItem.addedBy
         albumImageView.image = UIImage(systemName: "photo.fill")
     }
 }
