@@ -9,47 +9,6 @@ import Foundation
 
 struct APIRequest {
     
-    enum HTTPMethod: String {
-        case get    = "GET"
-        case post   = "POST"
-        case put    = "PUT"
-        case delete = "DELETE"
-    }
-    
-    enum HTTPAuthorization {
-        case none
-        case basic(base64: String)
-        case bearer(token: String)
-        
-        func headerValue() -> String? {
-            switch self {
-            case .none:
-                return nil
-            case .basic(let base64):
-                return "Basic \(base64)"
-            case .bearer(let token):
-                return "Bearer \(token)"
-            }
-        }
-    }
-    
-    enum HTTPContentType {
-        case none
-        case json
-        case xwwwformurlencoded
-        
-        func headerValue() -> String? {
-            switch self {
-            case .none:
-                return nil
-            case .json:
-                return "application/json"
-            case .xwwwformurlencoded:
-                return "application/x-www-form-urlencoded"
-            }
-        }
-    }
-    
     var method: HTTPMethod = .get
     var baseURL: String
     var path: String = ""

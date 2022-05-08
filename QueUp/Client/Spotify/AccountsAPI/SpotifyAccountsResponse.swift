@@ -8,6 +8,7 @@
 import Foundation
 
 struct SpotifyAccountsResponse {
+    
     struct Token: Codable {
         var accessToken: String
         var tokenType: String
