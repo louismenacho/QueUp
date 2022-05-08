@@ -8,6 +8,7 @@
 import Foundation
 
 struct Song: Codable {
+    var id: String = ""
     var title: String = ""
     var artists: [String] = []
     var album: String = ""

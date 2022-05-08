@@ -30,7 +30,7 @@ class FirestoreRepository<Object: Codable> {
         return objectList
     }
     
-    func create(_ object: Object, with id: String? = nil) throws {
+    func create(id: String? = nil, with object: Object) throws {
         if let id = id {
             try collectionReference.document(id).setData(from: object)
         } else {
@@ -38,7 +38,7 @@ class FirestoreRepository<Object: Codable> {
         }
     }
     
-    func update(_ object: Object, with id: String) throws {
+    func update(id: String, with object: Object) throws {
         try collectionReference.document(id).setData(from: object)
     }
     
