@@ -23,7 +23,19 @@ class PlaylistViewController: UIViewController {
         tableView.delegate = self
         addSongButton.isHidden = !vm.playlistItems.isEmpty
         
-        vm.playlistChangeListener { result in
+        vm.playlistItemsListener { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.searchViewController.updateCurrentPlaylistItems(currentPlaylistItems: self.vm.playlistItems)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        vm.sessionListener { result in
             switch result {
             case .success:
                 DispatchQueue.main.async {

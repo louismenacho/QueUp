@@ -11,34 +11,35 @@ class PlaylistViewModel {
     
     let sessionService = SessionService.shared
     let playlistService = PlaylistService.shared
+    let spotifyService = SpotifyService.shared
     
-    var playlistItems: [PlaylistItem] = {
-        var playlist = [PlaylistItem]()
-        let item = PlaylistItem(
-            song: Song(title: "title", artists: ["artist"], album: "album", artworkURL: ""),
-            addedBy: "user"
-        )
-        playlist = Array(repeating: item, count: 3)
-        return playlist
-    }()
+    init() {
+        playlistService.startListener()
+    }
     
-    func playlistChangeListener(completion: @escaping (Result<(), Error>) -> Void) {
-        playlistService.addListener { result in
+    var playlistItems = [PlaylistItem]()
+    
+    
+    func playlistItemsListener(_ listener: @escaping (Result<(), Error>) -> Void) {
+        playlistService.playlistItemsListener = { result in
             switch result {
             case .success(let playlistItems):
                 self.playlistItems = playlistItems
-                self.resolveAddedByIds()
-                completion(.success(()))
+                listener(.success(()))
             case .failure(let error):
-                completion(.failure(error))
+                listener(.failure(error))
             }
         }
     }
     
-    func resolveAddedByIds() {
-        for i in 0..<playlistItems.count {
-            let userId = playlistItems[i].addedBy
-            playlistItems[i].addedBy = sessionService.currentRoom.users[userId]?.displayName ?? "Unknown user"
+    func sessionListener(_ listener: @escaping (Result<(), Error>) -> Void) {
+        sessionService.roomListener = { result in
+            switch result {
+            case .success:
+                listener(.success(()))
+            case .failure(let error):
+                listener(.failure(error))
+            }
         }
     }
 }

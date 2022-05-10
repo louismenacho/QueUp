@@ -17,9 +17,8 @@ class SessionService {
     
     var currentUser = User()
     var currentRoom = Room()
-    var currentRoomPath: String {
-        roomRepo.collectionReference.path+"/"+currentRoom.id
-    }
+    
+    var roomListener: ((Result<Room, Error>) -> Void)?
     
     private init() {}
     
@@ -50,10 +49,24 @@ class SessionService {
         currentRoom = room
     }
     
+    func startListener() {
+        guard roomRepo.collectionListener == nil else { return }
+        roomRepo.addListener(id: currentRoom.id) { result in
+            self.roomListener?(result)
+        }
+    }
+    
+    func stopListener() {
+        roomRepo.removeListener()
+    }
+    
+    func userIdToDisplayName(id: String) -> String {
+        return currentRoom.users[id]?.displayName ?? "Unknown user"
+    }
+    
     private func randomString(of length: Int) -> String {
         let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let string = String(repeating: "_", count: length)
         return String(string.map { _ in letters.randomElement()! })
     }
-    
 }

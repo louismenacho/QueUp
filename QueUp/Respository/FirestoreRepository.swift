@@ -46,34 +46,34 @@ class FirestoreRepository<Object: Codable> {
         try await collectionReference.document(id).delete()
     }
     
-    func addListener(id: String, completion: @escaping (Result<Object, Error>) -> Void) throws {
+    func addListener(id: String, _ listener: @escaping (Result<Object, Error>) -> Void) {
         collectionListener = collectionReference.document(id).addSnapshotListener { documentSnapshot, error in
             if let error = error {
-                completion(.failure(error))
+                listener(.failure(error))
                 return
             }
             
             do {
                 let object = try documentSnapshot?.data(as: Object.self)
-                completion(.success(object!))
+                listener(.success(object!))
             } catch {
-                completion(.failure(error))
+                listener(.failure(error))
             }
         }
     }
 
-    func addListener(completion: @escaping (Result<[Object], Error>) -> Void) {
+    func addListener(_ listener: @escaping (Result<[Object], Error>) -> Void) {
         collectionListener = collectionReference.addSnapshotListener { querySnapshot, error in
             if let error = error {
-                completion(.failure(error))
+                listener(.failure(error))
                 return
             }
             
             do {
                 let dataList = try querySnapshot?.documents.compactMap { try $0.data(as: Object.self) }
-                completion(.success(dataList!))
+                listener(.success(dataList!))
             } catch {
-                completion(.failure(error))
+                listener(.failure(error))
             }
         }
     }

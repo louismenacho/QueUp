@@ -24,16 +24,10 @@ class SearchViewController: UIViewController {
         updateSearchBarFont()
         tableView.dataSource = self
         tableView.delegate = self
-        
-        Task {
-            let result = await vm.initialize()
-            switch result {
-            case.success:
-                print("SpotifyService initialized")
-            case .failure(let error):
-                print(error)
-            }
-        }
+    }
+    
+    func updateCurrentPlaylistItems(currentPlaylistItems: [PlaylistItem]) {
+        vm.currentPlaylistItems = currentPlaylistItems
     }
     
     func updateSearchBarFont() {

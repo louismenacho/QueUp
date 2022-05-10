@@ -9,19 +9,15 @@ import Foundation
 
 class SearchViewModel {
     
+    enum SearchViewModelError: Error {
+        case duplicateSongError
+    }
+    
     let spotifyService = SpotifyService.shared
     let playlistService = PlaylistService.shared
     
     var searchResult = [SearchResultItem]()
-    
-    func initialize() async -> Result<(), Error> {
-        do {
-            try await spotifyService.initialize()
-            return .success(())
-        } catch {
-            return .failure(error)
-        }
-    }
+    var currentPlaylistItems = [PlaylistItem]()
     
     func search(query: String) async -> Result<(), Error> {
         do {
@@ -35,7 +31,7 @@ class SearchViewModel {
                         album: track.album.name,
                         artworkURL: track.album.images[0].url
                     ),
-                    isAdded: false
+                    isAdded: currentPlaylistItems.contains(where: { $0.song.id == track.uri })
                 )
             }
             return .success(())
@@ -45,6 +41,11 @@ class SearchViewModel {
     }
     
     func addSong(at index: Int) -> Result<(()), Error> {
+        guard !currentPlaylistItems.contains(where: { $0.song.id == searchResult[index].song.id }) else {
+            print("Song already exists in playlist")
+            return .failure(SearchViewModelError.duplicateSongError)
+        }
+        
         searchResult[index].isAdded = true
         do {
             try playlistService.addSong(searchResult[index].song)
