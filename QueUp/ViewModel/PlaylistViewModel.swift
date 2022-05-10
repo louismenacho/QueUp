@@ -13,12 +13,11 @@ class PlaylistViewModel {
     let playlistService = PlaylistService.shared
     let spotifyService = SpotifyService.shared
     
+    var playlistItems = [PlaylistItem]()
+    
     init() {
         playlistService.startListener()
     }
-    
-    var playlistItems = [PlaylistItem]()
-    
     
     func playlistItemsListener(_ listener: @escaping (Result<(), Error>) -> Void) {
         playlistService.playlistItemsListener = { result in
@@ -41,5 +40,15 @@ class PlaylistViewModel {
                 listener(.failure(error))
             }
         }
+    }
+    
+    func stopListeners() {
+        playlistService.stopListener()
+        sessionService.stopListener()
+    }
+    
+    func resetServices() {
+        sessionService.reset()
+        playlistService.reset()
     }
 }

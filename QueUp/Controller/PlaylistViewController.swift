@@ -17,12 +17,16 @@ class PlaylistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = SessionService.shared.currentRoom.id
         navigationItem.searchController = searchViewController.parentSearchController
         navigationItem.hidesSearchBarWhenScrolling = false
         tableView.dataSource = self
         tableView.delegate = self
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         vm.playlistItemsListener { result in
+            print("playlistItemsListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -36,6 +40,7 @@ class PlaylistViewController: UIViewController {
         }
         
         vm.sessionListener { result in
+            print("sessionListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -45,6 +50,11 @@ class PlaylistViewController: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        vm.stopListeners()
+        vm.resetServices()
     }
     
     @IBAction func addSongButtonPressed(_ sender: UIButton) {

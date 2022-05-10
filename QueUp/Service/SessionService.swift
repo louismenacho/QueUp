@@ -12,23 +12,13 @@ class SessionService {
     
     static let shared = SessionService()
     
-    let userRepo = UserRepository.shared
     let roomRepo = RoomRepository.shared
     
-    var currentUser = User()
     var currentRoom = Room()
     
-    var roomListener: ((Result<Room, Error>) -> Void)?
+    var roomListener: ((Result<(), Error>) -> Void)?
     
     private init() {}
-    
-    func signIn(with displayName: String) async throws -> User {
-        let firebaseUser = try await AuthService.shared.signIn()
-        let user = User(id: firebaseUser.uid, displayName: displayName)
-        try userRepo.create(id: user.id, with: user)
-        currentUser = user
-        return user
-    }
     
     func join(user: User, to roomId: String) async throws {
         var room = try await roomRepo.get(id: roomId)
@@ -52,12 +42,17 @@ class SessionService {
     func startListener() {
         guard roomRepo.collectionListener == nil else { return }
         roomRepo.addListener(id: currentRoom.id) { result in
-            self.roomListener?(result)
+            self.roomListener?(result.map { self.currentRoom = $0 })
         }
     }
     
     func stopListener() {
         roomRepo.removeListener()
+    }
+    
+    func reset() {
+        currentRoom = Room()
+        roomListener = nil
     }
     
     func userIdToDisplayName(id: String) -> String {

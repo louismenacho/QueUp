@@ -13,14 +13,12 @@ class PlaylistService {
     
     let playlistRepo = PlaylistRepository.shared
     
-    var playlistItems = [PlaylistItem]()
-    
     var playlistItemsListener: ((Result<[PlaylistItem], Error>) -> Void)?
     
     private init() {}
     
     func addSong(_ song: Song) throws {
-        let currentUserId = SessionService.shared.currentUser.id
+        let currentUserId = AuthService.shared.currentUser.id
         let item = PlaylistItem(song: song, addedBy: currentUserId, dateAdded: Date())
         try playlistRepo.create(id: song.id, with: item)
     }
@@ -34,5 +32,9 @@ class PlaylistService {
     
     func stopListener() {
         playlistRepo.removeListener()
+    }
+    
+    func reset() {
+        playlistItemsListener = nil
     }
 }

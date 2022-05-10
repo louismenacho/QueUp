@@ -80,5 +80,6 @@ class FirestoreRepository<Object: Codable> {
     
     func removeListener() {
         collectionListener?.remove()
+        collectionListener = nil
     }
 }
