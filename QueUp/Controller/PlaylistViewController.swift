@@ -58,7 +58,7 @@ class PlaylistViewController: UIViewController {
     }
     
     @IBAction func addSongButtonPressed(_ sender: UIButton) {
-        print("addSongButtonPressed")
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
 }
 

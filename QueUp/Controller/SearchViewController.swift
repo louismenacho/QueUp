@@ -26,6 +26,15 @@ class SearchViewController: UIViewController {
         tableView.delegate = self
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SongInfoViewController" {
+            let vc = segue.destination as! SongInfoViewController
+            if let searchResultItem =  vm.selectedSearchResultItem {
+                vc.vm.song = searchResultItem.song
+            }
+        }
+    }
+    
     func updateCurrentPlaylistItems(currentPlaylistItems: [PlaylistItem]) {
         vm.currentPlaylistItems = currentPlaylistItems
         if tableView != nil { updateSearchResults(for: parentSearchController) }
@@ -90,6 +99,8 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        vm.selectedSearchResultItem = vm.searchResult[indexPath.row]
+        performSegue(withIdentifier: "SongInfoViewController", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

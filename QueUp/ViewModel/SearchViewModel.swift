@@ -18,6 +18,7 @@ class SearchViewModel {
     
     var searchResult = [SearchResultItem]()
     var currentPlaylistItems = [PlaylistItem]()
+    var selectedSearchResultItem: SearchResultItem?
     
     func search(query: String) async -> Result<(), Error> {
         do {
