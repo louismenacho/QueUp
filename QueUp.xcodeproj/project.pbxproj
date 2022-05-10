@@ -10,6 +10,7 @@
 		9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524FE5B2814DF9300031980 /* HomeFormView.swift */; };
 		953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC170282A286300BC0620 /* SongInfoViewController.swift */; };
 		953FC173282A296800BC0620 /* SongInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC172282A296800BC0620 /* SongInfoViewModel.swift */; };
+		953FC175282AE4C200BC0620 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */; };
 		95420BCB28278C4900EEAE05 /* SpotifySearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BCA28278C4900EEAE05 /* SpotifySearchResponse.swift */; };
 		95420BCD2827AD2400EEAE05 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BCC2827AD2400EEAE05 /* SearchResultItem.swift */; };
 		95420BCF2827B48E00EEAE05 /* PlaylistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BCE2827B48E00EEAE05 /* PlaylistService.swift */; };
@@ -75,6 +76,7 @@
 		9524FE5B2814DF9300031980 /* HomeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFormView.swift; sourceTree = "<group>"; };
 		953FC170282A286300BC0620 /* SongInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInfoViewController.swift; sourceTree = "<group>"; };
 		953FC172282A296800BC0620 /* SongInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoViewModel.swift; sourceTree = "<group>"; };
+		953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
 		95420BCA28278C4900EEAE05 /* SpotifySearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifySearchResponse.swift; sourceTree = "<group>"; };
 		95420BCC2827AD2400EEAE05 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		95420BCE2827B48E00EEAE05 /* PlaylistService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistService.swift; sourceTree = "<group>"; };
@@ -151,9 +153,9 @@
 			children = (
 				95CDF5D02815777700E98B91 /* User.swift */,
 				95D526D52816661F00E633B4 /* Room.swift */,
-				95B334222819A352001BF021 /* Song.swift */,
 				95B334282819C03A001BF021 /* Playlist.swift */,
 				95B334242819A5CF001BF021 /* PlaylistItem.swift */,
+				95B334222819A352001BF021 /* Song.swift */,
 				95420BCC2827AD2400EEAE05 /* SearchResultItem.swift */,
 			);
 			path = Model;
@@ -218,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */,
+				953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -323,8 +326,8 @@
 				95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */,
 				95535B4A28164415001FFC19 /* UserRepository.swift */,
 				95D526D3281665E000E633B4 /* RoomRepository.swift */,
-				95DD897C281CB9300021DB18 /* ConfigRepository.swift */,
 				95420BD02827BA3000EEAE05 /* PlaylistRepository.swift */,
+				95DD897C281CB9300021DB18 /* ConfigRepository.swift */,
 			);
 			path = Respository;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				95B334292819C03A001BF021 /* Playlist.swift in Sources */,
 				95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */,
 				95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */,
+				953FC175282AE4C200BC0620 /* UserCollectionViewCell.swift in Sources */,
 				95DD89872824B57A0021DB18 /* SpotifySearchAPI.swift in Sources */,
 				953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */,
 				95420BD12827BA3000EEAE05 /* PlaylistRepository.swift in Sources */,

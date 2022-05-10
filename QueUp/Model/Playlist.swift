@@ -8,5 +8,6 @@
 import Foundation
 
 struct Playlist: Codable {
+    var id: String = ""
     var items: [PlaylistItem] = []
 }

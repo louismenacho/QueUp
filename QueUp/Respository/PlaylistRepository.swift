@@ -7,11 +7,9 @@
 
 import Foundation
 
-class PlaylistRepository: FirestoreRepository<PlaylistItem> {
+class PlaylistRepository: FirestoreRepository<Playlist> {
     
-    static let shared = PlaylistRepository(
-        collectionPath: "rooms/"+SessionService.shared.currentRoom.id+"/playlist"
-    )
+    static let shared = PlaylistRepository(collectionPath: "playlists")
     
     private override init(collectionPath: String) {
         super.init(collectionPath: collectionPath)

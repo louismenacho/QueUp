@@ -35,8 +35,8 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func updateCurrentPlaylistItems(currentPlaylistItems: [PlaylistItem]) {
-        vm.currentPlaylistItems = currentPlaylistItems
+    func updateCurrentPlaylist(currentPlaylist: Playlist) {
+        vm.currentPlaylist = currentPlaylist
         if tableView != nil { updateSearchResults(for: parentSearchController) }
     }
     

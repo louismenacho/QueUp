@@ -13,19 +13,24 @@ class PlaylistService {
     
     let playlistRepo = PlaylistRepository.shared
     
-    var playlistItemsListener: ((Result<[PlaylistItem], Error>) -> Void)?
+    var currentPlaylist = Playlist()
+    
+    var playlistItemsListener: ((Result<Playlist, Error>) -> Void)?
+    
+    private var currentUser: User { AuthService.shared.currentUser }
+    private var currentRoom: Room { SessionService.shared.currentRoom }
     
     private init() {}
     
     func addSong(_ song: Song) throws {
-        let currentUserId = AuthService.shared.currentUser.id
-        let item = PlaylistItem(song: song, addedBy: currentUserId, dateAdded: Date())
-        try playlistRepo.create(id: song.id, with: item)
+        let playlistItem = PlaylistItem(song: song, addedBy: currentUser.id, dateAdded: Date())
+        currentPlaylist.items.append(playlistItem)
+        try playlistRepo.update(id: currentRoom.id, with: currentPlaylist)
     }
         
     func startListener() {
         guard playlistRepo.collectionListener == nil else { return }
-        playlistRepo.addListener { result in
+        playlistRepo.addListener(id: currentRoom.id) { result in
             self.playlistItemsListener?(result)
         }
     }

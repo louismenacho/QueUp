@@ -6,17 +6,17 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 class SessionService {
     
     static let shared = SessionService()
     
     let roomRepo = RoomRepository.shared
+    let playlistRepo = PlaylistRepository.shared
     
     var currentRoom = Room()
     
-    var roomListener: ((Result<(), Error>) -> Void)?
+    var roomListener: ((Result<(Room), Error>) -> Void)?
     
     private init() {}
     
@@ -36,13 +36,14 @@ class SessionService {
         //TODO: - check here if exists, else regenerate
         room.users[host.id] = host
         try roomRepo.create(id: room.id, with: room)
+        try playlistRepo.create(id: room.id, with: Playlist(id: room.id))
         currentRoom = room
     }
     
     func startListener() {
         guard roomRepo.collectionListener == nil else { return }
         roomRepo.addListener(id: currentRoom.id) { result in
-            self.roomListener?(result.map { self.currentRoom = $0 })
+            self.roomListener?(result)
         }
     }
     

@@ -17,7 +17,7 @@ class SearchViewModel {
     let playlistService = PlaylistService.shared
     
     var searchResult = [SearchResultItem]()
-    var currentPlaylistItems = [PlaylistItem]()
+    var currentPlaylist = Playlist()
     var selectedSearchResultItem: SearchResultItem?
     
     func search(query: String) async -> Result<(), Error> {
@@ -32,7 +32,7 @@ class SearchViewModel {
                         album: track.album.name,
                         artworkURL: track.album.images[0].url
                     ),
-                    isAdded: currentPlaylistItems.contains(where: { $0.song.id == track.uri })
+                    isAdded: currentPlaylist.items.contains(where: { $0.song.id == track.uri })
                 )
             }
             return .success(())
@@ -42,11 +42,10 @@ class SearchViewModel {
     }
     
     func addSong(at index: Int) -> Result<(()), Error> {
-        guard !currentPlaylistItems.contains(where: { $0.song.id == searchResult[index].song.id }) else {
+        guard !currentPlaylist.items.contains(where: { $0.song.id == searchResult[index].song.id }) else {
             print("Song already exists in playlist")
             return .failure(SearchViewModelError.duplicateSongError)
         }
-        
         searchResult[index].isAdded = true
         do {
             try playlistService.addSong(searchResult[index].song)
