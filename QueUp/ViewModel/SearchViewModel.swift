@@ -54,4 +54,8 @@ class SearchViewModel {
             return .failure(error)
         }
     }
+    
+    func reset() {
+        searchResult = [SearchResultItem]()
+    }
 }

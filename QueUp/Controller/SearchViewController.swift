@@ -42,7 +42,11 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else { return }
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            vm.reset()
+            tableView.reloadData()
+            return
+        }
         Task {
             let result = await vm.search(query: searchText)
             switch result {
