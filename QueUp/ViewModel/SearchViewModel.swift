@@ -13,11 +13,11 @@ class SearchViewModel {
         case duplicateSongError
     }
     
+    let auth = AuthService.shared
     let spotifyService = SpotifyService.shared
-    let playlistService = PlaylistService.shared
+    var playlistService: PlaylistService { SessionService.shared.playlistService }
     
     var searchResult = [SearchResultItem]()
-    var currentPlaylist = Playlist()
     var selectedSearchResultItem: SearchResultItem?
     
     func search(query: String) async -> Result<(), Error> {
@@ -32,7 +32,7 @@ class SearchViewModel {
                         album: track.album.name,
                         artworkURL: track.album.images[0].url
                     ),
-                    isAdded: currentPlaylist.items.contains(where: { $0.song.id == track.uri })
+                    isAdded: playlistService.currentPlaylist.contains(where: { $0.song.id == track.uri })
                 )
             }
             return .success(())
@@ -42,13 +42,13 @@ class SearchViewModel {
     }
     
     func addSong(at index: Int) -> Result<(()), Error> {
-        guard !currentPlaylist.items.contains(where: { $0.song.id == searchResult[index].song.id }) else {
+        guard !playlistService.currentPlaylist.contains(where: { $0.song.id == searchResult[index].song.id }) else {
             print("Song already exists in playlist")
             return .failure(SearchViewModelError.duplicateSongError)
         }
         searchResult[index].isAdded = true
         do {
-            try playlistService.addSong(searchResult[index].song)
+            try playlistService.addSong(searchResult[index].song, addedBy: auth.currentUser)
             return .success(())
         } catch {
             return .failure(error)

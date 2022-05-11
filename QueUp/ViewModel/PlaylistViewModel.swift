@@ -9,20 +9,35 @@ import Foundation
 
 class PlaylistViewModel {
     
-    let sessionService = SessionService.shared
-    let playlistService = PlaylistService.shared
     let spotifyService = SpotifyService.shared
+    var userService: UserService { SessionService.shared.userService }
+    var playlistService: PlaylistService { SessionService.shared.playlistService }
     
     var users = [User]()
-    var playlist = Playlist()
+    var playlist = [PlaylistItem]()
     
     init() {
-        sessionService.startListener()
+        userService.startListener()
         playlistService.startListener()
     }
     
-    func playlistItemsListener(_ listener: @escaping (Result<(), Error>) -> Void) {
-        playlistService.playlistItemsListener = { result in
+    func usersListener(_ listener: @escaping (Result<(), Error>) -> Void) {
+        userService.usersListener = { result in
+            switch result {
+            case .success(let users):
+                self.users = users
+                self.playlist.enumerated().forEach { (index, playlistItem) in
+                    self.playlist[index].addedBy.displayName = users.first(where: { $0.id == playlistItem.addedBy.id })?.displayName ?? "unknown user"
+                }
+                listener(.success(()))
+            case .failure(let error):
+                listener(.failure(error))
+            }
+        }
+    }
+    
+    func playlistListener(_ listener: @escaping (Result<(), Error>) -> Void) {
+        playlistService.playlistListener = { result in
             switch result {
             case .success(let playlist):
                 self.playlist = playlist
@@ -33,25 +48,13 @@ class PlaylistViewModel {
         }
     }
     
-    func sessionListener(_ listener: @escaping (Result<(), Error>) -> Void) {
-        sessionService.roomListener = { result in
-            switch result {
-            case .success(let room):
-                self.users = Array(room.users.values)
-                listener(.success(()))
-            case .failure(let error):
-                listener(.failure(error))
-            }
-        }
-    }
-    
     func stopListeners() {
-        sessionService.stopListener()
+        userService.stopListener()
         playlistService.stopListener()
     }
     
     func resetServices() {
-        sessionService.reset()
+        userService.reset()
         playlistService.reset()
     }
 }

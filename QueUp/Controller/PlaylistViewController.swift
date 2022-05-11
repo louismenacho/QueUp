@@ -29,22 +29,21 @@ class PlaylistViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        vm.playlistItemsListener { result in
-            print("playlistItemsListener fired")
+        vm.playlistListener { result in
+            print("playlistListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    self.addSongButton.isHidden = !self.vm.playlist.items.isEmpty
-                    self.searchViewController.updateCurrentPlaylist(currentPlaylist: self.vm.playlist)
+                    self.addSongButton.isHidden = !self.vm.playlist.isEmpty
                 }
             case .failure(let error):
                 print(error)
             }
         }
         
-        vm.sessionListener { result in
-            print("sessionListener fired")
+        vm.usersListener { result in
+            print("usersListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -90,12 +89,12 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
 extension PlaylistViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.playlist.items.count
+        return vm.playlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
-        cell.update(with: vm.playlist.items[indexPath.row])
+        cell.update(with: vm.playlist[indexPath.row])
         return cell
     }
 }

@@ -11,11 +11,10 @@
 		953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC170282A286300BC0620 /* SongInfoViewController.swift */; };
 		953FC173282A296800BC0620 /* SongInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC172282A296800BC0620 /* SongInfoViewModel.swift */; };
 		953FC175282AE4C200BC0620 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */; };
+		953FC177282B739F00BC0620 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC176282B739F00BC0620 /* UserService.swift */; };
 		95420BCB28278C4900EEAE05 /* SpotifySearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BCA28278C4900EEAE05 /* SpotifySearchResponse.swift */; };
 		95420BCD2827AD2400EEAE05 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BCC2827AD2400EEAE05 /* SearchResultItem.swift */; };
 		95420BCF2827B48E00EEAE05 /* PlaylistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BCE2827B48E00EEAE05 /* PlaylistService.swift */; };
-		95420BD12827BA3000EEAE05 /* PlaylistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95420BD02827BA3000EEAE05 /* PlaylistRepository.swift */; };
-		95535B4B28164415001FFC19 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95535B4A28164415001FFC19 /* UserRepository.swift */; };
 		9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559FB9228143210008E6FF3 /* AppDelegate.swift */; };
 		9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9559FB9428143210008E6FF3 /* SceneDelegate.swift */; };
 		9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9828143210008E6FF3 /* Main.storyboard */; };
@@ -34,20 +33,18 @@
 		95B3344B281A44C4001BF021 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3344A281A44C4001BF021 /* APIClient.swift */; };
 		95B3344D281A6B02001BF021 /* SpotifyiOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */; };
 		95B3344E281A6B02001BF021 /* SpotifyiOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		95C7087628143E6B0073A058 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087528143E6B0073A058 /* FirebaseAuth */; };
-		95C7087828143E6B0073A058 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087728143E6B0073A058 /* FirebaseCrashlytics */; };
-		95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087928143E6B0073A058 /* FirebaseFirestore */; };
-		95C7087C28143E6B0073A058 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 95C7087B28143E6B0073A058 /* FirebaseFirestoreSwift-Beta */; };
+		95B9A95C282B967500146B92 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A95B282B967500146B92 /* FirebaseAuth */; };
+		95B9A95E282B967500146B92 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A95D282B967500146B92 /* FirebaseCrashlytics */; };
+		95B9A960282B967500146B92 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A95F282B967500146B92 /* FirebaseFirestore */; };
+		95B9A962282B967500146B92 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A961282B967500146B92 /* FirebaseFirestoreSwift */; };
 		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
 		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
 		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
 		95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CE2815079800E98B91 /* AuthService.swift */; };
 		95CDF5D12815777700E98B91 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5D02815777700E98B91 /* User.swift */; };
 		95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */; };
-		95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D526D3281665E000E633B4 /* RoomRepository.swift */; };
 		95D526D62816661F00E633B4 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D526D52816661F00E633B4 /* Room.swift */; };
 		95DD897A281B88EF0021DB18 /* SpotifyAccountsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DD8979281B88EF0021DB18 /* SpotifyAccountsAPI.swift */; };
-		95DD897D281CB9300021DB18 /* ConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DD897C281CB9300021DB18 /* ConfigRepository.swift */; };
 		95DD897F281CBA6A0021DB18 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DD897E281CBA6A0021DB18 /* SpotifyService.swift */; };
 		95DD89812823650E0021DB18 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DD89802823650E0021DB18 /* APIRequest.swift */; };
 		95DD898328237EFC0021DB18 /* SpotifyAccountsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DD898228237EFC0021DB18 /* SpotifyAccountsResponse.swift */; };
@@ -77,11 +74,10 @@
 		953FC170282A286300BC0620 /* SongInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInfoViewController.swift; sourceTree = "<group>"; };
 		953FC172282A296800BC0620 /* SongInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoViewModel.swift; sourceTree = "<group>"; };
 		953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		953FC176282B739F00BC0620 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		95420BCA28278C4900EEAE05 /* SpotifySearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifySearchResponse.swift; sourceTree = "<group>"; };
 		95420BCC2827AD2400EEAE05 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		95420BCE2827B48E00EEAE05 /* PlaylistService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistService.swift; sourceTree = "<group>"; };
-		95420BD02827BA3000EEAE05 /* PlaylistRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRepository.swift; sourceTree = "<group>"; };
-		95535B4A28164415001FFC19 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		9559FB8F28143210008E6FF3 /* QueUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QueUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9559FB9228143210008E6FF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9559FB9428143210008E6FF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,10 +104,8 @@
 		95CDF5CE2815079800E98B91 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		95CDF5D02815777700E98B91 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirestoreRepository.swift; sourceTree = "<group>"; };
-		95D526D3281665E000E633B4 /* RoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRepository.swift; sourceTree = "<group>"; };
 		95D526D52816661F00E633B4 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		95DD8979281B88EF0021DB18 /* SpotifyAccountsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAccountsAPI.swift; sourceTree = "<group>"; };
-		95DD897C281CB9300021DB18 /* ConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigRepository.swift; sourceTree = "<group>"; };
 		95DD897E281CBA6A0021DB18 /* SpotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		95DD89802823650E0021DB18 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		95DD898228237EFC0021DB18 /* SpotifyAccountsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAccountsResponse.swift; sourceTree = "<group>"; };
@@ -127,11 +121,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95C7087628143E6B0073A058 /* FirebaseAuth in Frameworks */,
-				95C7087C28143E6B0073A058 /* FirebaseFirestoreSwift-Beta in Frameworks */,
-				95C7087828143E6B0073A058 /* FirebaseCrashlytics in Frameworks */,
+				95B9A962282B967500146B92 /* FirebaseFirestoreSwift in Frameworks */,
+				95B9A95E282B967500146B92 /* FirebaseCrashlytics in Frameworks */,
+				95B9A960282B967500146B92 /* FirebaseFirestore in Frameworks */,
 				95B3344D281A6B02001BF021 /* SpotifyiOS.xcframework in Frameworks */,
-				95C7087A28143E6B0073A058 /* FirebaseFirestore in Frameworks */,
+				95B9A95C282B967500146B92 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +281,7 @@
 			children = (
 				95CDF5CE2815079800E98B91 /* AuthService.swift */,
 				958698E528176ADA00FA3E15 /* SessionService.swift */,
+				953FC176282B739F00BC0620 /* UserService.swift */,
 				95420BCE2827B48E00EEAE05 /* PlaylistService.swift */,
 				95DD897E281CBA6A0021DB18 /* SpotifyService.swift */,
 			);
@@ -324,10 +319,6 @@
 			isa = PBXGroup;
 			children = (
 				95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */,
-				95535B4A28164415001FFC19 /* UserRepository.swift */,
-				95D526D3281665E000E633B4 /* RoomRepository.swift */,
-				95420BD02827BA3000EEAE05 /* PlaylistRepository.swift */,
-				95DD897C281CB9300021DB18 /* ConfigRepository.swift */,
 			);
 			path = Respository;
 			sourceTree = "<group>";
@@ -378,10 +369,10 @@
 			);
 			name = QueUp;
 			packageProductDependencies = (
-				95C7087528143E6B0073A058 /* FirebaseAuth */,
-				95C7087728143E6B0073A058 /* FirebaseCrashlytics */,
-				95C7087928143E6B0073A058 /* FirebaseFirestore */,
-				95C7087B28143E6B0073A058 /* FirebaseFirestoreSwift-Beta */,
+				95B9A95B282B967500146B92 /* FirebaseAuth */,
+				95B9A95D282B967500146B92 /* FirebaseCrashlytics */,
+				95B9A95F282B967500146B92 /* FirebaseFirestore */,
+				95B9A961282B967500146B92 /* FirebaseFirestoreSwift */,
 			);
 			productName = QueUp;
 			productReference = 9559FB8F28143210008E6FF3 /* QueUp.app */;
@@ -412,7 +403,7 @@
 			);
 			mainGroup = 9559FB8628143210008E6FF3;
 			packageReferences = (
-				95C7087428143E6B0073A058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 9559FB9028143210008E6FF3 /* Products */;
 			projectDirPath = "";
@@ -467,8 +458,6 @@
 				958698E628176ADA00FA3E15 /* SessionService.swift in Sources */,
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				95DD89812823650E0021DB18 /* APIRequest.swift in Sources */,
-				95535B4B28164415001FFC19 /* UserRepository.swift in Sources */,
-				95DD897D281CB9300021DB18 /* ConfigRepository.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
 				95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */,
 				95DD898F2827753F0021DB18 /* APIEndpoint.swift in Sources */,
@@ -479,7 +468,6 @@
 				953FC175282AE4C200BC0620 /* UserCollectionViewCell.swift in Sources */,
 				95DD89872824B57A0021DB18 /* SpotifySearchAPI.swift in Sources */,
 				953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */,
-				95420BD12827BA3000EEAE05 /* PlaylistRepository.swift in Sources */,
 				95420BCF2827B48E00EEAE05 /* PlaylistService.swift in Sources */,
 				95DD898328237EFC0021DB18 /* SpotifyAccountsResponse.swift in Sources */,
 				95DD897F281CBA6A0021DB18 /* SpotifyService.swift in Sources */,
@@ -496,10 +484,10 @@
 				95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */,
 				95CDF5D12815777700E98B91 /* User.swift in Sources */,
 				95420BCD2827AD2400EEAE05 /* SearchResultItem.swift in Sources */,
-				95D526D4281665E000E633B4 /* RoomRepository.swift in Sources */,
 				95DD898B28275E3B0021DB18 /* HTTPAuthorization.swift in Sources */,
 				95B334232819A352001BF021 /* Song.swift in Sources */,
 				95B3342128199A6A001BF021 /* PlaylistViewModel.swift in Sources */,
+				953FC177282B739F00BC0620 /* UserService.swift in Sources */,
 				953FC173282A296800BC0620 /* SongInfoViewModel.swift in Sources */,
 				95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */,
 				95D526D62816661F00E633B4 /* Room.swift in Sources */,
@@ -728,36 +716,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		95C7087428143E6B0073A058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				minimumVersion = 9.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		95C7087528143E6B0073A058 /* FirebaseAuth */ = {
+		95B9A95B282B967500146B92 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 95C7087428143E6B0073A058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		95C7087728143E6B0073A058 /* FirebaseCrashlytics */ = {
+		95B9A95D282B967500146B92 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 95C7087428143E6B0073A058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
-		95C7087928143E6B0073A058 /* FirebaseFirestore */ = {
+		95B9A95F282B967500146B92 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 95C7087428143E6B0073A058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		95C7087B28143E6B0073A058 /* FirebaseFirestoreSwift-Beta */ = {
+		95B9A961282B967500146B92 /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 95C7087428143E6B0073A058 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreSwift-Beta";
+			package = 95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

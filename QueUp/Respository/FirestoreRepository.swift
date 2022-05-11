@@ -47,7 +47,7 @@ class FirestoreRepository<Object: Codable> {
     }
     
     func addListener(id: String, _ listener: @escaping (Result<Object, Error>) -> Void) {
-        collectionListener = collectionReference.document(id).addSnapshotListener { documentSnapshot, error in
+        collectionListener = collectionReference.document(id).addSnapshotListener(includeMetadataChanges: false) { documentSnapshot, error in
             if let error = error {
                 listener(.failure(error))
                 return
@@ -63,7 +63,7 @@ class FirestoreRepository<Object: Codable> {
     }
 
     func addListener(_ listener: @escaping (Result<[Object], Error>) -> Void) {
-        collectionListener = collectionReference.addSnapshotListener { querySnapshot, error in
+        collectionListener = collectionReference.addSnapshotListener(includeMetadataChanges: false) { querySnapshot, error in
             if let error = error {
                 listener(.failure(error))
                 return

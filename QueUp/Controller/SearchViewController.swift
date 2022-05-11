@@ -34,12 +34,7 @@ class SearchViewController: UIViewController {
             }
         }
     }
-    
-    func updateCurrentPlaylist(currentPlaylist: Playlist) {
-        vm.currentPlaylist = currentPlaylist
-        if tableView != nil { updateSearchResults(for: parentSearchController) }
-    }
-    
+        
     func updateSearchBarFont() {
         if let textfield = parentSearchController.searchBar.value(forKey: "searchField") as? UITextField {
             let attrString = NSAttributedString(string: "Search songs, artists, albums",

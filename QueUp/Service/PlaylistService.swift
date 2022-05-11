@@ -8,30 +8,25 @@
 import Foundation
 
 class PlaylistService {
+
+    var playlistRepo: FirestoreRepository<PlaylistItem> = .init(collectionPath: "rooms/ROOM_ID/playlist")
     
-    static let shared = PlaylistService()
+    var currentPlaylist: [PlaylistItem] = []
     
-    let playlistRepo = PlaylistRepository.shared
+    var playlistListener: ((Result<[PlaylistItem], Error>) -> Void)?
     
-    var currentPlaylist = Playlist()
-    
-    var playlistItemsListener: ((Result<Playlist, Error>) -> Void)?
-    
-    private var currentUser: User { AuthService.shared.currentUser }
-    private var currentRoom: Room { SessionService.shared.currentRoom }
-    
-    private init() {}
-    
-    func addSong(_ song: Song) throws {
-        let playlistItem = PlaylistItem(song: song, addedBy: currentUser.id, dateAdded: Date())
-        currentPlaylist.items.append(playlistItem)
-        try playlistRepo.update(id: currentRoom.id, with: currentPlaylist)
+    func setRepoPath(_ path: String) {
+        stopListener()
+        self.playlistRepo = .init(collectionPath: path)
     }
-        
+    
     func startListener() {
         guard playlistRepo.collectionListener == nil else { return }
-        playlistRepo.addListener(id: currentRoom.id) { result in
-            self.playlistItemsListener?(result)
+        playlistRepo.addListener { result in
+            self.playlistListener?( Result {
+                self.currentPlaylist = try result.get()
+                return self.currentPlaylist
+            })
         }
     }
     
@@ -40,6 +35,12 @@ class PlaylistService {
     }
     
     func reset() {
-        playlistItemsListener = nil
+        currentPlaylist = []
+        playlistListener = nil
+    }
+    
+    func addSong(_ song: Song, addedBy user: User) throws {
+        let playlistItem = PlaylistItem(song: song, addedBy: user, dateAdded: Date())
+        try playlistRepo.create(id: song.id, with: playlistItem)
     }
 }

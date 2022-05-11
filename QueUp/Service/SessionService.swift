@@ -11,8 +11,10 @@ class SessionService {
     
     static let shared = SessionService()
     
-    let roomRepo = RoomRepository.shared
-    let playlistRepo = PlaylistRepository.shared
+    var userService = UserService()
+    var playlistService = PlaylistService()
+    
+    let roomRepo = FirestoreRepository<Room>(collectionPath: "rooms")
     
     var currentRoom = Room()
     
@@ -21,22 +23,28 @@ class SessionService {
     private init() {}
     
     func join(user: User, to roomId: String) async throws {
-        var room = try await roomRepo.get(id: roomId)
-        guard room.users.count < 8 else {
+        let room = try await roomRepo.get(id: roomId)
+        userService.setRepoPath("rooms/"+room.id+"/users")
+        playlistService.setRepoPath("rooms/"+room.id+"/playlist")
+        
+        let users = try await userService.getUsers()
+        guard users.count < 8 else {
             print("Room is full")
             return
         }
-        room.users[user.id] = user
-        try roomRepo.update(id: room.id, with: room)
+        
+        try userService.addUser(user)
         currentRoom = room
     }
     
     func createRoom(host: User) async throws {
-        var room = Room(id: randomString(of: 4), hostId: host.id)
+        let room = Room(id: randomString(of: 4), hostId: host.id)
+        userService.setRepoPath("rooms/"+room.id+"/users")
+        playlistService.setRepoPath("rooms/"+room.id+"/playlist")
+        
         //TODO: - check here if exists, else regenerate
-        room.users[host.id] = host
         try roomRepo.create(id: room.id, with: room)
-        try playlistRepo.create(id: room.id, with: Playlist(id: room.id))
+        try userService.addUser(host)
         currentRoom = room
     }
     
@@ -54,10 +62,6 @@ class SessionService {
     func reset() {
         currentRoom = Room()
         roomListener = nil
-    }
-    
-    func userIdToDisplayName(id: String) -> String {
-        return currentRoom.users[id]?.displayName ?? "Unknown user"
     }
     
     private func randomString(of length: Int) -> String {
