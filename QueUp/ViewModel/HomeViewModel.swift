@@ -9,16 +9,20 @@ import Foundation
 
 class HomeViewModel {
     
-    let auth = AuthService.shared
-    let session = SessionService.shared
-    let spotifyService = SpotifyService.shared
+    var currentRoom = Room() {
+        didSet {
+            RoomService.shared.currentRoom = currentRoom
+            UserService.shared.set(roomId: currentRoom.id)
+            PlaylistService.shared.set(roomId: currentRoom.id)
+        }
+    }
     
     func join(roomId: String, displayName: String) async -> Result<(), Error> {
         do {
-            let user = try await auth.signIn(with: displayName)
-            try await session.join(user: user, to: roomId)
-            try await spotifyService.initialize()
-            session.startListener()
+            let user = try await AuthService.shared.signIn(with: displayName)
+            currentRoom = try await RoomService.shared.getRoom(id: roomId)
+            try await UserService.shared.addUser(user)
+            try await SpotifyService.shared.initialize()
             return .success(())
         } catch  {
             return .failure(error)
@@ -27,10 +31,10 @@ class HomeViewModel {
     
     func host(displayName: String) async -> Result<(), Error> {
         do {
-            let user = try await auth.signIn(with: displayName)
-            try await session.createRoom(host: user)
-            try await spotifyService.initialize()
-            session.startListener()
+            let user = try await AuthService.shared.signIn(with: displayName)
+            currentRoom = try await RoomService.shared.createRoom(host: user)
+            try await UserService.shared.addUser(user)
+            try await SpotifyService.shared.initialize()
             return .success(())
         } catch  {
             return .failure(error)

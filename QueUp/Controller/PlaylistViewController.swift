@@ -14,12 +14,13 @@ class PlaylistViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addSongButton: UIButton!
     
-    var vm = PlaylistViewModel()
+    var roomVM = RoomViewModel()
+    var usersVM = UsersViewModel()
+    var playlistVM = PlaylistViewModel()
     private var isAnimating: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = SessionService.shared.currentRoom.id
         navigationItem.searchController = searchViewController.parentSearchController
         navigationItem.hidesSearchBarWhenScrolling = false
         collectionView.dataSource = self
@@ -29,26 +30,42 @@ class PlaylistViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        vm.playlistListener { result in
-            print("playlistListener fired")
+        roomVM.roomListener { result in
+            print("roomListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
+                    self.navigationItem.title = self.roomVM.room.id
                     self.tableView.reloadData()
-                    self.addSongButton.isHidden = !self.vm.playlist.isEmpty
+                    self.collectionView.reloadData()
                 }
             case .failure(let error):
                 print(error)
             }
         }
         
-        vm.usersListener { result in
+        usersVM.usersListener { result in
             print("usersListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
+                    self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        playlistVM.playlistListener { result in
+            print("playlistListener fired")
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
+                    self.searchViewController.updateIsAddedStatus(with: self.playlistVM.playlist)
                 }
             case .failure(let error):
                 print(error)
@@ -57,8 +74,9 @@ class PlaylistViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        vm.stopListeners()
-        vm.resetServices()
+        roomVM.stopListener()
+        usersVM.stopListener()
+        playlistVM.stopListener()
     }
     
     @IBAction func addSongButtonPressed(_ sender: UIButton) {
@@ -69,12 +87,12 @@ class PlaylistViewController: UIViewController {
 extension PlaylistViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        vm.users.count
+        usersVM.users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCollectionViewCell", for: indexPath) as! UserCollectionViewCell
-        cell.update(with: vm.users[indexPath.row])
+        cell.update(with: usersVM.users[indexPath.row])
         return cell
     }
 }
@@ -89,12 +107,12 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
 extension PlaylistViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.playlist.count
+        return playlistVM.playlist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
-        cell.update(with: vm.playlist[indexPath.row])
+        cell.update(with: playlistVM.playlist[indexPath.row])
         return cell
     }
 }

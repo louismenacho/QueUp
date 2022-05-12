@@ -15,10 +15,12 @@ class SearchViewModel {
     
     let auth = AuthService.shared
     let spotifyService = SpotifyService.shared
-    var playlistService: PlaylistService { SessionService.shared.playlistService }
+    var playlistService = PlaylistService.shared
     
     var searchResult = [SearchResultItem]()
     var selectedSearchResultItem: SearchResultItem?
+    
+    var currentPlaylist = [PlaylistItem]()
     
     func search(query: String) async -> Result<(), Error> {
         do {
@@ -32,7 +34,7 @@ class SearchViewModel {
                         album: track.album.name,
                         artworkURL: track.album.images[0].url
                     ),
-                    isAdded: playlistService.currentPlaylist.contains(where: { $0.song.id == track.uri })
+                    isAdded: currentPlaylist.contains(where: { $0.song.id == track.uri })
                 )
             }
             return .success(())
@@ -42,16 +44,23 @@ class SearchViewModel {
     }
     
     func addSong(at index: Int) -> Result<(()), Error> {
-        guard !playlistService.currentPlaylist.contains(where: { $0.song.id == searchResult[index].song.id }) else {
+        guard !currentPlaylist.contains(where: { $0.song.id == searchResult[index].song.id }) else {
             print("Song already exists in playlist")
             return .failure(SearchViewModelError.duplicateSongError)
         }
         searchResult[index].isAdded = true
         do {
-            try playlistService.addSong(searchResult[index].song, addedBy: auth.currentUser)
+            try playlistService.addSong(searchResult[index].song, addedBy: auth.signedInUser)
             return .success(())
         } catch {
             return .failure(error)
+        }
+    }
+    
+    func updateIsAddedStatus(with playlist: [PlaylistItem]) {
+        currentPlaylist = playlist
+        searchResult.enumerated().forEach { (index, searchResultItem) in
+            searchResult[index].isAdded = playlist.contains(where: { $0.song.id == searchResultItem.song.id })
         }
     }
     

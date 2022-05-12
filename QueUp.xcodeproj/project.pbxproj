@@ -20,13 +20,12 @@
 		9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9828143210008E6FF3 /* Main.storyboard */; };
 		9559FB9C28143211008E6FF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9B28143211008E6FF3 /* Assets.xcassets */; };
 		9559FB9F28143211008E6FF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9D28143211008E6FF3 /* LaunchScreen.storyboard */; };
-		958698E628176ADA00FA3E15 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958698E528176ADA00FA3E15 /* SessionService.swift */; };
+		958698E628176ADA00FA3E15 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958698E528176ADA00FA3E15 /* RoomService.swift */; };
 		95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3341A281990CF001BF021 /* PlaylistViewController.swift */; };
 		95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */; };
 		95B3342128199A6A001BF021 /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342028199A6A001BF021 /* PlaylistViewModel.swift */; };
 		95B334232819A352001BF021 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B334222819A352001BF021 /* Song.swift */; };
 		95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B334242819A5CF001BF021 /* PlaylistItem.swift */; };
-		95B334292819C03A001BF021 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B334282819C03A001BF021 /* Playlist.swift */; };
 		95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342A2819D20A001BF021 /* SearchViewController.swift */; };
 		95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342C2819D50E001BF021 /* SearchViewModel.swift */; };
 		95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */; };
@@ -37,6 +36,8 @@
 		95B9A95E282B967500146B92 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A95D282B967500146B92 /* FirebaseCrashlytics */; };
 		95B9A960282B967500146B92 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A95F282B967500146B92 /* FirebaseFirestore */; };
 		95B9A962282B967500146B92 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A961282B967500146B92 /* FirebaseFirestoreSwift */; };
+		95B9A964282CB31400146B92 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A963282CB31400146B92 /* UsersViewModel.swift */; };
+		95B9A966282CB31E00146B92 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A965282CB31E00146B92 /* RoomViewModel.swift */; };
 		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
 		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
 		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
@@ -85,19 +86,20 @@
 		9559FB9B28143211008E6FF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9559FB9E28143211008E6FF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9559FBA028143211008E6FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		958698E528176ADA00FA3E15 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		958698E528176ADA00FA3E15 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		95B3341A281990CF001BF021 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
 		95B3342028199A6A001BF021 /* PlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModel.swift; sourceTree = "<group>"; };
 		95B334222819A352001BF021 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		95B334242819A5CF001BF021 /* PlaylistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistItem.swift; sourceTree = "<group>"; };
-		95B334282819C03A001BF021 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		95B3342A2819D20A001BF021 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		95B3342C2819D50E001BF021 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		95B3342F2819E913001BF021 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		95B334442819FFE3001BF021 /* SpotifyiOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SpotifyiOS.xcframework; sourceTree = "<group>"; };
 		95B33446281A0034001BF021 /* QueUp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QueUp-Bridging-Header.h"; sourceTree = "<group>"; };
 		95B3344A281A44C4001BF021 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		95B9A963282CB31400146B92 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
+		95B9A965282CB31E00146B92 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -147,9 +149,8 @@
 			children = (
 				95CDF5D02815777700E98B91 /* User.swift */,
 				95D526D52816661F00E633B4 /* Room.swift */,
-				95B334282819C03A001BF021 /* Playlist.swift */,
-				95B334242819A5CF001BF021 /* PlaylistItem.swift */,
 				95B334222819A352001BF021 /* Song.swift */,
+				95B334242819A5CF001BF021 /* PlaylistItem.swift */,
 				95420BCC2827AD2400EEAE05 /* SearchResultItem.swift */,
 			);
 			path = Model;
@@ -269,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */,
+				95B9A965282CB31E00146B92 /* RoomViewModel.swift */,
+				95B9A963282CB31400146B92 /* UsersViewModel.swift */,
 				95B3342028199A6A001BF021 /* PlaylistViewModel.swift */,
 				95B3342C2819D50E001BF021 /* SearchViewModel.swift */,
 				953FC172282A296800BC0620 /* SongInfoViewModel.swift */,
@@ -280,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				95CDF5CE2815079800E98B91 /* AuthService.swift */,
-				958698E528176ADA00FA3E15 /* SessionService.swift */,
+				958698E528176ADA00FA3E15 /* RoomService.swift */,
 				953FC176282B739F00BC0620 /* UserService.swift */,
 				95420BCE2827B48E00EEAE05 /* PlaylistService.swift */,
 				95DD897E281CBA6A0021DB18 /* SpotifyService.swift */,
@@ -455,14 +458,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				958698E628176ADA00FA3E15 /* SessionService.swift in Sources */,
+				958698E628176ADA00FA3E15 /* RoomService.swift in Sources */,
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				95DD89812823650E0021DB18 /* APIRequest.swift in Sources */,
 				9559FB9328143210008E6FF3 /* AppDelegate.swift in Sources */,
 				95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */,
 				95DD898F2827753F0021DB18 /* APIEndpoint.swift in Sources */,
 				95B3344B281A44C4001BF021 /* APIClient.swift in Sources */,
-				95B334292819C03A001BF021 /* Playlist.swift in Sources */,
 				95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */,
 				95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */,
 				953FC175282AE4C200BC0620 /* UserCollectionViewCell.swift in Sources */,
@@ -481,12 +483,14 @@
 				95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */,
 				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
 				95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */,
+				95B9A964282CB31400146B92 /* UsersViewModel.swift in Sources */,
 				95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */,
 				95CDF5D12815777700E98B91 /* User.swift in Sources */,
 				95420BCD2827AD2400EEAE05 /* SearchResultItem.swift in Sources */,
 				95DD898B28275E3B0021DB18 /* HTTPAuthorization.swift in Sources */,
 				95B334232819A352001BF021 /* Song.swift in Sources */,
 				95B3342128199A6A001BF021 /* PlaylistViewModel.swift in Sources */,
+				95B9A966282CB31E00146B92 /* RoomViewModel.swift in Sources */,
 				953FC177282B739F00BC0620 /* UserService.swift in Sources */,
 				953FC173282A296800BC0620 /* SongInfoViewModel.swift in Sources */,
 				95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */,

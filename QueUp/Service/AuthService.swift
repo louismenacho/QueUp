@@ -12,14 +12,14 @@ class AuthService {
     
     static let shared = AuthService()
     
-    var currentUser = User()
+    var signedInUser = User()
     
     private init() {}
     
     func signIn(with displayName: String) async throws -> User {
         let authData = try await Auth.auth().signInAnonymously()
         let user = User(id: authData.user.uid, displayName: displayName)
-        currentUser = user
+        signedInUser = user
         return user
     }
 }

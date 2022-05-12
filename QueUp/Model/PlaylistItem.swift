@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlaylistItem: Codable {
-    var song: Song = Song()
-    var addedBy: User = User()
-    var dateAdded: Date = Date()
+    var song: Song = .init()
+    var addedBy: User = .init()
+    var dateAdded: Date = .init()
 }

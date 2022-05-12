@@ -9,45 +9,36 @@ import Foundation
 
 class UserService {
     
-    var userRepo: FirestoreRepository<User> = .init(collectionPath: "rooms/ROOM_ID/users")
+    static let shared = UserService()
     
-    var currentUsers: [User] = []
+    var repo: FirestoreRepository<User> = .init(collectionPath: "rooms/ROOM_ID/users")
     
-    var usersListener: ((Result<[User], Error>) -> Void)?
+    var listener: ((Result<[User], Error>) -> Void)?
     
-    func setRepoPath(_ path: String) {
-        stopListener()
-        self.userRepo = .init(collectionPath: path)
+    private init() {}
+    
+    func set(roomId: String) {
+        repo = .init(collectionPath: "rooms/"+roomId+"/users")
     }
     
     func startListener() {
-        guard userRepo.collectionListener == nil else { return }
-        userRepo.addListener { result in
-            self.usersListener?( Result {
-                self.currentUsers = try result.get()
-                return self.currentUsers
-            })
+        guard repo.collectionListener == nil else { return }
+        repo.addListener { result in
+            self.listener?(result)
         }
     }
     
     func stopListener() {
-        userRepo.removeListener()
+        repo.removeListener()
+        listener = nil
     }
     
-    func reset() {
-        currentUsers = []
-        usersListener = nil
+    func addUser(_ user: User) async throws {
+        let users = try await repo.list()
+        guard users.count < 8 else {
+            print("Room is full")
+            return
+        }
+        try repo.create(id: user.id, with: user)
     }
-    
-    func getUsers() async throws -> [User] {
-        try await userRepo.list()
-    }
-    
-    func addUser(_ user: User) throws {
-        try userRepo.create(id: user.id, with: user)
-    }
-    
-//    func userIdToDisplayName(id: String) -> String {
-//        return currentRoom.users[id]?.displayName ?? "Unknown user"
-//    }
 }

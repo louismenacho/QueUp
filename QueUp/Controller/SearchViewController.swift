@@ -34,6 +34,11 @@ class SearchViewController: UIViewController {
             }
         }
     }
+    
+    func updateIsAddedStatus(with playlist: [PlaylistItem]) {
+        vm.updateIsAddedStatus(with: playlist)
+        if tableView != nil { tableView.reloadData() }
+    }
         
     func updateSearchBarFont() {
         if let textfield = parentSearchController.searchBar.value(forKey: "searchField") as? UITextField {

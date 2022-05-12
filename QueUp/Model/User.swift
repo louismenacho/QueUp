@@ -10,5 +10,5 @@ import Foundation
 struct User: Codable {
     var id: String = ""
     var displayName: String = ""
-    var dateAdded: Date = Date()
+    var dateAdded: Date = .init()
 }
