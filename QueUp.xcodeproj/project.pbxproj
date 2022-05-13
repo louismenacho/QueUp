@@ -38,6 +38,8 @@
 		95B9A962282B967500146B92 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 95B9A961282B967500146B92 /* FirebaseFirestoreSwift */; };
 		95B9A964282CB31400146B92 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A963282CB31400146B92 /* UsersViewModel.swift */; };
 		95B9A966282CB31E00146B92 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A965282CB31E00146B92 /* RoomViewModel.swift */; };
+		95B9A96B282DFEFF00146B92 /* UserDefaultsProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */; };
+		95B9A96C282DFEFF00146B92 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */; };
 		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
 		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
 		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
@@ -100,6 +102,8 @@
 		95B3344A281A44C4001BF021 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		95B9A963282CB31400146B92 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		95B9A965282CB31E00146B92 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
+		95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsProperty.swift; sourceTree = "<group>"; };
+		95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -266,6 +270,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		95B9A967282DFED300146B92 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
+		95B9A968282DFEE600146B92 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */,
+				95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		95CDF5CA2815070900E98B91 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,7 +342,8 @@
 		95CDF5D72815E1B900E98B91 /* Respository */ = {
 			isa = PBXGroup;
 			children = (
-				95CDF5D82815E26600E98B91 /* FirestoreRepository.swift */,
+				95B9A968282DFEE600146B92 /* UserDefaults */,
+				95B9A967282DFED300146B92 /* Firestore */,
 			);
 			path = Respository;
 			sourceTree = "<group>";
@@ -458,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95B9A96C282DFEFF00146B92 /* UserDefaultsRepository.swift in Sources */,
 				958698E628176ADA00FA3E15 /* RoomService.swift in Sources */,
 				9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */,
 				95DD89812823650E0021DB18 /* APIRequest.swift in Sources */,
@@ -481,6 +504,7 @@
 				95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */,
 				95420BCB28278C4900EEAE05 /* SpotifySearchResponse.swift in Sources */,
 				95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */,
+				95B9A96B282DFEFF00146B92 /* UserDefaultsProperty.swift in Sources */,
 				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
 				95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */,
 				95B9A964282CB31400146B92 /* UsersViewModel.swift in Sources */,

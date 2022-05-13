@@ -10,6 +10,7 @@ import UIKit
 protocol HomeFormViewDelegate: AnyObject {
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String)
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String)
+    func homeFormView(_ homeFormView: HomeFormView, roomIdTextFieldDidChange text: String)
 }
 
 
@@ -46,6 +47,7 @@ class HomeFormView: UIStackView {
     @IBAction func roomIdTextFieldDidChange(_ sender: UITextField) {
         roomIdTextField.text = roomIdTextField.text?.uppercased()
         joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
+        delegate?.homeFormView(self, roomIdTextFieldDidChange: roomIdTextField.text!)
     }
     
     @IBAction func joinButtonPressed(_ sender: UIButton) {

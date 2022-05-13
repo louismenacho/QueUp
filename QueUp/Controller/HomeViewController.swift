@@ -11,11 +11,21 @@ class HomeViewController: UIViewController {
 
     var vm = HomeViewModel()
     
-    @IBOutlet weak var homeFormView: HomeFormView!
+    @IBOutlet weak var formView: HomeFormView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        homeFormView.delegate = self
+        formView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        formView.setRoomId(vm.roomId)
+        formView.setDisplayName(vm.displayName)
+        if vm.roomId == formView.roomIdTextField.text {
+            formView.joinButton.setTitle("REJOIN", for: .normal)
+        } else {
+            formView.joinButton.setTitle("JOIN", for: .normal)
+        }
     }
 }
 
@@ -46,6 +56,14 @@ extension HomeViewController: HomeFormViewDelegate {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    func homeFormView(_ homeFormView: HomeFormView, roomIdTextFieldDidChange text: String) {
+        if vm.roomId == text {
+            formView.joinButton.setTitle("REJOIN", for: .normal)
+        } else {
+            formView.joinButton.setTitle("JOIN", for: .normal)
         }
     }
 }
