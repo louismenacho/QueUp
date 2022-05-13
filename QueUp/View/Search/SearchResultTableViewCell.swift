@@ -29,11 +29,11 @@ class SearchResultTableViewCell: UITableViewCell {
         delegate?.searchTableViewCell(addButtonPressedFor: self)
     }
     
-    func update(with item: SearchResultItem) {
-        songTitleLabel.text = item.song.title
-        artistNamesLabel.text = item.song.artists.joined(separator: ",")
-        albumImageView.image = UIImage(systemName: "photo.fill")
-        if item.isAdded {
+    func update(with searchResultItem: SearchResultItem) {
+        songTitleLabel.text = searchResultItem.song.title
+        artistNamesLabel.text = searchResultItem.song.artists.joined(separator: ",")
+        albumImageView.sd_setImage(with: URL(string: searchResultItem.song.artworkURL)!, placeholderImage: UIImage(systemName: "image"))
+        if searchResultItem.isAdded {
             addButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
             addButton.isUserInteractionEnabled = false
         } else {
