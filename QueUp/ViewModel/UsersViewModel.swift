@@ -29,4 +29,17 @@ class UsersViewModel {
     func stopListener() {
         service.stopListener()
     }
+    
+    func getSignedInUser() -> User? {
+        return users.first(where: { $0.id == AuthService.shared.signedInUser.id })
+    }
+    
+    func deleteUser(_ user: User) async -> Result<(), Error> {
+        do {
+            try await service.deleteUser(user)
+            return .success(())
+        } catch {
+            return .failure(error)
+        }
+    }
 }

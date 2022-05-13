@@ -40,6 +40,7 @@
 		95B9A966282CB31E00146B92 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A965282CB31E00146B92 /* RoomViewModel.swift */; };
 		95B9A96B282DFEFF00146B92 /* UserDefaultsProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */; };
 		95B9A96C282DFEFF00146B92 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */; };
+		95B9A96F282E0CDD00146B92 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */; };
 		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
 		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
 		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
@@ -104,6 +105,7 @@
 		95B9A965282CB31E00146B92 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsProperty.swift; sourceTree = "<group>"; };
 		95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
+		95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				95CDF5CA2815070900E98B91 /* ViewModel */,
 				9524FE582814DF7300031980 /* View */,
 				9524FE5A2814DF7D00031980 /* Controller */,
+				95B9A96D282E0C9400146B92 /* Extension */,
 				95CDF5D52815D5E600E98B91 /* StoryBoard */,
 				95CDF5D32815D5A600E98B91 /* Resource */,
 				95CDF5D62815D68F00E98B91 /* SupportFiles */,
@@ -285,6 +288,14 @@
 				95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */,
 			);
 			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		95B9A96D282E0C9400146B92 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		95CDF5CA2815070900E98B91 /* ViewModel */ = {
@@ -495,6 +506,7 @@
 				953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */,
 				95420BCF2827B48E00EEAE05 /* PlaylistService.swift in Sources */,
 				95DD898328237EFC0021DB18 /* SpotifyAccountsResponse.swift in Sources */,
+				95B9A96F282E0CDD00146B92 /* UIViewController+Alert.swift in Sources */,
 				95DD897F281CBA6A0021DB18 /* SpotifyService.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
 				95DD897A281B88EF0021DB18 /* SpotifyAccountsAPI.swift in Sources */,

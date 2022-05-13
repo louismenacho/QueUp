@@ -17,7 +17,6 @@ class PlaylistViewController: UIViewController {
     var roomVM = RoomViewModel()
     var usersVM = UsersViewModel()
     var playlistVM = PlaylistViewModel()
-    private var isAnimating: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +48,10 @@ class PlaylistViewController: UIViewController {
             switch result {
             case .success:
                 DispatchQueue.main.async {
+                    if self.usersVM.getSignedInUser() == nil {
+                        self.navigationController?.popToRootViewController(animated: true)
+                        self.navigationController?.viewControllers.first?.showAlert(title: "Host removed you from room")
+                    }
                     self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
@@ -63,9 +66,9 @@ class PlaylistViewController: UIViewController {
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
                     self.searchViewController.updateIsAddedStatus(with: self.playlistVM.playlist)
+                    self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
+                    self.tableView.reloadData()
                 }
             case .failure(let error):
                 print(error)
@@ -101,6 +104,22 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 60)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = usersVM.users[indexPath.row]
+        if user.id == roomVM.room.hostId || usersVM.getSignedInUser()?.id != roomVM.room.hostId  { return }
+        showActionSheet(title: user.displayName, action: .init(title: "Remove", style: .destructive) {  action in
+            Task {
+                let result = await self.usersVM.deleteUser(user)
+                switch result {
+                case.success:
+                    self.showAlert(title: user.displayName+" removed from room")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        })
     }
 }
 
