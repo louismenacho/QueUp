@@ -10,6 +10,7 @@ import UIKit
 class UserCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var displayNameLabel: UILabel!
     
     func update(with user: User) {
         if let firstInitial = user.displayName.first?.lowercased() {
@@ -17,5 +18,6 @@ class UserCollectionViewCell: UICollectionViewCell {
         } else {
             imageView.image = UIImage(systemName: "questionmark.circle.fill")
         }
+        displayNameLabel.text = user.displayName
     }
 }
