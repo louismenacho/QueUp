@@ -85,6 +85,10 @@ class PlaylistViewController: UIViewController {
     @IBAction func addSongButtonPressed(_ sender: UIButton) {
         navigationItem.searchController?.searchBar.becomeFirstResponder()
     }
+    
+    @IBAction func rightBarButtonPressed(_ sender: UIBarButtonItem) {
+
+    }
 }
 
 extension PlaylistViewController: UICollectionViewDataSource {

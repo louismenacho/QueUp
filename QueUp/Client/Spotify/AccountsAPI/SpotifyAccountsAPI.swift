@@ -12,7 +12,7 @@ enum SpotifyAccountsAPI: APIEndpoint {
     case token
     
     var baseURL: String {
-        return "https://accounts.spotify.com/api"
+        return "https://accounts.spotify.com"
     }
     
     var request: APIRequest {
@@ -21,7 +21,7 @@ enum SpotifyAccountsAPI: APIEndpoint {
         switch self {
         case .token:
             apiRequest.method = .post
-            apiRequest.path = "/token"
+            apiRequest.path = "/api/token"
             apiRequest.contentType = .xwwwformurlencoded
             apiRequest.bodyParams = ["grant_type": "client_credentials"]
         }

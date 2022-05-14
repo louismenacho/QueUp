@@ -22,4 +22,4 @@ enum HTTPAuthorization {
             return "Bearer \(token)"
         }
     }
-    }
+}

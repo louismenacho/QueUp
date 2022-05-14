@@ -242,7 +242,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="A3O-wR-e0O">
                         <rightBarButtonItems>
-                            <barButtonItem image="ellipsis" catalog="system" id="5UB-gA-EzB"/>
+                            <barButtonItem image="ellipsis" catalog="system" id="5UB-gA-EzB">
+                                <connections>
+                                    <action selector="rightBarButtonPressed:" destination="KqR-Jk-JGJ" id="hrx-5q-cI0"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem id="TKu-ad-zTY"/>
                         </rightBarButtonItems>
                     </navigationItem>
