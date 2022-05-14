@@ -33,6 +33,8 @@ class SpotifyTokenService: NSObject {
         .playlistModifyPrivate
     ]
     
+    var isGeneratingToken: Bool = false
+    
     private override init() {}
     
     func initialize() async throws {
@@ -56,6 +58,7 @@ class SpotifyTokenService: NSObject {
     }
     
     func generatePlaylistToken() async throws -> SPTSession {
+        isGeneratingToken = true
         if sessionManager?.session == nil {
             sessionManager?.initiateSession(with: sessionScope, options: .default)
         } else {
@@ -64,6 +67,7 @@ class SpotifyTokenService: NSObject {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<SPTSession, Error>) in
             self.sessionDelegateCallback = { result in
                 continuation.resume(with: result)
+                self.isGeneratingToken = false
             }
         }
     }

@@ -32,7 +32,7 @@ class SpotifyService {
     }
     
     func generatePlaylistTokenIfNeeded() async throws {
-        if tokenService.isPlaylistTokenExpired() {
+        if tokenService.isPlaylistTokenExpired() && !tokenService.isGeneratingToken {
             let token = try await tokenService.generatePlaylistToken()
             playlistAPI.auth = .bearer(token: token.accessToken)
             print("playlist token: \(token.accessToken)")
