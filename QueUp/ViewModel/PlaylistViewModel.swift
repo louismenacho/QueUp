@@ -19,7 +19,7 @@ class PlaylistViewModel {
         service.listener = { result in
             switch result {
             case .success(let playlist):
-                self.playlist = playlist
+                self.playlist = playlist.sorted(by: { $0.dateAdded < $1.dateAdded })
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))

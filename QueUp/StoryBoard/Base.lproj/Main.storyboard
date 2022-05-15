@@ -571,7 +571,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="9b5-d6-Bdn" secondAttribute="trailing" constant="20" symbolic="YES" id="OJw-jl-BiI"/>
                                                 <constraint firstItem="udq-2M-TTA" firstAttribute="centerY" secondItem="MZZ-AO-cvs" secondAttribute="centerY" id="TzP-Di-XEH"/>
                                                 <constraint firstItem="9b5-d6-Bdn" firstAttribute="centerY" secondItem="MZZ-AO-cvs" secondAttribute="centerY" id="nbh-FA-1ll"/>
-                                                <constraint firstItem="9b5-d6-Bdn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="udq-2M-TTA" secondAttribute="trailing" constant="8" symbolic="YES" id="znr-0K-wE6"/>
+                                                <constraint firstItem="9b5-d6-Bdn" firstAttribute="leading" secondItem="MZZ-AO-cvs" secondAttribute="leading" constant="278" id="qZY-na-VJ5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

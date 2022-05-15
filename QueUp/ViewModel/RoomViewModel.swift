@@ -47,6 +47,10 @@ class RoomViewModel {
         UserDefaultsRepository.shared.roomId = ""
     }
     
+    func isHost(_ user: User) -> Bool {
+        return room.hostId == user.id
+    }
+    
     func linkSpotifyAccount() async -> Result<(), Error> {
         do {
             let spotifyToken = try await spotify.generateSessionToken()

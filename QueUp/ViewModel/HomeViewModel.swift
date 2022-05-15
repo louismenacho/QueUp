@@ -9,6 +9,10 @@ import Foundation
 
 class HomeViewModel {
     
+    enum HomeViewModelError: Error {
+        case roomCapacityReached
+    }
+    
     var roomId: String {
         UserDefaultsRepository.shared.roomId
     }
@@ -19,10 +23,18 @@ class HomeViewModel {
     
     func join(roomId: String, displayName: String) async -> Result<(), Error> {
         do {
-            let user = try await AuthService.shared.signIn(with: displayName)
+            var user = try await AuthService.shared.signIn(with: displayName)
             let room = try await RoomService.shared.getRoom(id: roomId)
-            
             updateServices(with: room)
+            
+            let users = try await UserService.shared.listUsers()
+            guard users.count < 8 else {
+                return .failure(HomeViewModelError.roomCapacityReached)
+            }
+            
+            if let existingUser = users.first(where: { $0.id == user.id }) {
+                user.dateAdded = existingUser.dateAdded
+            }
             try await UserService.shared.addUser(user)
             try await SpotifyService.shared.initialize()
             

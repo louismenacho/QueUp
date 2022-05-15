@@ -33,12 +33,15 @@ class UserService {
         listener = nil
     }
     
+    func getUser(id: String) async throws -> User {
+        return try await repo.get(id: id)
+    }
+    
+    func listUsers() async throws -> [User] {
+        return try await repo.list()
+    }
+    
     func addUser(_ user: User) async throws {
-        let users = try await repo.list()
-        guard users.count < 8 else {
-            print("Room is full")
-            return
-        }
         try repo.create(id: user.id, with: user)
     }
     

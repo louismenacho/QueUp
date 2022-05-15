@@ -18,7 +18,7 @@ class UsersViewModel {
         service.listener = { result in
             switch result {
             case .success(let users):
-                self.users = users
+                self.users = users.sorted(by: { $0.dateAdded < $1.dateAdded })
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))
@@ -30,8 +30,12 @@ class UsersViewModel {
         service.stopListener()
     }
     
-    func getSignedInUser() -> User? {
-        return users.first(where: { $0.id == AuthService.shared.signedInUser.id })
+    func signedInUser() -> User {
+        return AuthService.shared.signedInUser
+    }
+    
+    func getUser(_ user: User) -> User? {
+        return users.first(where: { $0.id == user.id })
     }
     
     func deleteUser(_ user: User) async -> Result<(), Error> {

@@ -53,7 +53,8 @@ class PlaylistViewController: UIViewController {
             switch result {
             case .success:
                 DispatchQueue.main.async {
-                    if self.usersVM.getSignedInUser() == nil {
+                    let signedInUser = self.usersVM.signedInUser()
+                    if self.usersVM.getUser(signedInUser) == nil {
                         self.navigationController?.popToRootViewController(animated: true)
                         self.navigationController?.showAlert(title: "Host removed you from room")
                     }
@@ -117,7 +118,7 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user = usersVM.users[indexPath.row]
-        if user.id == roomVM.room.hostId || usersVM.getSignedInUser()?.id != roomVM.room.hostId  { return }
+        if roomVM.isHost(user) || !roomVM.isHost(usersVM.signedInUser())  { return }
         showActionSheet(title: user.displayName, action: .init(title: "Remove", style: .destructive) {  action in
             Task {
                 let result = await self.usersVM.deleteUser(user)
