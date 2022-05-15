@@ -30,7 +30,8 @@ class SpotifyTokenService: NSObject {
         .userReadPlaybackState,
         .userModifyPlaybackState,
         .playlistReadPrivate,
-        .playlistModifyPrivate
+        .playlistModifyPrivate,
+        .playlistModifyPublic
     ]
     
     var isGeneratingToken: Bool = false

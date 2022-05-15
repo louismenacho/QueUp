@@ -14,16 +14,15 @@ class APIClient<Endpoint: APIEndpoint> {
     }
     
     var auth: HTTPAuthorization = .none
-    var log: Bool = false
     
     @discardableResult
     func request<T: Decodable>(_ endpoint: Endpoint, log flag: Bool = false) async throws -> T {
         var endpointRequest = endpoint.request
         endpointRequest.authorization = auth
-        return try await send(apiRequest: endpointRequest)
+        return try await send(apiRequest: endpointRequest, logFlag: flag)
     }
     
-    private func send<T: Decodable>(apiRequest: APIRequest) async throws -> T {
+    private func send<T: Decodable>(apiRequest: APIRequest, logFlag: Bool) async throws -> T {
         var urlRequest = URLRequest(url: apiRequest.url)
         urlRequest.httpMethod = apiRequest.method.rawValue
         urlRequest.allHTTPHeaderFields = apiRequest.headers
@@ -38,6 +37,7 @@ class APIClient<Endpoint: APIEndpoint> {
                 
                 if let response = response as? HTTPURLResponse, response.statusCode > 299 {
                     continuation.resume(with: .failure(APIClientError.badRequest(code: response.statusCode)))
+                    self.log(apiRequest, data)
                     return
                 }
                 
@@ -48,7 +48,7 @@ class APIClient<Endpoint: APIEndpoint> {
                     continuation.resume(with: .failure(error))
                 }
                 
-                if self.log {
+                if logFlag {
                     self.log(apiRequest, data)
                 }
             }.resume()
@@ -59,8 +59,8 @@ class APIClient<Endpoint: APIEndpoint> {
         print(apiRequest.method.rawValue+" "+apiRequest.url.absoluteString)
         print("Authorization: "+(apiRequest.authorization.headerValue() ?? ""))
         guard let data = data else { return }
-        if let data = try? JSONSerialization.jsonObject(with: data) {
-            print(data)
+        if let json = String(data: data, encoding: .utf8) {
+            print(json)
         }
     }
 }

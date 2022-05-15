@@ -10,7 +10,9 @@ import Foundation
 enum SpotifyPlaylistAPI: APIEndpoint {
     
     case create(userId: String, name: String)
-    case update(playlistId: String, uris: [String])
+    case add(playlistId: String, uris: [String], position: Int)
+    case update(playlistId: String, uris: [String], rangeStart: Int, insertBefore: Int)
+    case remove(playlistId: String, uris: [String])
     
     var baseURL: String {
         return "https://api.spotify.com/v1"
@@ -27,12 +29,31 @@ enum SpotifyPlaylistAPI: APIEndpoint {
             apiRequest.bodyParams = [
                 "name": name
             ]
-        case let .update(playlistId, uris):
-            apiRequest.method = .put
+        case let .add(playlistId, uris, position):
+            apiRequest.method = .post
             apiRequest.path = "/playlists/"+playlistId+"/tracks"
             apiRequest.contentType = .json
             apiRequest.bodyParams = [
-                "uris": uris.joined(separator: ",")
+                "uris": uris,
+                "position": position
+            ]
+        case let .update(playlistId, uris, rangeStart, insertBefore):
+            apiRequest.method = .put
+            apiRequest.path = "/playlists/"+playlistId+"/tracks"
+            apiRequest.contentType = .json
+            apiRequest.query = ["uris": uris.joined(separator: ",")]
+            apiRequest.bodyParams = [
+                "range_start": rangeStart,
+                "insert_before": insertBefore
+            ]
+        case let .remove(playlistId, uris):
+            apiRequest.method = .delete
+            apiRequest.path = "/playlists/"+playlistId+"/tracks"
+            apiRequest.contentType = .json
+            apiRequest.bodyParams = [
+                "tracks" : uris.map {
+                    ["uri": $0]
+                }
             ]
         }
         
