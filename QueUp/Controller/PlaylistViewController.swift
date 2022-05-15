@@ -123,7 +123,7 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
                 let result = await self.usersVM.deleteUser(user)
                 switch result {
                 case.success:
-                    self.showAlert(title: user.displayName+" removed from room")
+                    print(user.displayName+" removed from room")
                 case .failure(let error):
                     print(error)
                 }

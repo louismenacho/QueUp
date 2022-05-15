@@ -11,4 +11,6 @@ struct Room: Codable {
     var id: String = ""
     var hostId: String = ""
     var spotifyPlaylistId: String = ""
+    var spotifyToken: String = ""
+    var spotifyTokenExpiration: Date = Date()
 }

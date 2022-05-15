@@ -19,7 +19,7 @@ class SpotifyLinkTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        selectionStyle = .none
     }
     
     @IBAction func linkStatusButtonPressed(_ sender: UIButton) {
@@ -30,7 +30,8 @@ class SpotifyLinkTableViewCell: UITableViewCell {
         if room.spotifyPlaylistId.isEmpty {
             linkStatusButton.setTitle("Link", for: .normal)
         } else {
-            linkStatusButton.setTitle("Unlink", for: .normal)
+            linkStatusButton.isEnabled = false
+            linkStatusButton.setTitle("Linked", for: .normal)
         }
     }
 }

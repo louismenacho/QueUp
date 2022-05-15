@@ -64,9 +64,8 @@ extension RoomInfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SpotifyLinkTableViewCell", for: indexPath) as! SpotifyLinkTableViewCell
-            cell.selectionStyle = .none
-            cell.update(with: roomVM.room)
             cell.delegate = self
+            cell.update(with: roomVM.room)
             return cell
         }
         if indexPath.row == 1 {
@@ -117,25 +116,13 @@ extension RoomInfoViewController: UITableViewDelegate {
 extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
     
     func spotifyLinkTableViewCell(linkStatusButtonPressedFor cell: SpotifyLinkTableViewCell) {
-        if roomVM.room.spotifyPlaylistId.isEmpty {
-            Task {
-                let result = await roomVM.linkSpotifyAccount()
-                switch result {
-                case.success:
-                    print("linked Spotify account")
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        } else {
-            Task {
-                let result = await roomVM.unlinkSpotifyAccount()
-                switch result {
-                case.success:
-                    print("unlinked Spotify account")
-                case .failure(let error):
-                    print(error)
-                }
+        Task {
+            let result = await roomVM.linkSpotifyAccount()
+            switch result {
+            case.success:
+                print("linked Spotify account")
+            case .failure(let error):
+                print(error)
             }
         }
     }

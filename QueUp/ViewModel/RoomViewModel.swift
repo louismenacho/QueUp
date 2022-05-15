@@ -22,7 +22,7 @@ class RoomViewModel {
             switch result {
             case .success(let room):
                 self.room = room
-                SpotifyService.shared.currentPlaylistId = room.spotifyPlaylistId
+                self.spotify.updateTokens(with: room)
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))
@@ -49,9 +49,12 @@ class RoomViewModel {
     
     func linkSpotifyAccount() async -> Result<(), Error> {
         do {
+            let spotifyToken = try await spotify.generateSessionToken()
             let spotifyUser = try await spotify.currentUser()
             let spotifyPlaylist = try await spotify.createPlaylist(userId: spotifyUser.id, name: "QueUp Room "+room.id)
             room.spotifyPlaylistId = spotifyPlaylist.id
+            room.spotifyToken = spotifyToken.accessToken
+            room.spotifyTokenExpiration = spotifyToken.expirationDate
             try roomService.updateRoom(room: room)
             return .success(())
         } catch {
@@ -59,20 +62,22 @@ class RoomViewModel {
         }
     }
     
-    func unlinkSpotifyAccount() async -> Result<(), Error> {
-        do {
-            room.spotifyPlaylistId = ""
-            try roomService.updateRoom(room: room)
-            return .success(())
-        } catch {
-            return .failure(error)
-        }
-    }
+//    func unlinkSpotifyAccount() async -> Result<(), Error> {
+//        do {
+//            room.spotifyPlaylistId = ""
+//            room.spotifyToken = ""
+//            room.spotifyTokenExpiration = Date()
+//            try roomService.updateRoom(room: room)
+//            return .success(())
+//        } catch {
+//            return .failure(error)
+//        }
+//    }
     
     func clearPlaylist() async -> Result<(), Error> {
         do {
             try await playlistService.removeAllSongs()
-            if !room.spotifyPlaylistId.isEmpty {
+            if !spotify.currentPlaylistId.isEmpty {
                 try await spotify.updatePlaylistItems(uris: [], rangeStart: 0, insertBefore: 0)
             }
             return .success(())

@@ -10,7 +10,7 @@ import Foundation
 enum SpotifyPlaylistAPI: APIEndpoint {
     
     case create(userId: String, name: String)
-    case add(playlistId: String, uris: [String], position: Int)
+    case add(playlistId: String, uris: [String])
     case update(playlistId: String, uris: [String], rangeStart: Int, insertBefore: Int)
     case remove(playlistId: String, uris: [String])
     
@@ -29,13 +29,12 @@ enum SpotifyPlaylistAPI: APIEndpoint {
             apiRequest.bodyParams = [
                 "name": name
             ]
-        case let .add(playlistId, uris, position):
+        case let .add(playlistId, uris):
             apiRequest.method = .post
             apiRequest.path = "/playlists/"+playlistId+"/tracks"
             apiRequest.contentType = .json
             apiRequest.bodyParams = [
-                "uris": uris,
-                "position": position
+                "uris": uris
             ]
         case let .update(playlistId, uris, rangeStart, insertBefore):
             apiRequest.method = .put

@@ -109,14 +109,16 @@ extension SearchViewController: SearchResultTableViewCellDelegate {
     
     func searchTableViewCell(addButtonPressedFor cell: SearchResultTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let result = vm.addSong(at: indexPath.row)
-        switch result {
-        case.success:
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        Task {
+            let result = try await vm.addSong(at: indexPath.row)
+            switch result {
+            case.success:
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
             }
-        case .failure(let error):
-            print(error)
         }
     }
 }

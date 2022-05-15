@@ -43,14 +43,16 @@ class SearchViewModel {
         }
     }
     
-    func addSong(at index: Int) -> Result<(()), Error> {
-        guard !currentPlaylist.contains(where: { $0.song.id == searchResult[index].song.id }) else {
-            print("Song already exists in playlist")
+    func addSong(at index: Int) async throws -> Result<(()), Error> {
+        let song = searchResult[index].song
+        guard !currentPlaylist.contains(where: { $0.song.id == song.id }) else {
             return .failure(SearchViewModelError.duplicateSongError)
         }
-        searchResult[index].isAdded = true
         do {
-            try playlistService.addSong(searchResult[index].song, addedBy: auth.signedInUser)
+            try playlistService.addSong(song, addedBy: auth.signedInUser)
+            if !spotify.currentPlaylistId.isEmpty {
+                try await spotify.addPlaylistItems(uris: [song.id])
+            }
             return .success(())
         } catch {
             return .failure(error)

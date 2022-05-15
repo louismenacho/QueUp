@@ -20,8 +20,6 @@ class SpotifyTokenService: NSObject {
     }
     
     private var accountsAPI = APIClient<SpotifyAccountsAPI>()
-    private var searchTokenExpiration = Date()
-    
     private var sessionConfig: SPTConfiguration?
     private var sessionManager: SPTSessionManager?
     private var sessionDelegateCallback: ((Result<SPTSession, Error>) -> ())?
@@ -49,16 +47,10 @@ class SpotifyTokenService: NSObject {
     }
     
     func generateSearchToken() async throws -> SpotifyAccountsResponse.Token {
-        let token: SpotifyAccountsResponse.Token = try await accountsAPI.request(.token)
-        searchTokenExpiration = Date().addingTimeInterval(Double(token.expiresIn))
-        return token
+        return try await accountsAPI.request(.token)
     }
     
-    func isSearchTokenExpired() -> Bool {
-        return searchTokenExpiration.compare(Date()) == .orderedAscending
-    }
-    
-    func generatePlaylistToken() async throws -> SPTSession {
+    func generateSessionToken() async throws -> SPTSession {
         isGeneratingToken = true
         if sessionManager?.session == nil {
             DispatchQueue.main.async {
@@ -75,11 +67,6 @@ class SpotifyTokenService: NSObject {
                 self.isGeneratingToken = false
             }
         }
-    }
-    
-    func isPlaylistTokenExpired() -> Bool {
-        guard let session = sessionManager?.session else { return true }
-        return session.isExpired
     }
     
     func handleOpenURLCallback(url: URL) {
