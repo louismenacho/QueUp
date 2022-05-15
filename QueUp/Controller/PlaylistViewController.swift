@@ -40,6 +40,11 @@ class PlaylistViewController: UIViewController {
                 }
             case .failure(let error):
                 print(error)
+                if let error = error as? DecodingError, case .valueNotFound = error {
+                    self.navigationController?.popToRootViewController(animated: true)
+                    self.navigationController?.showAlert(title: "Host closed the room")
+                    self.roomVM.unsaveRoomId()
+                }
             }
         }
         
@@ -50,7 +55,7 @@ class PlaylistViewController: UIViewController {
                 DispatchQueue.main.async {
                     if self.usersVM.getSignedInUser() == nil {
                         self.navigationController?.popToRootViewController(animated: true)
-                        self.navigationController?.viewControllers.first?.showAlert(title: "Host removed you from room")
+                        self.navigationController?.showAlert(title: "Host removed you from room")
                     }
                     self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
                     self.tableView.reloadData()

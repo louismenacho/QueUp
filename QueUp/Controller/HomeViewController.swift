@@ -16,6 +16,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         formView.delegate = self
+        if !vm.roomId.isEmpty {
+            homeFormView(formView, joinButtonPressed: vm.displayName, roomId: vm.roomId)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -25,7 +25,6 @@ class SearchResultTableViewCell: UITableViewCell {
     }
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        print("addButtonPressed")
         delegate?.searchTableViewCell(addButtonPressedFor: self)
     }
     

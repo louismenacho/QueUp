@@ -17,6 +17,8 @@ class SpotifyService {
     private var usersAPI = APIClient<SpotifyUsersAPI>()
     private var playlistAPI = APIClient<SpotifyPlaylistAPI>()
     
+    var currentPlaylistId = ""
+    
     private init() {}
     
     func initialize() async throws {
@@ -53,21 +55,24 @@ class SpotifyService {
     
     func createPlaylist(userId: String, name: String) async throws -> SpotifyPlaylistResponse.CreatePlaylist {
         try await generatePlaylistTokenIfNeeded()
-        return try await playlistAPI.request(.create(userId: "melo3450", name: "QueUp"), log: true)
+        return try await playlistAPI.request(.create(userId: userId, name: name), log: true)
     }
     
-    func addPlaylistItems(playlistId: String, uris: [String], position: Int) async throws -> SpotifyPlaylistResponse.Add {
+    @discardableResult
+    func addPlaylistItems(uris: [String], position: Int) async throws -> SpotifyPlaylistResponse.Add {
         try await generatePlaylistTokenIfNeeded()
-        return try await playlistAPI.request(.add(playlistId: playlistId, uris: uris, position: 0), log: true)
+        return try await playlistAPI.request(.add(playlistId: currentPlaylistId, uris: uris, position: 0), log: true)
     }
     
-    func updatePlaylistItems(playlistId: String, uris: [String], rangeStart: Int, insertBefore: Int) async throws -> SpotifyPlaylistResponse.Update {
+    @discardableResult
+    func updatePlaylistItems(uris: [String], rangeStart: Int, insertBefore: Int) async throws -> SpotifyPlaylistResponse.Update {
         try await generatePlaylistTokenIfNeeded()
-        return try await playlistAPI.request(.update(playlistId: playlistId, uris: uris, rangeStart: 0, insertBefore: 0), log: true)
+        return try await playlistAPI.request(.update(playlistId: currentPlaylistId, uris: uris, rangeStart: 0, insertBefore: 0), log: true)
     }
     
-    func removePlaylistItems(playlistId: String, uris: [String]) async throws -> SpotifyPlaylistResponse.Remove {
+    @discardableResult
+    func removePlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Remove {
         try await generatePlaylistTokenIfNeeded()
-        return try await playlistAPI.request(.remove(playlistId: playlistId, uris: uris), log: true)
+        return try await playlistAPI.request(.remove(playlistId: currentPlaylistId, uris: uris), log: true)
     }
 }

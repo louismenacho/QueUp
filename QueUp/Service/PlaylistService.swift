@@ -37,4 +37,12 @@ class PlaylistService {
         let playlistItem = PlaylistItem(song: song, addedBy: user, dateAdded: Date())
         try repo.create(id: song.id, with: playlistItem)
     }
+    
+    func removeSong(_ song: Song) async throws {
+        try await repo.delete(id: song.id)
+    }
+    
+    func removeAllSongs() async throws {
+        try await repo.deleteAll()
+    }
 }

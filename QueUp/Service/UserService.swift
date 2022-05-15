@@ -42,7 +42,11 @@ class UserService {
         try repo.create(id: user.id, with: user)
     }
     
-    func deleteUser(_ user: User) async throws {
+    func removeUser(_ user: User) async throws {
         try await repo.delete(id: user.id)
+    }
+    
+    func removeAllUsers() async throws {
+        try await repo.deleteAll()
     }
 }

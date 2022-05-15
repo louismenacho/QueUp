@@ -36,7 +36,7 @@ class UsersViewModel {
     
     func deleteUser(_ user: User) async -> Result<(), Error> {
         do {
-            try await service.deleteUser(user)
+            try await service.removeUser(user)
             return .success(())
         } catch {
             return .failure(error)

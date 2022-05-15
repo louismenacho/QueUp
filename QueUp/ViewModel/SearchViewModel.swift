@@ -14,7 +14,7 @@ class SearchViewModel {
     }
     
     let auth = AuthService.shared
-    let spotifyService = SpotifyService.shared
+    let spotify = SpotifyService.shared
     var playlistService = PlaylistService.shared
     
     var searchResult = [SearchResultItem]()
@@ -24,7 +24,7 @@ class SearchViewModel {
     
     func search(query: String) async -> Result<(), Error> {
         do {
-            let search = try await spotifyService.search(query)
+            let search = try await spotify.search(query)
             searchResult = search.tracks.items.map { track in
                 SearchResultItem(
                     song: Song(

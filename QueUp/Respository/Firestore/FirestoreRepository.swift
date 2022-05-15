@@ -46,6 +46,11 @@ class FirestoreRepository<Object: Codable> {
         try await collectionReference.document(id).delete()
     }
     
+    func deleteAll() async throws {
+        let querySnapshot = try await collectionReference.getDocuments()
+        querySnapshot.documents.forEach { $0.reference.delete() }
+    }
+    
     func addListener(id: String, _ listener: @escaping (Result<Object, Error>) -> Void) {
         collectionListener = collectionReference.document(id).addSnapshotListener(includeMetadataChanges: false) { documentSnapshot, error in
             if let error = error {

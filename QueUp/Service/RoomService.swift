@@ -41,6 +41,14 @@ class RoomService {
         return room
     }
     
+    func updateRoom(room: Room) throws {
+        try repo.update(id: room.id, with: room)
+    }
+    
+    func deleteRoom(_ room: Room) async throws {
+        try await repo.delete(id: room.id)
+    }
+    
     private func randomString(of length: Int) -> String {
         let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         let string = String(repeating: "_", count: length)

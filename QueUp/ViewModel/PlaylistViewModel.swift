@@ -10,6 +10,7 @@ import Foundation
 class PlaylistViewModel {
     
     var service = PlaylistService.shared
+    var spotify = SpotifyService.shared
     
     var playlist = [PlaylistItem]()
     

@@ -26,6 +26,9 @@
 		9576DAFB28305B4400AE1F5E /* SpotifyUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAFA28305B4400AE1F5E /* SpotifyUsersAPI.swift */; };
 		9576DAFD283069CA00AE1F5E /* SpotifyUsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAFC283069CA00AE1F5E /* SpotifyUsersResponse.swift */; };
 		9576DAFF28306B6B00AE1F5E /* SpotifyPlaylistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAFE28306B6B00AE1F5E /* SpotifyPlaylistResponse.swift */; };
+		9576DB012830919A00AE1F5E /* RoomInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DB002830919A00AE1F5E /* RoomInfoViewController.swift */; };
+		9576DB04283094C900AE1F5E /* SpotifyLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DB03283094C900AE1F5E /* SpotifyLinkTableViewCell.swift */; };
+		9576DB0628309CED00AE1F5E /* RoomInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DB0528309CED00AE1F5E /* RoomInfoTableViewCell.swift */; };
 		958698E628176ADA00FA3E15 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958698E528176ADA00FA3E15 /* RoomService.swift */; };
 		95B3341B281990CF001BF021 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3341A281990CF001BF021 /* PlaylistViewController.swift */; };
 		95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */; };
@@ -100,6 +103,9 @@
 		9576DAFA28305B4400AE1F5E /* SpotifyUsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUsersAPI.swift; sourceTree = "<group>"; };
 		9576DAFC283069CA00AE1F5E /* SpotifyUsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUsersResponse.swift; sourceTree = "<group>"; };
 		9576DAFE28306B6B00AE1F5E /* SpotifyPlaylistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistResponse.swift; sourceTree = "<group>"; };
+		9576DB002830919A00AE1F5E /* RoomInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomInfoViewController.swift; sourceTree = "<group>"; };
+		9576DB03283094C900AE1F5E /* SpotifyLinkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyLinkTableViewCell.swift; sourceTree = "<group>"; };
+		9576DB0528309CED00AE1F5E /* RoomInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomInfoTableViewCell.swift; sourceTree = "<group>"; };
 		958698E528176ADA00FA3E15 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		95B3341A281990CF001BF021 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistTableViewCell.swift; sourceTree = "<group>"; };
@@ -158,6 +164,7 @@
 				95B3341C28199253001BF021 /* Home */,
 				95B3341D28199272001BF021 /* Playlist */,
 				95B3342E2819E8C7001BF021 /* Search */,
+				9576DB022830949C00AE1F5E /* RoomInfo */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 				95B3341A281990CF001BF021 /* PlaylistViewController.swift */,
 				95B3342A2819D20A001BF021 /* SearchViewController.swift */,
 				953FC170282A286300BC0620 /* SongInfoViewController.swift */,
+				9576DB002830919A00AE1F5E /* RoomInfoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -238,6 +246,15 @@
 				9576DAFC283069CA00AE1F5E /* SpotifyUsersResponse.swift */,
 			);
 			path = UsersAPI;
+			sourceTree = "<group>";
+		};
+		9576DB022830949C00AE1F5E /* RoomInfo */ = {
+			isa = PBXGroup;
+			children = (
+				9576DB0528309CED00AE1F5E /* RoomInfoTableViewCell.swift */,
+				9576DB03283094C900AE1F5E /* SpotifyLinkTableViewCell.swift */,
+			);
+			path = RoomInfo;
 			sourceTree = "<group>";
 		};
 		95B3341C28199253001BF021 /* Home */ = {
@@ -544,6 +561,7 @@
 				953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */,
 				95420BCF2827B48E00EEAE05 /* PlaylistService.swift in Sources */,
 				9576DAFD283069CA00AE1F5E /* SpotifyUsersResponse.swift in Sources */,
+				9576DB0628309CED00AE1F5E /* RoomInfoTableViewCell.swift in Sources */,
 				95DD898328237EFC0021DB18 /* SpotifyAccountsResponse.swift in Sources */,
 				95B9A96F282E0CDD00146B92 /* UIViewController+Alert.swift in Sources */,
 				95DD897F281CBA6A0021DB18 /* SpotifyService.swift in Sources */,
@@ -555,7 +573,9 @@
 				95DD898D28275E520021DB18 /* HTTPContentType.swift in Sources */,
 				95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */,
 				95420BCB28278C4900EEAE05 /* SpotifySearchResponse.swift in Sources */,
+				9576DB04283094C900AE1F5E /* SpotifyLinkTableViewCell.swift in Sources */,
 				95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */,
+				9576DB012830919A00AE1F5E /* RoomInfoViewController.swift in Sources */,
 				95B9A96B282DFEFF00146B92 /* UserDefaultsProperty.swift in Sources */,
 				95CDF5CF2815079800E98B91 /* AuthService.swift in Sources */,
 				95B3341F281992F5001BF021 /* PlaylistTableViewCell.swift in Sources */,

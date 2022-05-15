@@ -61,9 +61,13 @@ class SpotifyTokenService: NSObject {
     func generatePlaylistToken() async throws -> SPTSession {
         isGeneratingToken = true
         if sessionManager?.session == nil {
-            sessionManager?.initiateSession(with: sessionScope, options: .default)
+            DispatchQueue.main.async {
+                self.sessionManager?.initiateSession(with: self.sessionScope, options: .default)
+            }
         } else {
-            sessionManager?.renewSession()
+            DispatchQueue.main.async {
+                self.sessionManager?.renewSession()
+            }
         }
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<SPTSession, Error>) in
             self.sessionDelegateCallback = { result in
