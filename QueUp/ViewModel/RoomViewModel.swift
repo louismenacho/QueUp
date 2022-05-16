@@ -22,7 +22,7 @@ class RoomViewModel {
             switch result {
             case .success(let room):
                 self.room = room
-                self.spotify.updateTokens(with: room)
+                self.updateSpotifySession()
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))
@@ -51,14 +51,20 @@ class RoomViewModel {
         return room.hostId == user.id
     }
     
+    func updateSpotifySession() {
+        spotify.sessionPlaylistId = room.spotifyPlaylistId
+        spotify.sessionTokenExpiration = room.spotifyTokenExpiration
+        spotify.setSessionToken(room.spotifyToken)
+    }
+    
     func linkSpotifyAccount() async -> Result<(), Error> {
         do {
-            let spotifyToken = try await spotify.generateSessionToken()
+            try await spotify.generateSessionToken()
             let spotifyUser = try await spotify.currentUser()
             let spotifyPlaylist = try await spotify.createPlaylist(userId: spotifyUser.id, name: "QueUp Room "+room.id)
             room.spotifyPlaylistId = spotifyPlaylist.id
-            room.spotifyToken = spotifyToken.accessToken
-            room.spotifyTokenExpiration = spotifyToken.expirationDate
+            room.spotifyToken = spotify.sessionToken
+            room.spotifyTokenExpiration = spotify.sessionTokenExpiration
             try roomService.updateRoom(room: room)
             return .success(())
         } catch {
@@ -81,7 +87,7 @@ class RoomViewModel {
     func clearPlaylist() async -> Result<(), Error> {
         do {
             try await playlistService.removeAllSongs()
-            if !spotify.currentPlaylistId.isEmpty {
+            if !spotify.sessionPlaylistId.isEmpty {
                 try await spotify.updatePlaylistItems(uris: [], rangeStart: 0, insertBefore: 0)
             }
             return .success(())

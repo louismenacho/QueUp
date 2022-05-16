@@ -16,9 +16,11 @@ class SpotifyService {
     private var searchAPI = APIClient<SpotifySearchAPI>()
     private var usersAPI = APIClient<SpotifyUsersAPI>()
     private var playlistAPI = APIClient<SpotifyPlaylistAPI>()
-    
-    var currentPlaylistId = ""
+
     var searchTokenExpiration = Date()
+    
+    var sessionPlaylistId = ""
+    var sessionToken = ""
     var sessionTokenExpiration = Date()
     
     private init() {}
@@ -28,39 +30,34 @@ class SpotifyService {
         try await generateSearchToken()
     }
     
-    func updateTokens(with room: Room) {
-        currentPlaylistId = room.spotifyPlaylistId
-        sessionTokenExpiration = room.spotifyTokenExpiration
-        set(sessionToken: room.spotifyToken)
-    }
-    
-    func set(sessionToken: String) {
-        usersAPI.auth = .bearer(token: sessionToken)
-        playlistAPI.auth = .bearer(token: sessionToken)
-    }
-    
-    @discardableResult
-    func generateSearchToken() async throws -> SpotifyAccountsResponse.Token {
+    func generateSearchToken() async throws {
         let token = try await tokenService.generateSearchToken()
         searchAPI.auth = .bearer(token: token.accessToken)
-        return token
+        searchTokenExpiration = Date().addingTimeInterval(Double(token.expiresIn))
     }
     
-    @discardableResult
-    func generateSessionToken() async throws -> SPTSession {
-        let token = try await tokenService.generateSessionToken()
-        set(sessionToken: token.accessToken)
-        return token
+    func generateSessionToken() async throws {
+        if !tokenService.isGeneratingSessionToken {
+            let token = try await tokenService.generateSessionToken()
+            setSessionToken(token.accessToken)
+            sessionTokenExpiration = token.expirationDate
+        }
+    }
+    
+    func setSessionToken(_ token: String) {
+        sessionToken = token
+        usersAPI.auth = .bearer(token: token)
+        playlistAPI.auth = .bearer(token: token)
+    }
+
+    func generateSessionTokenIfNeeded() async throws {
+        if isTokenExpired(tokenDate: sessionTokenExpiration) && !tokenService.isGeneratingSessionToken {
+            try await generateSessionToken()
+        }
     }
     
     func isTokenExpired(tokenDate: Date) -> Bool {
         return tokenDate.compare(Date()) == .orderedAscending
-    }
-
-    func generateSessionTokenIfNeeded() async throws {
-        if isTokenExpired(tokenDate: sessionTokenExpiration) && !tokenService.isGeneratingToken {
-            try await generateSessionToken()
-        }
     }
         
     func search(_ query: String) async throws -> SpotifySearchResponse.Search {
@@ -73,6 +70,7 @@ class SpotifyService {
         return try await usersAPI.request(.currentUser)
     }
     
+    @discardableResult
     func createPlaylist(userId: String, name: String) async throws -> SpotifyPlaylistResponse.CreatePlaylist {
         try await generateSessionTokenIfNeeded()
         return try await playlistAPI.request(.create(userId: userId, name: name))
@@ -81,18 +79,18 @@ class SpotifyService {
     @discardableResult
     func addPlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Add {
         try await generateSessionTokenIfNeeded()
-        return try await playlistAPI.request(.add(playlistId: currentPlaylistId, uris: uris))
+        return try await playlistAPI.request(.add(playlistId: sessionPlaylistId, uris: uris))
     }
     
     @discardableResult
     func updatePlaylistItems(uris: [String], rangeStart: Int, insertBefore: Int) async throws -> SpotifyPlaylistResponse.Update {
         try await generateSessionTokenIfNeeded()
-        return try await playlistAPI.request(.update(playlistId: currentPlaylistId, uris: uris, rangeStart: rangeStart, insertBefore: rangeStart))
+        return try await playlistAPI.request(.update(playlistId: sessionPlaylistId, uris: uris, rangeStart: rangeStart, insertBefore: rangeStart))
     }
     
     @discardableResult
     func removePlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Remove {
         try await generateSessionTokenIfNeeded()
-        return try await playlistAPI.request(.remove(playlistId: currentPlaylistId, uris: uris))
+        return try await playlistAPI.request(.remove(playlistId: sessionPlaylistId, uris: uris))
     }
 }

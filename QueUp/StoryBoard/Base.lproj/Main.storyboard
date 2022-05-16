@@ -246,7 +246,6 @@
                             <barButtonItem image="ellipsis" catalog="system" id="5UB-gA-EzB">
                                 <connections>
                                     <action selector="rightBarButtonPressed:" destination="KqR-Jk-JGJ" id="hrx-5q-cI0"/>
-                                    <segue destination="WsL-hs-6tY" kind="show" id="RNy-sD-her"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem id="TKu-ad-zTY"/>
@@ -256,6 +255,7 @@
                         <outlet property="addSongButton" destination="IA3-7g-vvJ" id="qrp-wk-f1R"/>
                         <outlet property="collectionView" destination="zDl-Pk-4YA" id="QPC-AL-fEZ"/>
                         <outlet property="tableView" destination="nkd-Ur-7Yi" id="bdl-Xa-M3M"/>
+                        <segue destination="WsL-hs-6tY" kind="show" identifier="RoomInfoViewController" id="DbK-9N-iCH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZj-n4-Woq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -567,11 +567,11 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="udq-2M-TTA" firstAttribute="leading" secondItem="MZZ-AO-cvs" secondAttribute="leading" constant="20" symbolic="YES" id="DKq-rn-8OR"/>
-                                                <constraint firstAttribute="trailing" secondItem="9b5-d6-Bdn" secondAttribute="trailing" constant="20" symbolic="YES" id="OJw-jl-BiI"/>
+                                                <constraint firstItem="udq-2M-TTA" firstAttribute="leading" secondItem="MZZ-AO-cvs" secondAttribute="leadingMargin" id="DKq-rn-8OR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9b5-d6-Bdn" secondAttribute="trailing" id="OJw-jl-BiI"/>
                                                 <constraint firstItem="udq-2M-TTA" firstAttribute="centerY" secondItem="MZZ-AO-cvs" secondAttribute="centerY" id="TzP-Di-XEH"/>
                                                 <constraint firstItem="9b5-d6-Bdn" firstAttribute="centerY" secondItem="MZZ-AO-cvs" secondAttribute="centerY" id="nbh-FA-1ll"/>
-                                                <constraint firstItem="9b5-d6-Bdn" firstAttribute="leading" secondItem="MZZ-AO-cvs" secondAttribute="leading" constant="278" id="qZY-na-VJ5"/>
+                                                <constraint firstItem="9b5-d6-Bdn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="udq-2M-TTA" secondAttribute="trailing" constant="204" id="oWM-kK-wOI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

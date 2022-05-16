@@ -37,6 +37,9 @@ class PlaylistViewController: UIViewController {
                     self.navigationItem.title = self.roomVM.room.id
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
+                    if !self.roomVM.isHost(self.usersVM.signedInUser()) {
+                        self.navigationItem.rightBarButtonItem = nil
+                    }
                 }
             case .failure(let error):
                 print(error)
@@ -93,7 +96,7 @@ class PlaylistViewController: UIViewController {
     }
     
     @IBAction func rightBarButtonPressed(_ sender: UIBarButtonItem) {
-
+        performSegue(withIdentifier: "RoomInfoViewController", sender: self)
     }
 }
 

@@ -13,7 +13,7 @@ class HomeViewModel {
         case roomCapacityReached
     }
     
-    var roomId: String {
+    var lastRoomId: String {
         UserDefaultsRepository.shared.roomId
     }
     

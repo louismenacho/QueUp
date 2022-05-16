@@ -50,7 +50,7 @@ class SearchViewModel {
         }
         do {
             try playlistService.addSong(song, addedBy: auth.signedInUser)
-            if !spotify.currentPlaylistId.isEmpty {
+            if !spotify.sessionPlaylistId.isEmpty {
                 try await spotify.addPlaylistItems(uris: [song.id])
             }
             return .success(())

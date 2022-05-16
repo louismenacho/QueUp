@@ -16,15 +16,12 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         formView.delegate = self
-        if !vm.roomId.isEmpty {
-            homeFormView(formView, joinButtonPressed: vm.displayName, roomId: vm.roomId)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        formView.setRoomId(vm.roomId)
+        formView.setRoomId(vm.lastRoomId)
         formView.setDisplayName(vm.displayName)
-        if vm.roomId == formView.roomIdTextField.text {
+        if !vm.lastRoomId.isEmpty && vm.lastRoomId == formView.roomIdTextField.text {
             formView.joinButton.setTitle("REJOIN", for: .normal)
         } else {
             formView.joinButton.setTitle("JOIN", for: .normal)
@@ -63,7 +60,7 @@ extension HomeViewController: HomeFormViewDelegate {
     }
     
     func homeFormView(_ homeFormView: HomeFormView, roomIdTextFieldDidChange text: String) {
-        if vm.roomId == text {
+        if vm.lastRoomId == text {
             formView.joinButton.setTitle("REJOIN", for: .normal)
         } else {
             formView.joinButton.setTitle("JOIN", for: .normal)
