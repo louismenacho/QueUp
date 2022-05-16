@@ -32,6 +32,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: HomeFormViewDelegate {
     
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String) {
+        homeFormView.joinButton.isEnabled = false
         Task {
             let result = await vm.join(roomId: roomId, displayName: displayName)
             switch result {
@@ -42,10 +43,12 @@ extension HomeViewController: HomeFormViewDelegate {
             case .failure(let error):
                 print(error)
             }
+            homeFormView.joinButton.isEnabled = true
         }
     }
     
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String) {
+        homeFormView.hostButton.isEnabled = false
         Task {
             let result = await vm.host(displayName: displayName)
             switch result {
@@ -56,6 +59,7 @@ extension HomeViewController: HomeFormViewDelegate {
             case .failure(let error):
                 print(error)
             }
+            homeFormView.hostButton.isEnabled = true
         }
     }
     
