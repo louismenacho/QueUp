@@ -133,6 +133,14 @@
                                                                     <constraint firstAttribute="width" secondItem="f6B-a8-nW4" secondAttribute="height" multiplier="1:1" id="WC8-Ho-s5B"/>
                                                                 </constraints>
                                                             </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nbD-jr-7kB">
+                                                                <rect key="frame" x="0.0" y="1" width="60" height="58.666666666666671"/>
+                                                                <color key="tintColor" systemColor="systemCyanColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="60" id="OpN-Zh-z63"/>
+                                                                    <constraint firstAttribute="width" secondItem="nbD-jr-7kB" secondAttribute="height" multiplier="1:1" id="XnF-Mw-MQe"/>
+                                                                </constraints>
+                                                            </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Louis" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5QQ-w2-WMQ">
                                                                 <rect key="frame" x="0.0" y="59.999999999999993" width="60" height="16.666666666666664"/>
                                                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="12"/>
@@ -142,14 +150,18 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="f6B-a8-nW4" firstAttribute="top" secondItem="F8c-Ch-nY2" secondAttribute="top" id="0Zg-pv-hl0"/>
+                                                            <constraint firstItem="nbD-jr-7kB" firstAttribute="centerX" secondItem="F8c-Ch-nY2" secondAttribute="centerX" id="19H-Zu-qtI"/>
                                                             <constraint firstItem="f6B-a8-nW4" firstAttribute="centerX" secondItem="F8c-Ch-nY2" secondAttribute="centerX" id="Bto-pU-bsR"/>
+                                                            <constraint firstItem="5QQ-w2-WMQ" firstAttribute="top" secondItem="nbD-jr-7kB" secondAttribute="bottom" id="VbH-ME-6eL"/>
                                                             <constraint firstItem="5QQ-w2-WMQ" firstAttribute="top" secondItem="f6B-a8-nW4" secondAttribute="bottom" id="f3l-UT-gQK"/>
+                                                            <constraint firstItem="nbD-jr-7kB" firstAttribute="top" secondItem="F8c-Ch-nY2" secondAttribute="top" id="rj5-us-mnv"/>
                                                             <constraint firstItem="5QQ-w2-WMQ" firstAttribute="leading" secondItem="F8c-Ch-nY2" secondAttribute="leading" id="sol-T2-QDy"/>
                                                             <constraint firstAttribute="trailing" secondItem="5QQ-w2-WMQ" secondAttribute="trailing" id="yRp-Gh-2ff"/>
                                                         </constraints>
                                                     </collectionViewCellContentView>
                                                     <size key="customSize" width="60" height="77"/>
                                                     <connections>
+                                                        <outlet property="circleImageView" destination="nbD-jr-7kB" id="IpL-vd-evV"/>
                                                         <outlet property="displayNameLabel" destination="5QQ-w2-WMQ" id="69Q-ya-xVt"/>
                                                         <outlet property="imageView" destination="f6B-a8-nW4" id="56c-lf-5KU"/>
                                                     </connections>
@@ -626,6 +638,7 @@
     </scenes>
     <resources>
         <image name="a.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <systemColor name="secondaryLabelColor">
@@ -633,6 +646,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemCyanColor">
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

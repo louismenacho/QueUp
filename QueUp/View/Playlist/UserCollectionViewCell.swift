@@ -10,6 +10,7 @@ import UIKit
 class UserCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
     
     func update(with user: User) {
@@ -19,5 +20,10 @@ class UserCollectionViewCell: UICollectionViewCell {
             imageView.image = UIImage(systemName: "questionmark.circle.fill")
         }
         displayNameLabel.text = user.displayName
+        circleImageView.isHidden = true
+    }
+    
+    func showCircleBorder() {
+        circleImageView.isHidden = false
     }
 }

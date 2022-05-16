@@ -108,8 +108,12 @@ extension PlaylistViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let user = usersVM.users[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCollectionViewCell", for: indexPath) as! UserCollectionViewCell
         cell.update(with: usersVM.users[indexPath.row])
+        if roomVM.isHost(user) {
+            cell.showCircleBorder()
+        }
         return cell
     }
 }
