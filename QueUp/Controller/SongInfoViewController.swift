@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SongInfoViewController: UIViewController {
     
@@ -18,7 +19,7 @@ class SongInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        albumImageView.image = UIImage(systemName: "photo.fill")
+        albumImageView.sd_setImage(with: URL(string: vm.song.artworkURL)!, placeholderImage: UIImage(systemName: "image"))
         albumLabel.text = vm.song.album
         titleLabel.text = vm.song.title
         vm.song.artists.forEach {
