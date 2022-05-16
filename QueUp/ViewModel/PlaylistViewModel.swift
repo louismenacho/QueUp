@@ -9,6 +9,7 @@ import Foundation
 
 class PlaylistViewModel {
     
+    var auth = AuthService.shared
     var service = PlaylistService.shared
     var spotify = SpotifyService.shared
     
@@ -33,7 +34,12 @@ class PlaylistViewModel {
     
     func updateAddedByDisplayNames(with users: [User]) {
         playlist.enumerated().forEach { (index, playlistItem) in
-            playlist[index].addedBy.displayName = users.first(where: { $0.id == playlistItem.addedBy.id })?.displayName ?? "unknown user"
+            if let matchedUser = users.first(where: { $0.id == playlistItem.addedBy.id }) {
+                playlist[index].addedBy.displayName = matchedUser.displayName
+                if auth.signedInUser.id == matchedUser.id {
+                    playlist[index].addedBy.displayName = "You"
+                }
+            }
         }
     }
 }

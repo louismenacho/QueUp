@@ -76,6 +76,7 @@ class PlaylistViewController: UIViewController {
             case .success:
                 DispatchQueue.main.async {
                     self.searchViewController.updateIsAddedStatus(with: self.playlistVM.playlist)
+                    self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
                     self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
                     self.tableView.reloadData()
                 }
