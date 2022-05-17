@@ -76,7 +76,7 @@ extension RoomInfoViewController: UITableViewDataSource {
         }
         if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RoomInfoTableViewCell", for: indexPath)
-            cell.textLabel?.text = "Close Room"
+            cell.textLabel?.text = "End Room Session"
             cell.textLabel?.textColor = .red
             return cell
         }

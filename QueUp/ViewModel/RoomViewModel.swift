@@ -51,6 +51,10 @@ class RoomViewModel {
         return room.hostId == user.id
     }
     
+    func isSpotifyLinked() -> Bool {
+        return !room.spotifyPlaylistId.isEmpty
+    }
+ 
     func updateSpotifySession() {
         spotify.sessionPlaylistId = room.spotifyPlaylistId
         spotify.sessionTokenExpiration = room.spotifyTokenExpiration

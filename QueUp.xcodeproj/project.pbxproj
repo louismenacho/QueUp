@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9524D2C428333EBF00A36097 /* HomeFormButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524D2C128333EBF00A36097 /* HomeFormButton.swift */; };
+		9524D2C528333EBF00A36097 /* HomeFormSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524D2C228333EBF00A36097 /* HomeFormSegmentedControl.swift */; };
+		9524D2C628333EBF00A36097 /* HomeFormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524D2C328333EBF00A36097 /* HomeFormTextField.swift */; };
 		9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524FE5B2814DF9300031980 /* HomeFormView.swift */; };
 		9537A46A282E302F0090A013 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9537A469282E302F0090A013 /* SDWebImage */; };
 		9537A46D282E3AAB0090A013 /* SpotifyPlaylistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537A46C282E3AAB0090A013 /* SpotifyPlaylistAPI.swift */; };
@@ -83,6 +86,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9524D2C128333EBF00A36097 /* HomeFormButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFormButton.swift; sourceTree = "<group>"; };
+		9524D2C228333EBF00A36097 /* HomeFormSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFormSegmentedControl.swift; sourceTree = "<group>"; };
+		9524D2C328333EBF00A36097 /* HomeFormTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFormTextField.swift; sourceTree = "<group>"; };
 		9524FE5B2814DF9300031980 /* HomeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFormView.swift; sourceTree = "<group>"; };
 		9537A46C282E3AAB0090A013 /* SpotifyPlaylistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistAPI.swift; sourceTree = "<group>"; };
 		953FC170282A286300BC0620 /* SongInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInfoViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +267,9 @@
 			isa = PBXGroup;
 			children = (
 				9524FE5B2814DF9300031980 /* HomeFormView.swift */,
+				9524D2C228333EBF00A36097 /* HomeFormSegmentedControl.swift */,
+				9524D2C128333EBF00A36097 /* HomeFormButton.swift */,
+				9524D2C328333EBF00A36097 /* HomeFormTextField.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -552,6 +561,7 @@
 				95B3342B2819D20A001BF021 /* SearchViewController.swift in Sources */,
 				95DD898F2827753F0021DB18 /* APIEndpoint.swift in Sources */,
 				9576DAFB28305B4400AE1F5E /* SpotifyUsersAPI.swift in Sources */,
+				9524D2C528333EBF00A36097 /* HomeFormSegmentedControl.swift in Sources */,
 				95B3344B281A44C4001BF021 /* APIClient.swift in Sources */,
 				95B3342D2819D50E001BF021 /* SearchViewModel.swift in Sources */,
 				9537A46D282E3AAB0090A013 /* SpotifyPlaylistAPI.swift in Sources */,
@@ -560,11 +570,13 @@
 				95DD89872824B57A0021DB18 /* SpotifySearchAPI.swift in Sources */,
 				953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */,
 				95420BCF2827B48E00EEAE05 /* PlaylistService.swift in Sources */,
+				9524D2C628333EBF00A36097 /* HomeFormTextField.swift in Sources */,
 				9576DAFD283069CA00AE1F5E /* SpotifyUsersResponse.swift in Sources */,
 				9576DB0628309CED00AE1F5E /* RoomInfoTableViewCell.swift in Sources */,
 				95DD898328237EFC0021DB18 /* SpotifyAccountsResponse.swift in Sources */,
 				95B9A96F282E0CDD00146B92 /* UIViewController+Alert.swift in Sources */,
 				95DD897F281CBA6A0021DB18 /* SpotifyService.swift in Sources */,
+				9524D2C428333EBF00A36097 /* HomeFormButton.swift in Sources */,
 				9559FB9528143210008E6FF3 /* SceneDelegate.swift in Sources */,
 				95DD897A281B88EF0021DB18 /* SpotifyAccountsAPI.swift in Sources */,
 				95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */,

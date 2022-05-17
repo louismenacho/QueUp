@@ -11,6 +11,5 @@ class RoomInfoTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
     }
 }
