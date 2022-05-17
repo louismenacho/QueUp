@@ -230,7 +230,7 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw1-0b-okG">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mw1-0b-okG">
                                                             <rect key="frame" x="244" y="0.0" width="31" height="60.666666666666664"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="31" id="dxd-9G-XOb"/>
@@ -238,6 +238,9 @@
                                                             <inset key="contentEdgeInsets" minX="0.0" minY="14.9" maxX="0.0" maxY="14.9"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" image="play.circle" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="playButtonPressed:" destination="9kP-6s-PAh" eventType="touchUpInside" id="05L-9P-aN4"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -252,7 +255,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addedByUserLabel" destination="rYP-rJ-rlI" id="5JD-m0-XR8"/>
+                                            <outlet property="addedByUserLabel" destination="q9c-ye-fY1" id="HlS-nn-Zxq"/>
                                             <outlet property="albumImageView" destination="Y3o-fa-UuI" id="Put-N5-x4l"/>
                                             <outlet property="artistNamesLabel" destination="rYP-rJ-rlI" id="hX9-fT-zCY"/>
                                             <outlet property="playButton" destination="Mw1-0b-okG" id="e6G-pw-E1f"/>

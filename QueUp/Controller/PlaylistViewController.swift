@@ -126,18 +126,21 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user = usersVM.users[indexPath.row]
-        if roomVM.isHost(user) || !roomVM.isHost(usersVM.signedInUser())  { return }
-        showActionSheet(title: user.displayName, action: .init(title: "Remove", style: .destructive) {  action in
-            Task {
-                let result = await self.usersVM.deleteUser(user)
-                switch result {
-                case.success:
-                    print(user.displayName+" removed from room")
-                case .failure(let error):
-                    print(error)
+        if !roomVM.isHost(usersVM.signedInUser()) || roomVM.isHost(user) {
+            showActionSheet(title: user.displayName, subtitle: roomVM.isHost(user) ? "Host" : nil)
+        } else {
+            showActionSheet(title: user.displayName, action: .init(title: "Remove", style: .destructive) {  action in
+                Task {
+                    let result = await self.usersVM.deleteUser(user)
+                    switch result {
+                    case.success:
+                        print(user.displayName+" removed from room")
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }
 
@@ -149,6 +152,7 @@ extension PlaylistViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
+        cell.delegate = self
         cell.update(with: playlistVM.playlist[indexPath.row])
         if roomVM.isSpotifyLinked() && roomVM.isHost(usersVM.signedInUser()) {
             cell.showPlayButton()
@@ -166,4 +170,11 @@ extension PlaylistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }    
+}
+
+extension PlaylistViewController: PlaylistTableViewCellDelegate {
+    
+    func playlistTableViewCell(playButtonPressedFor cell: PlaylistTableViewCell) {
+        //play song
+    }
 }

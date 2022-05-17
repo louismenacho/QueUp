@@ -277,8 +277,8 @@
 		95B3341D28199272001BF021 /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
-				95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */,
 				953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */,
+				95B3341E281992F5001BF021 /* PlaylistTableViewCell.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";

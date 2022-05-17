@@ -15,9 +15,9 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showActionSheet(title : String, subtitle : String? = nil, action: UIAlertAction) {
+    func showActionSheet(title : String, subtitle : String? = nil, action: UIAlertAction? = nil) {
         let alert = UIAlertController(title: title, message: subtitle, preferredStyle: .actionSheet)
-        alert.addAction(action)
+        if let action = action { alert.addAction(action) }
         self.present(alert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
             alert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)

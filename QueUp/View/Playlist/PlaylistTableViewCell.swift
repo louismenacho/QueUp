@@ -8,7 +8,13 @@
 import UIKit
 import SDWebImage
 
+protocol PlaylistTableViewCellDelegate: AnyObject {
+    func playlistTableViewCell(playButtonPressedFor cell: PlaylistTableViewCell)
+}
+
 class PlaylistTableViewCell: UITableViewCell {
+    
+    var delegate: PlaylistTableViewCellDelegate?
 
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var artistNamesLabel: UILabel!
@@ -18,6 +24,9 @@ class PlaylistTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    @IBAction func playButtonPressed(_ sender: UIButton) {
     }
     
     func update(with playlistItem: PlaylistItem) {

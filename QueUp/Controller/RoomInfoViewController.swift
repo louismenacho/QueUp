@@ -38,7 +38,7 @@ class RoomInfoViewController: UIViewController {
                 print(error)
                 if let error = error as? DecodingError, case .valueNotFound = error {
                     self.navigationController?.popToRootViewController(animated: true)
-                    self.navigationController?.showAlert(title: "Host closed the room")
+                    self.navigationController?.showAlert(title: "Host ended room session")
                     self.roomVM.unsaveRoomId()
                 }
             }
@@ -70,7 +70,7 @@ extension RoomInfoViewController: UITableViewDataSource {
         }
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RoomInfoTableViewCell", for: indexPath)
-            cell.textLabel?.text = "Reset Playlist"
+            cell.textLabel?.text = "Clear Playlist"
             cell.textLabel?.textColor = .label
             return cell
         }
@@ -88,26 +88,30 @@ extension RoomInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
-            Task {
-                let result = await roomVM.clearPlaylist()
-                switch result {
-                case.success:
-                    print("cleared playlist")
-                case .failure(let error):
-                    print(error)
+            showActionSheet(title: "Are you sure you want to clear playlist?", action: .init(title: "Clear Playlist", style: .destructive) {  action in
+                Task {
+                    let result = await self.roomVM.clearPlaylist()
+                    switch result {
+                    case.success:
+                        print("cleared playlist")
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
-            }
+            })
         }
         if indexPath.row == 2 {
-            Task {
-                let result = await roomVM.closeRoom()
-                switch result {
-                case.success:
-                    print("closed room")
-                case .failure(let error):
-                    print(error)
+            showActionSheet(title: "Are you sure you want to end room session?", action: .init(title: "End Room Session", style: .destructive) {  action in
+                Task {
+                    let result = await self.roomVM.closeRoom()
+                    switch result {
+                    case.success:
+                        print("closed room")
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
-            }
+            })
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
