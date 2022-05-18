@@ -9,20 +9,35 @@ import Foundation
 
 struct SpotifyUsersResponse {
     
-    // MARK: - CurrentUserResponse
+    // MARK: - CurrentUser
     struct CurrentUser: Codable {
-        var displayName: String?
+        var country, displayName: String?
+        var explicitContent: ExplicitContent?
         var externalUrls: ExternalUrls?
         var followers: Followers?
         var href: String?
         var id: String
         var images: [Image]?
-        var type, uri: String?
+        var product: String
+        var type: String?
+        var uri: String?
         
         enum CodingKeys: String, CodingKey {
+            case country
             case displayName = "display_name"
+            case explicitContent = "explicit_content"
             case externalUrls = "external_urls"
-            case followers, href, id, images, type, uri
+            case followers, href, id, images, product, type, uri
+        }
+        
+        // MARK: - ExplicitContent
+        struct ExplicitContent: Codable {
+            var filterEnabled, filterLocked: Bool?
+            
+            enum CodingKeys: String, CodingKey {
+                case filterEnabled = "filter_enabled"
+                case filterLocked = "filter_locked"
+            }
         }
         
         // MARK: - ExternalUrls

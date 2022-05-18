@@ -342,4 +342,9 @@ struct SpotifyPlaylistResponse {
             case snapshotID = "snapshot_id"
         }
     }
+    
+    // MARK: - Unfollow
+    struct Unfollow: Codable {
+        // No Response
+    }
 }

@@ -50,13 +50,20 @@ class RoomViewModel {
         return room.hostId == user.id
     }
     
+    func isSpotifyProductPremium() -> Bool {
+        return room.spotifyProduct == "premium"
+    }
+    
     func isSpotifyLinked() -> Bool {
         return !room.spotifyPlaylistId.isEmpty
     }
     
     func generateSpotifyTokenIfNeeded() async -> Result<(), Error> {
         do {
-            try await spotify.generateSessionTokenIfNeeded()
+            let room = try await roomService.getRoom()
+            if !room.spotifyPlaylistId.isEmpty {
+                try await spotify.generateSessionTokenIfNeeded()
+            }
             return .success(())
         } catch {
             return .failure(error)
@@ -68,9 +75,11 @@ class RoomViewModel {
             try await spotify.generateSessionToken()
             let spotifyUser = try await spotify.currentUser()
             let spotifyPlaylist = try await spotify.createPlaylist(userId: spotifyUser.id, name: "QueUp Room "+room.id)
+            spotify.sessionPlaylistId = spotifyPlaylist.id
             room.spotifyPlaylistId = spotifyPlaylist.id
             room.spotifyToken = spotify.sessionToken
             room.spotifyTokenExpiration = spotify.sessionTokenExpiration
+            room.spotifyProduct = spotifyUser.product
             try roomService.updateRoom(room: room)
             return .success(())
         } catch {
@@ -95,6 +104,7 @@ class RoomViewModel {
             try await roomService.deleteRoom(room)
             try await userService.removeAllUsers()
             try await playlistService.removeAllSongs()
+            try await spotify.unfollowPlaylist()
             return .success(())
         } catch {
             return .failure(error)

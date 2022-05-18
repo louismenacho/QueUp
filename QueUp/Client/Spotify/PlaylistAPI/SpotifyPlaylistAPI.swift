@@ -13,6 +13,7 @@ enum SpotifyPlaylistAPI: APIEndpoint {
     case add(playlistId: String, uris: [String])
     case update(playlistId: String, uris: [String], rangeStart: Int, insertBefore: Int)
     case remove(playlistId: String, uris: [String])
+    case unfollow(playlistId: String)
     
     var baseURL: String {
         return "https://api.spotify.com/v1"
@@ -54,6 +55,9 @@ enum SpotifyPlaylistAPI: APIEndpoint {
                     ["uri": $0]
                 }
             ]
+        case let .unfollow(playlistId):
+            apiRequest.method = .delete
+            apiRequest.path = "/playlists/"+playlistId+"/followers"
         }
         
         return apiRequest

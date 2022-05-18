@@ -92,7 +92,7 @@ extension RoomInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 0 {
-            return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\"."
+            return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\". Spotify Premium users can play music on demand."
         }
         if section == 1 {
             return "Remove all songs from playlist. If Spotify is linked, this will also remove all songs from the \"QueUp Room \(roomVM.room.id)\" playlist."

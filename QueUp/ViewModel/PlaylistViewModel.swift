@@ -34,10 +34,6 @@ class PlaylistViewModel {
     }
     
     func playSong(song: Song) async throws {
-        guard !spotifyPlaylistId.isEmpty else {
-            print("Spotify is not linked")
-            return
-        }
         try await spotify.startPlayback(contextURI: "spotify:playlist:"+spotifyPlaylistId, uri: song.id)
     }
     

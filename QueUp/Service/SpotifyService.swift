@@ -63,7 +63,7 @@ class SpotifyService {
     
     func currentUser() async throws -> SpotifyUsersResponse.CurrentUser {
         try await generateSessionTokenIfNeeded()
-        return try await usersAPI.request(.currentUser)
+        return try await usersAPI.request(.currentUser, log: true)
     }
     
     @discardableResult
@@ -88,6 +88,12 @@ class SpotifyService {
     func removePlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Remove {
         try await generateSessionTokenIfNeeded()
         return try await playlistAPI.request(.remove(playlistId: sessionPlaylistId, uris: uris))
+    }
+    
+    @discardableResult
+    func unfollowPlaylist() async throws -> SpotifyPlaylistResponse.Unfollow {
+        try await generateSessionTokenIfNeeded()
+        return try await playlistAPI.request(.unfollow(playlistId: sessionPlaylistId), log: true)
     }
     
     @discardableResult

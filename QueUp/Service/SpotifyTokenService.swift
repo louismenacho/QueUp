@@ -25,6 +25,7 @@ class SpotifyTokenService: NSObject {
     private var sessionDelegateCallback: ((Result<SPTSession, Error>) -> ())?
     private let sessionScope: SPTScope = [
         .appRemoteControl,
+        .userReadPrivate,
         .userReadPlaybackState,
         .userModifyPlaybackState,
         .playlistReadPrivate,

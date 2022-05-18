@@ -164,7 +164,7 @@ extension PlaylistViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
         cell.delegate = self
         cell.update(with: playlistVM.playlist[indexPath.row])
-        if roomVM.isSpotifyLinked() && roomVM.isHost(usersVM.signedInUser()) {
+        if roomVM.isSpotifyLinked() && roomVM.isHost(usersVM.signedInUser()) && roomVM.isSpotifyProductPremium() {
             cell.showPlayButton()
         }
         return cell
