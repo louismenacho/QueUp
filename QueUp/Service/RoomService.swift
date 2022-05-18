@@ -31,8 +31,8 @@ class RoomService {
         listener = nil
     }
     
-    func getRoom(id: String) async throws -> Room {
-        return try await repo.get(id: id)
+    func getRoom(id: String? = nil) async throws -> Room {
+        return try await repo.get(id: id ?? currentRoom.id)
     }
     
     func createRoom(host: User) async throws -> Room {

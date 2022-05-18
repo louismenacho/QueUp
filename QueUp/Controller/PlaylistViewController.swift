@@ -26,6 +26,15 @@ class PlaylistViewController: UIViewController {
         collectionView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        Task {
+            let result = await roomVM.generateSpotifyTokenIfNeeded()
+            switch result {
+            case.success:
+                print("Spotify token generated")
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

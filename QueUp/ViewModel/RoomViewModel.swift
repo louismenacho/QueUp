@@ -54,6 +54,15 @@ class RoomViewModel {
         return !room.spotifyPlaylistId.isEmpty
     }
     
+    func generateSpotifyTokenIfNeeded() async -> Result<(), Error> {
+        do {
+            try await spotify.generateSessionTokenIfNeeded()
+            return .success(())
+        } catch {
+            return .failure(error)
+        }
+    }
+    
     func linkSpotifyAccount() async -> Result<(), Error> {
         do {
             try await spotify.generateSessionToken()
