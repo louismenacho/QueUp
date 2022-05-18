@@ -22,7 +22,6 @@ class RoomViewModel {
             switch result {
             case .success(let room):
                 self.room = room
-                self.updateSpotifySession()
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))
@@ -54,12 +53,6 @@ class RoomViewModel {
     func isSpotifyLinked() -> Bool {
         return !room.spotifyPlaylistId.isEmpty
     }
- 
-    func updateSpotifySession() {
-        spotify.sessionPlaylistId = room.spotifyPlaylistId
-        spotify.sessionTokenExpiration = room.spotifyTokenExpiration
-        spotify.setSessionToken(room.spotifyToken)
-    }
     
     func linkSpotifyAccount() async -> Result<(), Error> {
         do {
@@ -75,18 +68,6 @@ class RoomViewModel {
             return .failure(error)
         }
     }
-    
-//    func unlinkSpotifyAccount() async -> Result<(), Error> {
-//        do {
-//            room.spotifyPlaylistId = ""
-//            room.spotifyToken = ""
-//            room.spotifyTokenExpiration = Date()
-//            try roomService.updateRoom(room: room)
-//            return .success(())
-//        } catch {
-//            return .failure(error)
-//        }
-//    }
     
     func clearPlaylist() async -> Result<(), Error> {
         do {

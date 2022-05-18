@@ -19,10 +19,10 @@ class SpotifyService {
     private var playerAPI = APIClient<SpotifyPlayerAPI>()
 
     var searchTokenExpiration = Date()
+    var sessionTokenExpiration = Date()
+    var sessionToken = ""
     
     var sessionPlaylistId = ""
-    var sessionToken = ""
-    var sessionTokenExpiration = Date()
     
     private init() {}
     
@@ -38,22 +38,16 @@ class SpotifyService {
     }
     
     func generateSessionToken() async throws {
-        if !tokenService.isGeneratingSessionToken {
-            let token = try await tokenService.generateSessionToken()
-            setSessionToken(token.accessToken)
-            sessionTokenExpiration = token.expirationDate
-        }
-    }
-    
-    func setSessionToken(_ token: String) {
-        sessionToken = token
-        usersAPI.auth = .bearer(token: token)
-        playlistAPI.auth = .bearer(token: token)
-        playerAPI.auth = .bearer(token: token)
+        let token = try await tokenService.generateSessionToken()
+        sessionToken = token.accessToken
+        usersAPI.auth = .bearer(token: token.accessToken)
+        playlistAPI.auth = .bearer(token: token.accessToken)
+        playerAPI.auth = .bearer(token: token.accessToken)
+        sessionTokenExpiration = token.expirationDate
     }
 
     func generateSessionTokenIfNeeded() async throws {
-        if isTokenExpired(tokenDate: sessionTokenExpiration) && !tokenService.isGeneratingSessionToken {
+        if isTokenExpired(tokenDate: sessionTokenExpiration) {
             try await generateSessionToken()
         }
     }
