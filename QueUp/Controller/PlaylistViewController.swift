@@ -37,6 +37,7 @@ class PlaylistViewController: UIViewController {
                     self.navigationItem.title = self.roomVM.room.id
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
+                    self.playlistVM.spotifyPlaylistId = self.roomVM.room.spotifyPlaylistId
                     if !self.roomVM.isHost(self.usersVM.signedInUser()) {
                         self.navigationItem.rightBarButtonItem = nil
                     }
@@ -175,6 +176,10 @@ extension PlaylistViewController: UITableViewDelegate {
 extension PlaylistViewController: PlaylistTableViewCellDelegate {
     
     func playlistTableViewCell(playButtonPressedFor cell: PlaylistTableViewCell) {
-        //play song
+        guard let index = tableView.indexPath(for: cell)?.row else { return }
+        let playlistItem = playlistVM.playlist[index]
+        Task {
+            try await playlistVM.playSong(song: playlistItem.song)
+        }
     }
 }

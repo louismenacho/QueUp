@@ -14,6 +14,7 @@ class PlaylistViewModel {
     var spotify = SpotifyService.shared
     
     var playlist = [PlaylistItem]()
+    var spotifyPlaylistId: String = ""
     
     func playlistListener(_ listener: @escaping (Result<(), Error>) -> Void) {
         service.startListener()
@@ -30,6 +31,14 @@ class PlaylistViewModel {
     
     func stopListener() {
         service.stopListener()
+    }
+    
+    func playSong(song: Song) async throws {
+        guard !spotifyPlaylistId.isEmpty else {
+            print("Spotify is not linked")
+            return
+        }
+        try await spotify.startPlayback(contextURI: "spotify:playlist:"+spotifyPlaylistId, uri: song.id)
     }
     
     func updateAddedByDisplayNames(with users: [User]) {

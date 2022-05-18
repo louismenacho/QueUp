@@ -16,6 +16,7 @@ class SpotifyService {
     private var searchAPI = APIClient<SpotifySearchAPI>()
     private var usersAPI = APIClient<SpotifyUsersAPI>()
     private var playlistAPI = APIClient<SpotifyPlaylistAPI>()
+    private var playerAPI = APIClient<SpotifyPlayerAPI>()
 
     var searchTokenExpiration = Date()
     
@@ -48,6 +49,7 @@ class SpotifyService {
         sessionToken = token
         usersAPI.auth = .bearer(token: token)
         playlistAPI.auth = .bearer(token: token)
+        playerAPI.auth = .bearer(token: token)
     }
 
     func generateSessionTokenIfNeeded() async throws {
@@ -92,5 +94,11 @@ class SpotifyService {
     func removePlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Remove {
         try await generateSessionTokenIfNeeded()
         return try await playlistAPI.request(.remove(playlistId: sessionPlaylistId, uris: uris))
+    }
+    
+    @discardableResult
+    func startPlayback(contextURI: String, uri: String, position: Int = 0) async throws -> SpotifyPlayerResponse.StartPlayback {
+        try await generateSessionTokenIfNeeded()
+        return try await playerAPI.request(.startPlayback(contextURI: contextURI, uri: uri, position: position))
     }
 }

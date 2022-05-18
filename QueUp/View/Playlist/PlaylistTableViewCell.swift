@@ -27,6 +27,7 @@ class PlaylistTableViewCell: UITableViewCell {
     }
     
     @IBAction func playButtonPressed(_ sender: UIButton) {
+        delegate?.playlistTableViewCell(playButtonPressedFor: self)
     }
     
     func update(with playlistItem: PlaylistItem) {
