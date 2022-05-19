@@ -59,7 +59,7 @@ class HomeViewController: UIViewController {
         UIView.animate(withDuration: 0.1) { [self] in
             headerView.alpha = 1
             headerView.isHidden = false
-            headerViewTopConstraint.constant = 48
+            headerViewTopConstraint.constant = 0
             view.layoutIfNeeded()
         }
     }
