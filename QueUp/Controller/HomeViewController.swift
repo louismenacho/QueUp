@@ -65,8 +65,11 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
-        print("viewTapped")
         view.endEditing(true)
+    }
+    
+    @IBAction func privacyButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "PolicyViewController", sender: self)
     }
 }
 
