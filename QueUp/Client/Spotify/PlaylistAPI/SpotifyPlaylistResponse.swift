@@ -22,7 +22,7 @@ struct SpotifyPlaylistResponse {
         var owner: Owner?
         var primaryColor: JSONNull?
         var createPlaylistPublic: Bool?
-        var snapshotID: String?
+        var snapshotID: String
         var tracks: Tracks?
         var type, uri: String?
         

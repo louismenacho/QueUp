@@ -33,8 +33,22 @@ class PlaylistViewModel {
         service.stopListener()
     }
     
-    func playSong(song: Song) async throws {
-        try await spotify.startPlayback(contextURI: "spotify:playlist:"+spotifyPlaylistId, uri: song.id)
+    func playSong(song: Song) async -> Result<(), Error> {
+        do {
+            try await spotify.startPlayback(contextURI: "spotify:playlist:"+spotifyPlaylistId, uri: song.id)
+            return .success(())
+        } catch {
+            return .failure(error)
+        }
+    }
+    
+    func updateSpotifyPlaylist() async -> Result<(), Error> {
+        do {
+            try await spotify.updatePlaylistItems(uris: playlist.map { $0.song.id })
+            return .success(())
+        } catch {
+            return .failure(error)
+        }
     }
     
     func updateAddedByDisplayNames(with users: [User]) {

@@ -43,11 +43,22 @@ class RoomInfoViewController: UIViewController {
                 }
             }
         }
+        
+        playlistVM.playlistListener { result in
+            print("playlistListener fired")
+            switch result {
+            case .success:
+                print("")
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         roomVM.stopListener()
+        playlistVM.stopListener()
     }
 }
 
@@ -138,10 +149,19 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
     
     func spotifyLinkTableViewCell(linkStatusButtonPressedFor cell: SpotifyLinkTableViewCell) {
         Task {
-            let result = await roomVM.linkSpotifyAccount()
+            var result = await roomVM.linkSpotifyAccount()
             switch result {
             case.success:
                 print("linked Spotify account")
+            case .failure(let error):
+                print(error)
+                return
+            }
+            
+            result = await playlistVM.updateSpotifyPlaylist()
+            switch result {
+            case.success:
+                print("Spotify playlist updated")
             case .failure(let error):
                 print(error)
             }

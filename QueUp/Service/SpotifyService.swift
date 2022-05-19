@@ -79,7 +79,7 @@ class SpotifyService {
     }
     
     @discardableResult
-    func updatePlaylistItems(uris: [String], rangeStart: Int, insertBefore: Int) async throws -> SpotifyPlaylistResponse.Update {
+    func updatePlaylistItems(uris: [String], rangeStart: Int = 0, insertBefore: Int = 0) async throws -> SpotifyPlaylistResponse.Update {
         try await generateSessionTokenIfNeeded()
         return try await playlistAPI.request(.update(playlistId: sessionPlaylistId, uris: uris, rangeStart: rangeStart, insertBefore: rangeStart))
     }

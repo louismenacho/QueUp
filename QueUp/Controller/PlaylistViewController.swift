@@ -38,6 +38,7 @@ class PlaylistViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("view will appear")
         roomVM.roomListener { result in
             print("roomListener fired")
             switch result {
@@ -188,7 +189,13 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
         guard let index = tableView.indexPath(for: cell)?.row else { return }
         let playlistItem = playlistVM.playlist[index]
         Task {
-            try await playlistVM.playSong(song: playlistItem.song)
+            let result = await playlistVM.playSong(song: playlistItem.song)
+            switch result {
+            case.success:
+                print("played song")
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

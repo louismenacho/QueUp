@@ -72,7 +72,6 @@ class RoomViewModel {
     
     func linkSpotifyAccount() async -> Result<(), Error> {
         do {
-            try await spotify.generateSessionToken()
             let spotifyUser = try await spotify.currentUser()
             let spotifyPlaylist = try await spotify.createPlaylist(userId: spotifyUser.id, name: "QueUp Room "+room.id)
             spotify.sessionPlaylistId = spotifyPlaylist.id
