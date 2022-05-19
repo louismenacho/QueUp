@@ -174,13 +174,31 @@ extension PlaylistViewController: UITableViewDataSource {
 
 extension PlaylistViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 68
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 68
-    }    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal,
+                                        title: "Remove") { (action, view, completionHandler) in
+            Task{
+                let result = await self.playlistVM.removeSong(at: indexPath.row)
+                switch result {
+                case.success:
+                    print("removed song")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            completionHandler(true)
+        }
+        action.backgroundColor = .systemRed
+        return UISwipeActionsConfiguration(actions: [action])
+    }
 }
 
 extension PlaylistViewController: PlaylistTableViewCellDelegate {

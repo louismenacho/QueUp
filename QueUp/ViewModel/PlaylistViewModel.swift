@@ -42,6 +42,19 @@ class PlaylistViewModel {
         }
     }
     
+    func removeSong(at index: Int) async -> Result<(), Error> {
+        let song = playlist[index].song
+        do {
+            try await service.removeSong(song)
+            if !spotify.sessionPlaylistId.isEmpty {
+                try await spotify.removePlaylistItems(uris: [song.id])
+            }
+            return .success(())
+        } catch {
+            return .failure(error)
+        }
+    }
+    
     func updateSpotifyPlaylist() async -> Result<(), Error> {
         do {
             try await spotify.updatePlaylistItems(uris: playlist.map { $0.song.id })
