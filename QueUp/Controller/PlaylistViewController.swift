@@ -29,8 +29,8 @@ class PlaylistViewController: UIViewController {
         Task {
             let result = await roomVM.generateSpotifyTokenIfNeeded()
             switch result {
-            case.success:
-                print("Spotify token generated")
+            case.success(let bool):
+                print("Spotify token generated: \(bool)")
             case .failure(let error):
                 print(error)
             }

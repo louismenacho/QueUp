@@ -47,17 +47,17 @@ class SpotifyService {
     }
 
     func generateSessionTokenIfNeeded() async throws {
-        if isTokenExpired(tokenDate: sessionTokenExpiration) {
+        if isTokenExpired(tokenExpiration: sessionTokenExpiration) {
             try await generateSessionToken()
         }
     }
     
-    func isTokenExpired(tokenDate: Date) -> Bool {
-        return tokenDate.compare(Date()) == .orderedAscending
+    func isTokenExpired(tokenExpiration: Date) -> Bool {
+        return tokenExpiration.compare(Date()) == .orderedAscending
     }
         
     func search(_ query: String) async throws -> SpotifySearchResponse.Search {
-        if isTokenExpired(tokenDate: searchTokenExpiration) { try await generateSearchToken() }
+        if isTokenExpired(tokenExpiration: searchTokenExpiration) { try await generateSearchToken() }
         return try await searchAPI.request(.search(query: query, type: "track", limit: 50))
     }
     

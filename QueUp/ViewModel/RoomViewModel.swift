@@ -58,13 +58,17 @@ class RoomViewModel {
         return !room.spotifyPlaylistId.isEmpty
     }
     
-    func generateSpotifyTokenIfNeeded() async -> Result<(), Error> {
+    func generateSpotifyTokenIfNeeded() async -> Result<(Bool), Error> {
         do {
-            let room = try await roomService.getRoom()
-            if !room.spotifyPlaylistId.isEmpty {
-                try await spotify.generateSessionTokenIfNeeded()
+            var room = try await roomService.getRoom()
+            guard !room.spotifyPlaylistId.isEmpty && spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration) else {
+                return .success((false))
             }
-            return .success(())
+            try await spotify.generateSessionToken()
+            room.spotifyToken = spotify.sessionToken
+            room.spotifyTokenExpiration = spotify.sessionTokenExpiration
+            try roomService.updateRoom(room: room)
+            return .success(true)
         } catch {
             return .failure(error)
         }
