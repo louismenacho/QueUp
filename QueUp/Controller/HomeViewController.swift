@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         appearanceSwitch.delegate = self
         formView.delegate = self
+        appearanceSwitch.setOn(traitCollection.userInterfaceStyle == .light ? true : false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
