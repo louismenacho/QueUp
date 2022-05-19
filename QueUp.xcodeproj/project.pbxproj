@@ -53,6 +53,7 @@
 		95B9A96B282DFEFF00146B92 /* UserDefaultsProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */; };
 		95B9A96C282DFEFF00146B92 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */; };
 		95B9A96F282E0CDD00146B92 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */; };
+		95BBC52D2836133300529D4F /* SwitchControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BBC52C2836133300529D4F /* SwitchControl.swift */; };
 		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
 		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
 		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
@@ -130,6 +131,7 @@
 		95B9A969282DFEFF00146B92 /* UserDefaultsProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsProperty.swift; sourceTree = "<group>"; };
 		95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
 		95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		95BBC52C2836133300529D4F /* SwitchControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchControl.swift; sourceTree = "<group>"; };
 		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		95B3341C28199253001BF021 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				95BBC52C2836133300529D4F /* SwitchControl.swift */,
 				9524FE5B2814DF9300031980 /* HomeFormView.swift */,
 				9524D2C228333EBF00A36097 /* HomeFormSegmentedControl.swift */,
 				9524D2C128333EBF00A36097 /* HomeFormButton.swift */,
@@ -597,6 +600,7 @@
 				95DD898D28275E520021DB18 /* HTTPContentType.swift in Sources */,
 				95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */,
 				95420BCB28278C4900EEAE05 /* SpotifySearchResponse.swift in Sources */,
+				95BBC52D2836133300529D4F /* SwitchControl.swift in Sources */,
 				9576DB04283094C900AE1F5E /* SpotifyLinkTableViewCell.swift in Sources */,
 				95B334252819A5CF001BF021 /* PlaylistItem.swift in Sources */,
 				9576DB012830919A00AE1F5E /* RoomInfoViewController.swift in Sources */,
