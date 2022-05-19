@@ -148,22 +148,24 @@ extension RoomInfoViewController: UITableViewDelegate {
 extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
     
     func spotifyLinkTableViewCell(linkStatusButtonPressedFor cell: SpotifyLinkTableViewCell) {
+        cell.linkStatusButton.isEnabled = false
         Task {
             var result = await roomVM.linkSpotifyAccount()
             switch result {
             case.success:
-                print("linked Spotify account")
+                result = await playlistVM.updateSpotifyPlaylist()
+                switch result {
+                case.success:
+                    print("Spotify playlist updated")
+                case .failure(let error):
+                    print(error)
+                }
             case .failure(let error):
                 print(error)
-                return
             }
             
-            result = await playlistVM.updateSpotifyPlaylist()
-            switch result {
-            case.success:
-                print("Spotify playlist updated")
-            case .failure(let error):
-                print(error)
+            DispatchQueue.main.async {
+                cell.linkStatusButton.isEnabled = true
             }
         }
     }

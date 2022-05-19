@@ -187,6 +187,7 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
     
     func playlistTableViewCell(playButtonPressedFor cell: PlaylistTableViewCell) {
         guard let index = tableView.indexPath(for: cell)?.row else { return }
+        cell.playButton.isEnabled = false
         let playlistItem = playlistVM.playlist[index]
         Task {
             let result = await playlistVM.playSong(song: playlistItem.song)
@@ -196,6 +197,7 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
             case .failure(let error):
                 print(error)
             }
+            cell.playButton.isEnabled = true
         }
     }
 }
