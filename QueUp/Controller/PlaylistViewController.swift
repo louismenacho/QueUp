@@ -89,7 +89,7 @@ class PlaylistViewController: UIViewController {
                     self.searchViewController.updateIsAddedStatus(with: self.playlistVM.playlist)
                     self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
                     self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
-                    self.tableView.reloadData()
+                    self.tableView.reloadSections(.init(integer: 0), with: .none)
                 }
             case .failure(let error):
                 print(error)
@@ -183,9 +183,8 @@ extension PlaylistViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .normal,
-                                        title: "Remove") { (action, view, completionHandler) in
-            Task{
+        let action = UIContextualAction(style: .normal, title: "Remove") { (action, view, completionHandler) in
+            Task {
                 let result = await self.playlistVM.removeSong(at: indexPath.row)
                 switch result {
                 case.success:
