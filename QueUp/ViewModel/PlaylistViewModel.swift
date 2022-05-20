@@ -6,8 +6,32 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 class PlaylistViewModel {
+    
+    enum PlaylistViewModelError: LocalizedError {
+        case playlistListenerError
+        case playSongError
+        case removeSongError
+        case updateSpotifyPlaylistError
+        case spotifyPlayerInactive
+        
+        var errorDescription: String? {
+            switch self {
+            case .playlistListenerError:
+               return "Could not sync playlist data"
+            case .playSongError:
+               return "Could not play song"
+            case .removeSongError:
+               return "Could not remove song"
+            case .updateSpotifyPlaylistError:
+               return "Could not update Spotify playlist"
+            case .spotifyPlayerInactive:
+                return "Spotify must be playing music"
+            }
+        }
+    }
     
     var auth = AuthService.shared
     var service = PlaylistService.shared
@@ -38,7 +62,8 @@ class PlaylistViewModel {
             try await spotify.startPlayback(contextURI: "spotify:playlist:"+spotifyPlaylistId, uri: song.id)
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(PlaylistViewModelError.playSongError)
         }
     }
     
@@ -51,7 +76,8 @@ class PlaylistViewModel {
             }
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(PlaylistViewModelError.removeSongError)
         }
     }
     
@@ -60,7 +86,8 @@ class PlaylistViewModel {
             try await spotify.updatePlaylistItems(uris: playlist.map { $0.song.id })
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(PlaylistViewModelError.updateSpotifyPlaylistError)
         }
     }
     

@@ -35,10 +35,10 @@ class RoomInfoViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                self.showAlert(title: error.localizedDescription)
                 if let error = error as? DecodingError, case .valueNotFound = error {
                     self.navigationController?.popToRootViewController(animated: true)
-                    self.navigationController?.showAlert(title: "Host ended room session")
+                    self.navigationController?.showAlert(title: "Room session ended")
                     self.roomVM.unsaveRoomId()
                 }
             }
@@ -50,7 +50,7 @@ class RoomInfoViewController: UIViewController {
             case .success:
                 break
             case .failure(let error):
-                print(error)
+                self.showAlert(title: error.localizedDescription)
             }
         }
     }
@@ -76,7 +76,7 @@ extension RoomInfoViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SpotifyLinkTableViewCell", for: indexPath) as! SpotifyLinkTableViewCell
             cell.delegate = self
-            cell.update(with: roomVM.room)
+            cell.showLinkedStatus(isSpotifyLinked: roomVM.isSpotifyLinked(), isTokenExpired: roomVM.isTokenExpired())
             return cell
         }
         if indexPath.section == 1 {
@@ -123,7 +123,7 @@ extension RoomInfoViewController: UITableViewDelegate {
                     case.success:
                         print("cleared playlist")
                     case .failure(let error):
-                        print(error)
+                        self.showAlert(title: error.localizedDescription)
                     }
                 }
             })
@@ -131,12 +131,12 @@ extension RoomInfoViewController: UITableViewDelegate {
         if indexPath.section == 2 {
             showActionSheet(title: "Are you sure you want to end room session?", action: .init(title: "End Room Session", style: .destructive) {  action in
                 Task {
-                    let result = await self.roomVM.closeRoom()
+                    let result = await self.roomVM.endRoomSession()
                     switch result {
                     case.success:
                         print("closed room")
                     case .failure(let error):
-                        print(error)
+                        self.showAlert(title: error.localizedDescription)
                     }
                 }
             })
@@ -149,22 +149,39 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
     
     func spotifyLinkTableViewCell(linkStatusButtonPressedFor cell: SpotifyLinkTableViewCell) {
         cell.linkStatusButton.isEnabled = false
-        Task {
-            var result = await roomVM.linkSpotifyAccount()
-            switch result {
-            case.success:
-                print("Spotify linked")
-                cell.linkStatusButton.isEnabled = false
-                result = await playlistVM.updateSpotifyPlaylist()
+        if roomVM.isSpotifyLinked() && roomVM.isTokenExpired() {
+            Task {
+                let result = await roomVM.generateSpotifyTokenIfNeeded()
                 switch result {
-                case.success:
-                    print("Spotify playlist updated")
+                case.success(let tokenDidGenerate):
+                    if tokenDidGenerate {
+                        cell.linkStatusButton.isEnabled = false
+                    } else {
+                        cell.linkStatusButton.isEnabled = true
+                    }
                 case .failure(let error):
-                    print(error)
+                    showAlert(title: error.localizedDescription)
+                    cell.linkStatusButton.isEnabled = true
                 }
-            case .failure(let error):
-                print(error)
-                cell.linkStatusButton.isEnabled = true
+            }
+        } else {
+            Task {
+                let linkResult = await roomVM.linkSpotifyAccount()
+                switch linkResult {
+                case.success(let isLinked):
+                    if isLinked {
+                        let updateResult = await playlistVM.updateSpotifyPlaylist()
+                        if case let .failure(error) = updateResult {
+                            showAlert(title: error.localizedDescription)
+                        }
+                        cell.linkStatusButton.isEnabled = false
+                    } else {
+                        cell.linkStatusButton.isEnabled = true
+                    }
+                case .failure(let error):
+                    showAlert(title: error.localizedDescription)
+                    cell.linkStatusButton.isEnabled = true
+                }
             }
         }
     }

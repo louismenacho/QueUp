@@ -6,11 +6,25 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 class SearchViewModel {
     
-    enum SearchViewModelError: Error {
+    enum SearchViewModelError: LocalizedError {
+        case searchError
+        case addSongError
         case duplicateSongError
+        
+        var errorDescription: String? {
+            switch self {
+            case .searchError:
+               return "Could not complete search"
+            case .addSongError:
+               return "Could not add song"
+            case .duplicateSongError:
+               return "This song has already been added"
+            }
+        }
     }
     
     let auth = AuthService.shared
@@ -39,7 +53,8 @@ class SearchViewModel {
             }
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(SearchViewModelError.searchError)
         }
     }
     
@@ -55,7 +70,8 @@ class SearchViewModel {
             }
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(SearchViewModelError.addSongError)
         }
     }
     

@@ -6,8 +6,35 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 class RoomViewModel {
+    
+    enum RoomViewModelError: LocalizedError {
+        case roomListenerError
+        case roomUpdateError
+        case spotifyTokenGenerationError
+        case spotifyLinkError
+        case clearPlaylistError
+        case endRoomSessionError
+        
+        var errorDescription: String? {
+            switch self {
+            case .roomListenerError:
+                return "Could not sync room data"
+            case .roomUpdateError:
+                return "Could not update room"
+            case .spotifyTokenGenerationError:
+                return "Coult not generate Spotify token"
+            case .spotifyLinkError:
+                return "Could not link with Spotify"
+            case .clearPlaylistError:
+                return "Could not clear playlist"
+            case .endRoomSessionError:
+                return "Could not end room session"
+            }
+        }
+    }
     
     var roomService = RoomService.shared
     var userService = UserService.shared
@@ -22,6 +49,8 @@ class RoomViewModel {
             switch result {
             case .success(let room):
                 self.room = room
+                self.spotify.sessionPlaylistId = room.spotifyPlaylistId
+                self.spotify.sessionToken = room.spotifyToken
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))
@@ -34,7 +63,8 @@ class RoomViewModel {
             try roomService.updateRoom(room: room)
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(RoomViewModelError.roomUpdateError)
         }
     }
     
@@ -58,6 +88,10 @@ class RoomViewModel {
         return !room.spotifyPlaylistId.isEmpty
     }
     
+    func isTokenExpired() -> Bool {
+        return spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration)
+    }
+    
     func generateSpotifyTokenIfNeeded() async -> Result<(Bool), Error> {
         do {
             var room = try await roomService.getRoom()
@@ -70,11 +104,15 @@ class RoomViewModel {
             try roomService.updateRoom(room: room)
             return .success(true)
         } catch {
-            return .failure(error)
+            if (error as NSError).code == 1 {
+                return .success(false)
+            }
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(RoomViewModelError.spotifyTokenGenerationError)
         }
     }
     
-    func linkSpotifyAccount() async -> Result<(), Error> {
+    func linkSpotifyAccount() async -> Result<(Bool), Error> {
         do {
             let spotifyUser = try await spotify.currentUser()
             let spotifyPlaylist = try await spotify.createPlaylist(userId: spotifyUser.id, name: "QueUp Room "+room.id)
@@ -84,9 +122,13 @@ class RoomViewModel {
             room.spotifyTokenExpiration = spotify.sessionTokenExpiration
             room.spotifyProduct = spotifyUser.product
             try roomService.updateRoom(room: room)
-            return .success(())
+            return .success((true))
         } catch {
-            return .failure(error)
+            if (error as NSError).code == 1 {
+                return .success(false)
+            }
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(RoomViewModelError.spotifyLinkError)
         }
     }
     
@@ -98,11 +140,12 @@ class RoomViewModel {
             }
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(RoomViewModelError.clearPlaylistError)
         }
     }
     
-    func closeRoom() async -> Result<(), Error> {
+    func endRoomSession() async -> Result<(), Error> {
         do {
             try await roomService.deleteRoom(room)
             try await userService.removeAllUsers()
@@ -110,7 +153,8 @@ class RoomViewModel {
             try await spotify.unfollowPlaylist()
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(RoomViewModelError.endRoomSessionError)
         }
     }
 }

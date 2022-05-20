@@ -65,7 +65,7 @@ extension SearchViewController: UISearchResultsUpdating {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                showAlert(title: error.localizedDescription)
             }
         }
     }
@@ -117,7 +117,7 @@ extension SearchViewController: SearchResultTableViewCellDelegate {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                showAlert(title: error.localizedDescription)
             }
         }
     }

@@ -6,8 +6,23 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 class UsersViewModel {
+    
+    enum UsersViewModelError: LocalizedError {
+        case userListenerError
+        case userDeleteError
+        
+        var errorDescription: String? {
+            switch self {
+            case .userListenerError:
+                return "Could not sync user data"
+            case .userDeleteError:
+                return "Could not delete user"
+            }
+        }
+    }
     
     var service = UserService.shared
     
@@ -43,7 +58,8 @@ class UsersViewModel {
             try await service.removeUser(user)
             return .success(())
         } catch {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(UsersViewModelError.userDeleteError)
         }
     }
 }

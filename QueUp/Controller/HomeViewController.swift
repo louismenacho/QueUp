@@ -96,7 +96,7 @@ extension HomeViewController: HomeFormViewDelegate {
                     self.performSegue(withIdentifier: "PlaylistViewController", sender: self)
                 }
             case .failure(let error):
-                print(error)
+                showAlert(title: error.localizedDescription)
             }
             homeFormView.joinButton.isEnabled = true
         }
@@ -112,7 +112,7 @@ extension HomeViewController: HomeFormViewDelegate {
                     self.performSegue(withIdentifier: "PlaylistViewController", sender: self)
                 }
             case .failure(let error):
-                print(error)
+                showAlert(title: error.localizedDescription)
             }
             homeFormView.hostButton.isEnabled = true
         }

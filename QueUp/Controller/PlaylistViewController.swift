@@ -32,7 +32,7 @@ class PlaylistViewController: UIViewController {
             case.success(let bool):
                 print("Spotify token generated: \(bool)")
             case .failure(let error):
-                print(error)
+                showAlert(title: error.localizedDescription)
             }
         }
     }
@@ -53,11 +53,12 @@ class PlaylistViewController: UIViewController {
                     }
                 }
             case .failure(let error):
-                print(error)
                 if let error = error as? DecodingError, case .valueNotFound = error {
                     self.navigationController?.popToRootViewController(animated: true)
-                    self.navigationController?.showAlert(title: "Host closed the room")
+                    self.navigationController?.showAlert(title: "Room session ended")
                     self.roomVM.unsaveRoomId()
+                } else {
+                    self.showAlert(title: error.localizedDescription)
                 }
             }
         }
@@ -77,7 +78,7 @@ class PlaylistViewController: UIViewController {
                     self.collectionView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                self.showAlert(title: error.localizedDescription)
             }
         }
         
@@ -92,7 +93,7 @@ class PlaylistViewController: UIViewController {
                     self.tableView.reloadSections(.init(integer: 0), with: .none)
                 }
             case .failure(let error):
-                print(error)
+                self.showAlert(title: error.localizedDescription)
             }
         }
     }
@@ -147,7 +148,7 @@ extension PlaylistViewController: UICollectionViewDelegateFlowLayout {
                     case.success:
                         print(user.displayName+" removed from room")
                     case .failure(let error):
-                        print(error)
+                        self.showAlert(title: error.localizedDescription)
                     }
                 }
             })
@@ -165,7 +166,11 @@ extension PlaylistViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistTableViewCell", for: indexPath) as! PlaylistTableViewCell
         cell.delegate = self
         cell.update(with: playlistVM.playlist[indexPath.row])
-        if roomVM.isSpotifyLinked() && roomVM.isHost(usersVM.signedInUser()) && roomVM.isSpotifyProductPremium() {
+        if  roomVM.isHost(usersVM.signedInUser()) &&
+            roomVM.isSpotifyLinked() &&
+            roomVM.isSpotifyProductPremium() &&
+            !roomVM.isTokenExpired()
+        {
             cell.showPlayButton()
         }
         return cell
@@ -190,7 +195,7 @@ extension PlaylistViewController: UITableViewDelegate {
                 case.success:
                     print("removed song")
                 case .failure(let error):
-                    print(error)
+                    self.showAlert(title: error.localizedDescription)
                 }
             }
             completionHandler(true)
@@ -208,11 +213,8 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
         let playlistItem = playlistVM.playlist[index]
         Task {
             let result = await playlistVM.playSong(song: playlistItem.song)
-            switch result {
-            case.success:
-                print("played song")
-            case .failure(let error):
-                print(error)
+            if case .failure(let error) = result {
+                showAlert(title: error.localizedDescription)
             }
             cell.playButton.isEnabled = true
         }

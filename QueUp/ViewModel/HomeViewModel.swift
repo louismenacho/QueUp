@@ -6,11 +6,25 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 class HomeViewModel {
     
-    enum HomeViewModelError: Error {
-        case roomCapacityReached
+    enum HomeViewModelError: LocalizedError {
+        case roomCapacityReached(roomId: String)
+        case joinRoomError
+        case hostRoomError
+        
+        var errorDescription: String? {
+            switch self {
+            case .roomCapacityReached(let roomId):
+               return "Room \(roomId) is full"
+            case .joinRoomError:
+               return "Could not join room"
+            case .hostRoomError:
+               return "Could not host room"
+            }
+        }
     }
     
     var lastRoomId: String {
@@ -29,7 +43,7 @@ class HomeViewModel {
             
             let users = try await UserService.shared.listUsers()
             guard users.count < 8 || users.contains(where: { $0.id == user.id }) else {
-                return .failure(HomeViewModelError.roomCapacityReached)
+                return .failure(HomeViewModelError.roomCapacityReached(roomId: room.id))
             }
             
             if let existingUser = users.first(where: { $0.id == user.id }) {
@@ -42,7 +56,8 @@ class HomeViewModel {
             UserDefaultsRepository.shared.displayName = user.displayName
             return .success(())
         } catch  {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(HomeViewModelError.joinRoomError)
         }
     }
     
@@ -59,7 +74,8 @@ class HomeViewModel {
             UserDefaultsRepository.shared.displayName = user.displayName
             return .success(())
         } catch  {
-            return .failure(error)
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(HomeViewModelError.hostRoomError)
         }
     }
     
