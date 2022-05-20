@@ -28,7 +28,7 @@ class HomeViewModel {
             updateServices(with: room)
             
             let users = try await UserService.shared.listUsers()
-            guard users.count < 8 else {
+            guard users.count < 8 || users.contains(where: { $0.id == user.id }) else {
                 return .failure(HomeViewModelError.roomCapacityReached)
             }
             
