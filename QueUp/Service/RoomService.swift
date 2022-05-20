@@ -36,9 +36,14 @@ class RoomService {
     }
     
     func createRoom(host: User) async throws -> Room {
-        let room = Room(id: randomString(of: 4), hostId: host.id)
-        try repo.create(id: room.id, with: room)
-        return room
+        let rooms = try await repo.list()
+        var newRoomId = randomString(of: 4)
+        while rooms.map({ $0.id }).contains(newRoomId) {
+            newRoomId = randomString(of: 4)
+        }
+        let newRoom = Room(id: newRoomId, hostId: host.id)
+        try repo.create(id: newRoom.id, with: newRoom)
+        return newRoom
     }
     
     func updateRoom(room: Room) throws {

@@ -48,7 +48,7 @@ class RoomInfoViewController: UIViewController {
             print("playlistListener fired")
             switch result {
             case .success:
-                print("")
+                break
             case .failure(let error):
                 print(error)
             }
