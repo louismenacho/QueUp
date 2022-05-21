@@ -22,12 +22,29 @@ class PlaylistViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.searchController = searchViewController.parentSearchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        searchViewController.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+        guard roomVM.isHost(usersVM.signedInUser()) else { return }
+        print("here")
         Task {
-            let result = await roomVM.generateSpotifyTokenIfNeeded()
+            let result = await roomVM.relinkSpotifyIfNeeded()
+            switch result {
+            case.success(let bool):
+                print("Spotify token generated: \(bool)")
+            case .failure(let error):
+                showAlert(title: error.localizedDescription)
+            }
+        }
+    }
+    
+    @objc func willEnterForeground() {
+        Task {
+            let result = await roomVM.relinkSpotifyIfNeeded()
             switch result {
             case.success(let bool):
                 print("Spotify token generated: \(bool)")
@@ -92,6 +109,14 @@ class PlaylistViewController: UIViewController {
                     self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
                     self.tableView.reloadSections(.init(integer: 0), with: .none)
                 }
+                if self.playlistVM.shouldUpdateSpotifyPlaylist {
+                    Task {
+                        let updateResult = await self.playlistVM.updateSpotifyPlaylist()
+                        if case let .failure(error) = updateResult {
+                            self.showAlert(title: error.localizedDescription)
+                        }
+                    }
+                }
             case .failure(let error):
                 self.showAlert(title: error.localizedDescription)
             }
@@ -110,6 +135,13 @@ class PlaylistViewController: UIViewController {
     
     @IBAction func rightBarButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "RoomInfoViewController", sender: self)
+    }
+}
+
+extension PlaylistViewController: SearchViewControllerDelegate {
+    
+    func searchViewController(searchViewController: SearchViewController, didAddSong song: Song) {
+        playlistVM.shouldUpdateSpotifyPlaylist = true
     }
 }
 
@@ -209,8 +241,8 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
     
     func playlistTableViewCell(playButtonPressedFor cell: PlaylistTableViewCell) {
         guard let index = tableView.indexPath(for: cell)?.row else { return }
-        cell.playButton.isEnabled = false
         let playlistItem = playlistVM.playlist[index]
+        cell.playButton.isEnabled = false
         Task {
             let result = await playlistVM.playSong(song: playlistItem.song)
             if case .failure(let error) = result {

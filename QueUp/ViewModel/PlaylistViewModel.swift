@@ -39,6 +39,8 @@ class PlaylistViewModel {
     
     var playlist = [PlaylistItem]()
     var spotifyPlaylistId: String = ""
+    var shouldUpdateSpotifyPlaylist: Bool = false
+    var fairMode: Bool = true
     
     func playlistListener(_ listener: @escaping (Result<(), Error>) -> Void) {
         service.startListener()
@@ -46,6 +48,9 @@ class PlaylistViewModel {
             switch result {
             case .success(let playlist):
                 self.playlist = playlist.sorted(by: { $0.dateAdded < $1.dateAdded })
+                if self.fairMode {
+                    self.playlist = self.sortedFairly(playlist: self.playlist)
+                }
                 listener(.success(()))
             case .failure(let error):
                 listener(.failure(error))
@@ -71,9 +76,6 @@ class PlaylistViewModel {
         let song = playlist[index].song
         do {
             try await service.removeSong(song)
-            if !spotify.sessionPlaylistId.isEmpty {
-                try await spotify.removePlaylistItems(uris: [song.id])
-            }
             return .success(())
         } catch {
             Crashlytics.crashlytics().record(error: error)
@@ -82,6 +84,7 @@ class PlaylistViewModel {
     }
     
     func updateSpotifyPlaylist() async -> Result<(), Error> {
+        shouldUpdateSpotifyPlaylist = false
         do {
             try await spotify.updatePlaylistItems(uris: playlist.map { $0.song.id })
             return .success(())
@@ -100,5 +103,19 @@ class PlaylistViewModel {
                 }
             }
         }
+    }
+    
+    func sortedFairly(playlist: [PlaylistItem]) -> [PlaylistItem] {
+        let set = NSOrderedSet(array: playlist.map { $0.addedBy.id }).array as! [String]
+        var playlist = playlist
+        var fairPlaylist = [PlaylistItem]()
+        while !playlist.isEmpty {
+            set.forEach { userId in
+                if let index = playlist.firstIndex(where: { $0.addedBy.id == userId }) {
+                    fairPlaylist.append(playlist.remove(at: index))
+                }
+            }
+        }
+        return fairPlaylist
     }
 }

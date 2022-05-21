@@ -92,10 +92,10 @@ class RoomViewModel {
         return spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration)
     }
     
-    func generateSpotifyTokenIfNeeded() async -> Result<(Bool), Error> {
+    func relinkSpotifyIfNeeded() async -> Result<(Bool), Error> {
         do {
             var room = try await roomService.getRoom()
-            guard !room.spotifyPlaylistId.isEmpty && spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration) else {
+            guard isSpotifyLinked() && spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration) else {
                 return .success((false))
             }
             try await spotify.generateSessionToken()
@@ -114,6 +114,7 @@ class RoomViewModel {
     
     func linkSpotifyAccount() async -> Result<(Bool), Error> {
         do {
+            try await spotify.generateSessionToken()
             let spotifyUser = try await spotify.currentUser()
             let spotifyPlaylist = try await spotify.createPlaylist(userId: spotifyUser.id, name: "QueUp Room "+room.id)
             spotify.sessionPlaylistId = spotifyPlaylist.id

@@ -58,17 +58,14 @@ class SearchViewModel {
         }
     }
     
-    func addSong(at index: Int) async throws -> Result<(()), Error> {
+    func addSong(at index: Int) async throws -> Result<(Song), Error> {
         let song = searchResult[index].song
         guard !currentPlaylist.contains(where: { $0.song.id == song.id }) else {
             return .failure(SearchViewModelError.duplicateSongError)
         }
         do {
             try playlistService.addSong(song, addedBy: auth.signedInUser)
-            if !spotify.sessionPlaylistId.isEmpty {
-                try await spotify.addPlaylistItems(uris: [song.id])
-            }
-            return .success(())
+            return .success(song)
         } catch {
             Crashlytics.crashlytics().record(error: error)
             return .failure(SearchViewModelError.addSongError)

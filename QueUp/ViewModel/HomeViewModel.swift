@@ -27,6 +27,8 @@ class HomeViewModel {
         }
     }
     
+    var room = Room()
+    
     var lastRoomId: String {
         UserDefaultsRepository.shared.roomId
     }
@@ -52,6 +54,7 @@ class HomeViewModel {
             try await UserService.shared.addUser(user)
             try await SpotifyService.shared.initialize()
             
+            self.room = room
             UserDefaultsRepository.shared.roomId = room.id
             UserDefaultsRepository.shared.displayName = user.displayName
             return .success(())
@@ -70,6 +73,7 @@ class HomeViewModel {
             try await UserService.shared.addUser(user)
             try await SpotifyService.shared.initialize()
             
+            self.room = room
             UserDefaultsRepository.shared.roomId = room.id
             UserDefaultsRepository.shared.displayName = user.displayName
             return .success(())

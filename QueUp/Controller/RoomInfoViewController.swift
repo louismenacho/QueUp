@@ -151,10 +151,14 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
         cell.linkStatusButton.isEnabled = false
         if roomVM.isSpotifyLinked() && roomVM.isTokenExpired() {
             Task {
-                let result = await roomVM.generateSpotifyTokenIfNeeded()
+                let result = await roomVM.relinkSpotifyIfNeeded()
                 switch result {
                 case.success(let tokenDidGenerate):
                     if tokenDidGenerate {
+                        let updateResult = await playlistVM.updateSpotifyPlaylist()
+                        if case let .failure(error) = updateResult {
+                            showAlert(title: error.localizedDescription)
+                        }
                         cell.linkStatusButton.isEnabled = false
                     } else {
                         cell.linkStatusButton.isEnabled = true

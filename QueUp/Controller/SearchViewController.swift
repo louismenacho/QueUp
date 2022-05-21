@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SearchViewControllerDelegate: AnyObject {
+    func searchViewController(searchViewController: SearchViewController, didAddSong song: Song)
+}
+
 class SearchViewController: UIViewController {
+    
+    weak var delegate: SearchViewControllerDelegate?
     
     lazy var parentSearchController = UISearchController(searchResultsController: self)
     @IBOutlet weak var tableViewHeaderLabel: UILabel!
@@ -112,9 +118,10 @@ extension SearchViewController: SearchResultTableViewCellDelegate {
         Task {
             let result = try await vm.addSong(at: indexPath.row)
             switch result {
-            case.success:
+            case.success(let song):
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.delegate?.searchViewController(searchViewController: self, didAddSong: song)
                 }
             case .failure(let error):
                 showAlert(title: error.localizedDescription)

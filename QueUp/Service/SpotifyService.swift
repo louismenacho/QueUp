@@ -20,9 +20,15 @@ class SpotifyService {
 
     var searchTokenExpiration = Date()
     var sessionTokenExpiration = Date()
-    var sessionToken = ""
-    
     var sessionPlaylistId = ""
+    
+    var sessionToken = "" {
+        didSet {
+            usersAPI.auth = .bearer(token: sessionToken)
+            playlistAPI.auth = .bearer(token: sessionToken)
+            playerAPI.auth = .bearer(token: sessionToken)
+        }
+    }
     
     private init() {}
     
@@ -40,9 +46,6 @@ class SpotifyService {
     func generateSessionToken() async throws {
         let token = try await tokenService.generateSessionToken()
         sessionToken = token.accessToken
-        usersAPI.auth = .bearer(token: token.accessToken)
-        playlistAPI.auth = .bearer(token: token.accessToken)
-        playerAPI.auth = .bearer(token: token.accessToken)
         sessionTokenExpiration = token.expirationDate
     }
 
@@ -62,41 +65,34 @@ class SpotifyService {
     }
     
     func currentUser() async throws -> SpotifyUsersResponse.CurrentUser {
-        try await generateSessionTokenIfNeeded()
-        return try await usersAPI.request(.currentUser)
+        try await usersAPI.request(.currentUser)
     }
     
     @discardableResult
     func createPlaylist(userId: String, name: String) async throws -> SpotifyPlaylistResponse.CreatePlaylist {
-        try await generateSessionTokenIfNeeded()
-        return try await playlistAPI.request(.create(userId: userId, name: name))
+        try await playlistAPI.request(.create(userId: userId, name: name))
     }
     
     @discardableResult
     func addPlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Add {
-        try await generateSessionTokenIfNeeded()
-        return try await playlistAPI.request(.add(playlistId: sessionPlaylistId, uris: uris))
+        try await playlistAPI.request(.add(playlistId: sessionPlaylistId, uris: uris))
     }
     
     @discardableResult
     func updatePlaylistItems(uris: [String], rangeStart: Int = 0, insertBefore: Int = 0) async throws -> SpotifyPlaylistResponse.Update {
-        try await generateSessionTokenIfNeeded()
-        return try await playlistAPI.request(.update(playlistId: sessionPlaylistId, uris: uris, rangeStart: rangeStart, insertBefore: rangeStart))
+        try await playlistAPI.request(.update(playlistId: sessionPlaylistId, uris: uris, rangeStart: rangeStart, insertBefore: rangeStart))
     }
     
     @discardableResult
     func removePlaylistItems(uris: [String]) async throws -> SpotifyPlaylistResponse.Remove {
-        try await generateSessionTokenIfNeeded()
         return try await playlistAPI.request(.remove(playlistId: sessionPlaylistId, uris: uris))
     }
     
     func unfollowPlaylist() async throws {
-        try await generateSessionTokenIfNeeded()
         try await playlistAPI.request(.unfollow(playlistId: sessionPlaylistId))
     }
     
     func startPlayback(contextURI: String, uri: String, position: Int = 0) async throws {
-        try await generateSessionTokenIfNeeded()
         try await playerAPI.request(.startPlayback(contextURI: contextURI, uri: uri, position: position))
     }
 }
