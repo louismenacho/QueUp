@@ -41,6 +41,21 @@ class SearchViewController: UIViewController {
         }
     }
     
+    @objc func search() {
+        guard let searchText = parentSearchController.searchBar.text, !searchText.isEmpty else { return }
+        Task {
+            let result = await vm.search(query: searchText)
+            switch result {
+            case.success:
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                showAlert(title: error.localizedDescription)
+            }
+        }
+    }
+    
     func updateIsAddedStatus(with playlist: [PlaylistItem]) {
         vm.updateIsAddedStatus(with: playlist)
         if tableView != nil { tableView.reloadData() }
@@ -58,22 +73,13 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+        guard let searchText = parentSearchController.searchBar.text, !searchText.isEmpty else {
             vm.reset()
             tableView.reloadData()
             return
         }
-        Task {
-            let result = await vm.search(query: searchText)
-            switch result {
-            case.success:
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case .failure(let error):
-                showAlert(title: error.localizedDescription)
-            }
-        }
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(search), object: nil)
+        perform(#selector(search), with: nil, afterDelay: 0.2)
     }
 }
 
