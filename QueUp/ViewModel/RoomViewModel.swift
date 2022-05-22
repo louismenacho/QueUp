@@ -8,6 +8,10 @@
 import Foundation
 import FirebaseCrashlytics
 
+protocol RoomViewModelDelegate: AnyObject {
+    func tokenTimerDidFinish()
+}
+
 class RoomViewModel {
     
     enum RoomViewModelError: LocalizedError {
@@ -36,11 +40,15 @@ class RoomViewModel {
         }
     }
     
+    weak var delegate: RoomViewModelDelegate?
+    
     var roomService = RoomService.shared
     var userService = UserService.shared
     var playlistService = PlaylistService.shared
     var spotify = SpotifyService.shared
-
+    
+    var tokenTimer: Timer?
+    
     var room = Room()
         
     func roomListener(_ listener: @escaping (Result<(), Error>) -> Void) {
@@ -100,6 +108,7 @@ class RoomViewModel {
             try await spotify.generateSessionToken()
             room.spotifyToken = spotify.sessionToken
             room.spotifyTokenExpiration = spotify.sessionTokenExpiration
+            startTokenTimer()
             try roomService.updateRoom(room: room)
             return .success(true)
         } catch {
@@ -121,6 +130,7 @@ class RoomViewModel {
             room.spotifyToken = spotify.sessionToken
             room.spotifyTokenExpiration = spotify.sessionTokenExpiration
             room.spotifyProduct = spotifyUser.product
+            startTokenTimer()
             try roomService.updateRoom(room: room)
             return .success((true))
         } catch {
@@ -157,5 +167,19 @@ class RoomViewModel {
     func triggerListener() {
         self.room.spotifyTokenExpiration.addTimeInterval(-0.1)
         _ = updateRoom(self.room)
+    }
+    
+    func startTokenTimer() {
+        let timeLeftBeforeExpiration = room.spotifyTokenExpiration.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate
+        DispatchQueue.main.async {
+            self.tokenTimer = .scheduledTimer(withTimeInterval: timeLeftBeforeExpiration, repeats: false) { _ in
+                self.delegate?.tokenTimerDidFinish()
+            }
+        }
+    }
+    
+    func resetTokenTimer() {
+        tokenTimer?.invalidate()
+        startTokenTimer()
     }
 }

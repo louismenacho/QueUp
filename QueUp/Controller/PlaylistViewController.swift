@@ -30,6 +30,7 @@ class PlaylistViewController: UIViewController {
         collectionView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        roomVM.delegate = self
         headerViewHeight.constant = 0
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
@@ -37,13 +38,18 @@ class PlaylistViewController: UIViewController {
         relinkSpotifyIfNeeded()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! RoomInfoViewController
+        vc.roomVM = roomVM
+    }
+    
     @objc func willEnterForeground() {
         guard roomVM.isHost(usersVM.signedInUser()) else { return }
+        roomVM.resetTokenTimer()
         relinkSpotifyIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("view will appear")
         roomVM.roomListener { result in
             print("roomListener fired")
             switch result {
@@ -52,10 +58,11 @@ class PlaylistViewController: UIViewController {
                     self.navigationItem.title = self.roomVM.room.id
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
-                    self.playlistVM.spotifyPlaylistId = self.roomVM.room.spotifyPlaylistId
+                    
                     if !self.roomVM.isHost(self.usersVM.signedInUser()) {
                         self.navigationItem.rightBarButtonItem = nil
                     }
+                    
                     if self.roomVM.isSpotifyLinked()  {
                         self.headerLabel.text = "Spotify is not linked. Unable to sync."
                         self.headerViewHeight.constant = self.roomVM.isTokenExpired() ? 43 : 0
@@ -148,6 +155,13 @@ class PlaylistViewController: UIViewController {
                 showAlert(title: error.localizedDescription)
             }
         }
+    }
+}
+
+extension PlaylistViewController: RoomViewModelDelegate {
+    
+    func tokenTimerDidFinish() {
+        relinkSpotifyIfNeeded()
     }
 }
 

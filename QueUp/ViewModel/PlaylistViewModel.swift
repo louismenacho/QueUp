@@ -38,7 +38,6 @@ class PlaylistViewModel {
     var spotify = SpotifyService.shared
     
     var playlist = [PlaylistItem]()
-    var spotifyPlaylistId: String = ""
     var shouldUpdateSpotifyPlaylist: Bool = false
     var fairMode: Bool = true
     
@@ -64,7 +63,7 @@ class PlaylistViewModel {
     
     func playSong(song: Song) async -> Result<(), Error> {
         do {
-            try await spotify.startPlayback(contextURI: "spotify:playlist:"+spotifyPlaylistId, uri: song.id)
+            try await spotify.startPlayback(uri: song.id)
             return .success(())
         } catch {
             Crashlytics.crashlytics().record(error: error)

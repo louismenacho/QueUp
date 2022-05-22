@@ -92,7 +92,8 @@ class SpotifyService {
         try await playlistAPI.request(.unfollow(playlistId: sessionPlaylistId))
     }
     
-    func startPlayback(contextURI: String, uri: String, position: Int = 0) async throws {
-        try await playerAPI.request(.startPlayback(contextURI: contextURI, uri: uri, position: position))
+    func startPlayback(contextURI: String? = nil, uri: String, position: Int = 0) async throws {
+        let contextURI = contextURI == nil ? "spotify:playlist:"+sessionPlaylistId : contextURI
+        try await playerAPI.request(.startPlayback(contextURI: contextURI!, uri: uri, position: position))
     }
 }
