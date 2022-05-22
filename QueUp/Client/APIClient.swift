@@ -9,10 +9,6 @@ import Foundation
 
 class APIClient<Endpoint: APIEndpoint> {
     
-    enum APIClientError: Error {
-        case badRequest(code: Int)
-    }
-    
     var auth: HTTPAuthorization = .none
     
     @discardableResult

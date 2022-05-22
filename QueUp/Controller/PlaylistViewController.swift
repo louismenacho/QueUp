@@ -10,9 +10,12 @@ import UIKit
 class PlaylistViewController: UIViewController {
 
     lazy var searchViewController = storyboard?.instantiateViewController(identifier: "SearchViewController") as! SearchViewController
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addSongButton: UIButton!
+    
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     var roomVM = RoomViewModel()
     var usersVM = UsersViewModel()
@@ -27,31 +30,16 @@ class PlaylistViewController: UIViewController {
         collectionView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
+        headerViewHeight.constant = 0
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
         guard roomVM.isHost(usersVM.signedInUser()) else { return }
-        print("here")
-        Task {
-            let result = await roomVM.relinkSpotifyIfNeeded()
-            switch result {
-            case.success(let bool):
-                print("Spotify token generated: \(bool)")
-            case .failure(let error):
-                showAlert(title: error.localizedDescription)
-            }
-        }
+        relinkSpotifyIfNeeded()
     }
     
     @objc func willEnterForeground() {
-        Task {
-            let result = await roomVM.relinkSpotifyIfNeeded()
-            switch result {
-            case.success(let bool):
-                print("Spotify token generated: \(bool)")
-            case .failure(let error):
-                showAlert(title: error.localizedDescription)
-            }
-        }
+        guard roomVM.isHost(usersVM.signedInUser()) else { return }
+        relinkSpotifyIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +55,13 @@ class PlaylistViewController: UIViewController {
                     self.playlistVM.spotifyPlaylistId = self.roomVM.room.spotifyPlaylistId
                     if !self.roomVM.isHost(self.usersVM.signedInUser()) {
                         self.navigationItem.rightBarButtonItem = nil
+                    }
+                    if self.roomVM.isSpotifyLinked()  {
+                        self.headerLabel.text = "Spotify is not linked. Unable to sync."
+                        self.headerViewHeight.constant = self.roomVM.isTokenExpired() ? 43 : 0
+                        UIView.animate(withDuration: 0.3) {
+                            self.view.layoutIfNeeded()
+                        }
                     }
                 }
             case .failure(let error):
@@ -90,7 +85,7 @@ class PlaylistViewController: UIViewController {
                         self.navigationController?.popToRootViewController(animated: true)
                         self.navigationController?.showAlert(title: "Host removed you from room")
                     }
-                    self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
+                    self.playlistVM.mapAddedByDisplayNames(from: self.usersVM.users)
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
                 }
@@ -105,14 +100,20 @@ class PlaylistViewController: UIViewController {
             case .success:
                 DispatchQueue.main.async {
                     self.searchViewController.updateIsAddedStatus(with: self.playlistVM.playlist)
-                    self.playlistVM.updateAddedByDisplayNames(with: self.usersVM.users)
+                    self.playlistVM.mapAddedByDisplayNames(from: self.usersVM.users)
                     self.addSongButton.isHidden = !self.playlistVM.playlist.isEmpty
                     self.tableView.reloadSections(.init(integer: 0), with: .none)
                 }
-                if self.playlistVM.shouldUpdateSpotifyPlaylist {
+                if self.playlistVM.shouldUpdateSpotifyPlaylist && self.roomVM.isSpotifyLinked() {
                     Task {
                         let updateResult = await self.playlistVM.updateSpotifyPlaylist()
-                        if case let .failure(error) = updateResult {
+                        switch updateResult {
+                        case .success(let didUpdate):
+                            print("Did update Spotify: \(didUpdate)")
+                            if !didUpdate {
+                                self.roomVM.triggerListener()
+                            }
+                        case .failure(let error):
                             self.showAlert(title: error.localizedDescription)
                         }
                     }
@@ -136,12 +137,29 @@ class PlaylistViewController: UIViewController {
     @IBAction func rightBarButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "RoomInfoViewController", sender: self)
     }
+    
+    func relinkSpotifyIfNeeded() {
+        Task {
+            let result = await roomVM.relinkSpotifyIfNeeded()
+            switch result {
+            case.success(let bool):
+                print("Spotify token generated: \(bool)")
+            case .failure(let error):
+                showAlert(title: error.localizedDescription)
+            }
+        }
+    }
 }
 
 extension PlaylistViewController: SearchViewControllerDelegate {
     
-    func searchViewController(searchViewController: SearchViewController, didAddSong song: Song) {
-        playlistVM.shouldUpdateSpotifyPlaylist = true
+    func searchViewController(searchViewController: SearchViewController, didUpdatSpotifyWith song: Song) -> Bool {
+        if roomVM.isSpotifyLinked() && roomVM.isTokenExpired() {
+            return false
+        } else {
+            playlistVM.shouldUpdateSpotifyPlaylist = true
+            return true
+        }
     }
 }
 
@@ -200,8 +218,7 @@ extension PlaylistViewController: UITableViewDataSource {
         cell.update(with: playlistVM.playlist[indexPath.row])
         if  roomVM.isHost(usersVM.signedInUser()) &&
             roomVM.isSpotifyLinked() &&
-            roomVM.isSpotifyProductPremium() &&
-            !roomVM.isTokenExpired()
+            roomVM.isSpotifyProductPremium()
         {
             cell.showPlayButton()
         }

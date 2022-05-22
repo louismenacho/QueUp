@@ -94,7 +94,6 @@ class RoomViewModel {
     
     func relinkSpotifyIfNeeded() async -> Result<(Bool), Error> {
         do {
-            var room = try await roomService.getRoom()
             guard isSpotifyLinked() && spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration) else {
                 return .success((false))
             }
@@ -136,9 +135,6 @@ class RoomViewModel {
     func clearPlaylist() async -> Result<(), Error> {
         do {
             try await playlistService.removeAllSongs()
-            if !spotify.sessionPlaylistId.isEmpty {
-                try await spotify.updatePlaylistItems(uris: [], rangeStart: 0, insertBefore: 0)
-            }
             return .success(())
         } catch {
             Crashlytics.crashlytics().record(error: error)
@@ -151,11 +147,15 @@ class RoomViewModel {
             try await roomService.deleteRoom(room)
             try await userService.removeAllUsers()
             try await playlistService.removeAllSongs()
-            try await spotify.unfollowPlaylist()
             return .success(())
         } catch {
             Crashlytics.crashlytics().record(error: error)
             return .failure(RoomViewModelError.endRoomSessionError)
         }
+    }
+    
+    func triggerListener() {
+        self.room.spotifyTokenExpiration.addTimeInterval(-0.1)
+        _ = updateRoom(self.room)
     }
 }

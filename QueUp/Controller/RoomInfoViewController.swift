@@ -106,7 +106,7 @@ extension RoomInfoViewController: UITableViewDelegate {
             return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\". Spotify Premium users can play music on demand."
         }
         if section == 1 {
-            return "Remove all songs from playlist. If Spotify is linked, this will also remove all songs from the \"QueUp Room \(roomVM.room.id)\" playlist."
+            return "Remove all songs from playlist. If Spotify is linked, all songs from the \"QueUp Room \(roomVM.room.id)\" playlist will remain."
         }
         if section == 2 {
             return ""
@@ -149,12 +149,12 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
     
     func spotifyLinkTableViewCell(linkStatusButtonPressedFor cell: SpotifyLinkTableViewCell) {
         cell.linkStatusButton.isEnabled = false
-        if roomVM.isSpotifyLinked() && roomVM.isTokenExpired() {
+        if cell.linkStatusButton.titleLabel!.text == "Link" {
             Task {
-                let result = await roomVM.relinkSpotifyIfNeeded()
-                switch result {
-                case.success(let tokenDidGenerate):
-                    if tokenDidGenerate {
+                let linkResult = await roomVM.linkSpotifyAccount()
+                switch linkResult {
+                case.success(let isLinked):
+                    if isLinked {
                         let updateResult = await playlistVM.updateSpotifyPlaylist()
                         if case let .failure(error) = updateResult {
                             showAlert(title: error.localizedDescription)
@@ -168,10 +168,11 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
                     cell.linkStatusButton.isEnabled = true
                 }
             }
-        } else {
+        }
+        if cell.linkStatusButton.titleLabel!.text == "Relink" {
             Task {
-                let linkResult = await roomVM.linkSpotifyAccount()
-                switch linkResult {
+                let result = await roomVM.relinkSpotifyIfNeeded()
+                switch result {
                 case.success(let isLinked):
                     if isLinked {
                         let updateResult = await playlistVM.updateSpotifyPlaylist()

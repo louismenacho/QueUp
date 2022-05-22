@@ -13,6 +13,7 @@
 		9524FE5C2814DF9300031980 /* HomeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524FE5B2814DF9300031980 /* HomeFormView.swift */; };
 		9537A46A282E302F0090A013 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9537A469282E302F0090A013 /* SDWebImage */; };
 		9537A46D282E3AAB0090A013 /* SpotifyPlaylistAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537A46C282E3AAB0090A013 /* SpotifyPlaylistAPI.swift */; };
+		953A965F28391FFB00281C47 /* APIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953A965E28391FFB00281C47 /* APIClientError.swift */; };
 		953FC171282A286300BC0620 /* SongInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC170282A286300BC0620 /* SongInfoViewController.swift */; };
 		953FC173282A296800BC0620 /* SongInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC172282A296800BC0620 /* SongInfoViewModel.swift */; };
 		953FC175282AE4C200BC0620 /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */; };
@@ -94,6 +95,7 @@
 		9524D2C328333EBF00A36097 /* HomeFormTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFormTextField.swift; sourceTree = "<group>"; };
 		9524FE5B2814DF9300031980 /* HomeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFormView.swift; sourceTree = "<group>"; };
 		9537A46C282E3AAB0090A013 /* SpotifyPlaylistAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyPlaylistAPI.swift; sourceTree = "<group>"; };
+		953A965E28391FFB00281C47 /* APIClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientError.swift; sourceTree = "<group>"; };
 		953FC170282A286300BC0620 /* SongInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongInfoViewController.swift; sourceTree = "<group>"; };
 		953FC172282A296800BC0620 /* SongInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoViewModel.swift; sourceTree = "<group>"; };
 		953FC174282AE4C200BC0620 /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				95B3344A281A44C4001BF021 /* APIClient.swift */,
 				95DD89802823650E0021DB18 /* APIRequest.swift */,
 				95DD898E2827753F0021DB18 /* APIEndpoint.swift */,
+				953A965E28391FFB00281C47 /* APIClientError.swift */,
 				95DD898828275E300021DB18 /* HTTPMethod.swift */,
 				95DD898A28275E3B0021DB18 /* HTTPAuthorization.swift */,
 				95DD898C28275E520021DB18 /* HTTPContentType.swift */,
@@ -622,6 +625,7 @@
 				953FC177282B739F00BC0620 /* UserService.swift in Sources */,
 				953FC173282A296800BC0620 /* SongInfoViewModel.swift in Sources */,
 				95CDF5D92815E26600E98B91 /* FirestoreRepository.swift in Sources */,
+				953A965F28391FFB00281C47 /* APIClientError.swift in Sources */,
 				95D526D62816661F00E633B4 /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

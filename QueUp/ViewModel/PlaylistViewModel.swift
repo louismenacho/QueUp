@@ -83,18 +83,21 @@ class PlaylistViewModel {
         }
     }
     
-    func updateSpotifyPlaylist() async -> Result<(), Error> {
+    func updateSpotifyPlaylist() async -> Result<(Bool), Error> {
         shouldUpdateSpotifyPlaylist = false
         do {
             try await spotify.updatePlaylistItems(uris: playlist.map { $0.song.id })
-            return .success(())
+            return .success(true)
         } catch {
+            if let error = error as? APIClientError, error.statusCode == 401 {
+                return .success(false)
+            }
             Crashlytics.crashlytics().record(error: error)
             return .failure(PlaylistViewModelError.updateSpotifyPlaylistError)
         }
     }
     
-    func updateAddedByDisplayNames(with users: [User]) {
+    func mapAddedByDisplayNames(from users: [User]) {
         playlist.enumerated().forEach { (index, playlistItem) in
             if let matchedUser = users.first(where: { $0.id == playlistItem.addedBy.id }) {
                 playlist[index].addedBy.displayName = matchedUser.displayName

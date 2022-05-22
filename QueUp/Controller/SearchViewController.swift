@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchViewControllerDelegate: AnyObject {
-    func searchViewController(searchViewController: SearchViewController, didAddSong song: Song)
+    func searchViewController(searchViewController: SearchViewController, didUpdatSpotifyWith song: Song) -> Bool
 }
 
 class SearchViewController: UIViewController {
@@ -16,8 +16,10 @@ class SearchViewController: UIViewController {
     weak var delegate: SearchViewControllerDelegate?
     
     lazy var parentSearchController = UISearchController(searchResultsController: self)
-    @IBOutlet weak var tableViewHeaderLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var headerViewHeight: NSLayoutConstraint!
     
     var vm = SearchViewModel()
     
@@ -30,6 +32,7 @@ class SearchViewController: UIViewController {
         updateSearchBarFont()
         tableView.dataSource = self
         tableView.delegate = self
+        headerViewHeight.constant = 0
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -127,7 +130,14 @@ extension SearchViewController: SearchResultTableViewCellDelegate {
             case.success(let song):
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    self.delegate?.searchViewController(searchViewController: self, didAddSong: song)
+                    
+                    guard let delegate = self.delegate else { return }
+                    let didUpdatSpotify = delegate.searchViewController(searchViewController: self, didUpdatSpotifyWith: song)
+                    self.headerLabel.text = "Spotify is not linked. Unable to sync."
+                    self.headerViewHeight.constant = didUpdatSpotify ? 0 : 43
+                    UIView.animate(withDuration: 0.3) {
+                        self.view.layoutIfNeeded()
+                    }
                 }
             case .failure(let error):
                 showAlert(title: error.localizedDescription)
