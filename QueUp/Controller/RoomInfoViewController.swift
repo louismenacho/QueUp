@@ -35,12 +35,13 @@ class RoomInfoViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                self.showAlert(title: error.localizedDescription)
                 if let error = error as? DecodingError, case .valueNotFound = error {
                     self.navigationController?.popToRootViewController(animated: true)
                     self.navigationController?.showAlert(title: "Room session ended")
                     self.roomVM.unsaveRoomId()
+                    return
                 }
+                self.showAlert(title: error.localizedDescription)
             }
         }
         
@@ -132,10 +133,7 @@ extension RoomInfoViewController: UITableViewDelegate {
             showActionSheet(title: "Are you sure you want to end room session?", action: .init(title: "End Room Session", style: .destructive) {  action in
                 Task {
                     let result = await self.roomVM.endRoomSession()
-                    switch result {
-                    case.success:
-                        print("closed room")
-                    case .failure(let error):
+                    if case .failure(let error) = result {
                         self.showAlert(title: error.localizedDescription)
                     }
                 }

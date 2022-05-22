@@ -83,7 +83,7 @@ class PlaylistViewController: UIViewController {
                     let signedInUser = self.usersVM.signedInUser()
                     if self.usersVM.getUser(signedInUser) == nil {
                         self.navigationController?.popToRootViewController(animated: true)
-                        self.navigationController?.showAlert(title: "Host removed you from room")
+                        self.navigationController?.showAlert(title: "Host removed you from the room")
                     }
                     self.playlistVM.mapAddedByDisplayNames(from: self.usersVM.users)
                     self.tableView.reloadData()
