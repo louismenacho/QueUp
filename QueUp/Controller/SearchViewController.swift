@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchViewControllerDelegate: AnyObject {
-    func searchViewController(searchViewController: SearchViewController, didUpdatSpotifyWith song: Song) -> Bool
+    func searchViewController(searchViewController: SearchViewController, addButtonPressedFor cell: SearchResultTableViewCell)
 }
 
 class SearchViewController: UIViewController {
@@ -44,6 +44,11 @@ class SearchViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showHeaderView(false)
+    }
+    
     @objc func search() {
         guard let searchText = parentSearchController.searchBar.text, !searchText.isEmpty else { return }
         Task {
@@ -56,6 +61,14 @@ class SearchViewController: UIViewController {
             case .failure(let error):
                 showAlert(title: error.localizedDescription)
             }
+        }
+    }
+    
+    func showHeaderView(_ bool: Bool) {
+        self.headerLabel?.text = "Spotify is not linked. Unable to sync."
+        self.headerViewHeight?.constant = bool ? 43 : 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -101,7 +114,7 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultTableViewCell", for: indexPath) as! SearchResultTableViewCell
-        cell.update(with: vm.searchResult[indexPath.row])
+        cell.searchResultItem = vm.searchResult[indexPath.row]
         cell.delegate = self
         return cell
     }
@@ -123,25 +136,25 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: SearchResultTableViewCellDelegate {
     
     func searchTableViewCell(addButtonPressedFor cell: SearchResultTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        Task {
-            let result = try await vm.addSong(at: indexPath.row)
-            switch result {
-            case.success(let song):
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    
-                    guard let delegate = self.delegate else { return }
-                    let didUpdatSpotify = delegate.searchViewController(searchViewController: self, didUpdatSpotifyWith: song)
-                    self.headerLabel.text = "Spotify is not linked. Unable to sync."
-                    self.headerViewHeight.constant = didUpdatSpotify ? 0 : 43
-                    UIView.animate(withDuration: 0.3) {
-                        self.view.layoutIfNeeded()
-                    }
-                }
-            case .failure(let error):
-                showAlert(title: error.localizedDescription)
-            }
-        }
+        delegate?.searchViewController(searchViewController: self, addButtonPressedFor: cell)
+//        Task {
+//            let result = try await vm.addSong(at: indexPath.row)
+//            switch result {
+//            case.success(let song):
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//
+//                    guard let delegate = self.delegate else { return }
+//                    let didUpdatSpotify = delegate.searchViewController(searchViewController: self, didUpdatSpotifyWith: song)
+//                    self.headerLabel.text = "Spotify is not linked. Unable to sync."
+//                    self.headerViewHeight.constant = didUpdatSpotify ? 0 : 43
+//                    UIView.animate(withDuration: 0.3) {
+//                        self.view.layoutIfNeeded()
+//                    }
+//                }
+//            case .failure(let error):
+//                showAlert(title: error.localizedDescription)
+//            }
+//        }
     }
 }

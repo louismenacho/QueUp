@@ -12,17 +12,11 @@ class SearchViewModel {
     
     enum SearchViewModelError: LocalizedError {
         case searchError
-        case addSongError
-        case duplicateSongError
         
         var errorDescription: String? {
             switch self {
             case .searchError:
                return "Could not complete search"
-            case .addSongError:
-               return "Could not add song"
-            case .duplicateSongError:
-               return "This song has already been added"
             }
         }
     }
@@ -58,19 +52,19 @@ class SearchViewModel {
         }
     }
     
-    func addSong(at index: Int) async throws -> Result<(Song), Error> {
-        let song = searchResult[index].song
-        guard !currentPlaylist.contains(where: { $0.song.id == song.id }) else {
-            return .failure(SearchViewModelError.duplicateSongError)
-        }
-        do {
-            try playlistService.addSong(song, addedBy: auth.signedInUser)
-            return .success(song)
-        } catch {
-            Crashlytics.crashlytics().record(error: error)
-            return .failure(SearchViewModelError.addSongError)
-        }
-    }
+//    func addSong(at index: Int) async throws -> Result<(Song), Error> {
+//        let song = searchResult[index].song
+//        guard !currentPlaylist.contains(where: { $0.song.id == song.id }) else {
+//            return .failure(SearchViewModelError.duplicateSongError)
+//        }
+//        do {
+//            try playlistService.addSong(song, addedBy: auth.signedInUser)
+//            return .success(song)
+//        } catch {
+//            Crashlytics.crashlytics().record(error: error)
+//            return .failure(SearchViewModelError.addSongError)
+//        }
+//    }
     
     func updateIsAddedStatus(with playlist: [PlaylistItem]) {
         currentPlaylist = playlist

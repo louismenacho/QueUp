@@ -12,17 +12,20 @@ class HomeViewModel {
     
     enum HomeViewModelError: LocalizedError {
         case roomCapacityReached(roomId: String)
+        case roomDoesNotExist
         case joinRoomError
         case hostRoomError
         
         var errorDescription: String? {
             switch self {
             case .roomCapacityReached(let roomId):
-               return "Room \(roomId) is full"
+                return "Room \(roomId) is full"
+            case .roomDoesNotExist:
+                return "Room does not exist"
             case .joinRoomError:
-               return "Could not join room"
+                return "Could not join room"
             case .hostRoomError:
-               return "Could not host room"
+                return "Could not host room"
             }
         }
     }
@@ -59,6 +62,9 @@ class HomeViewModel {
             UserDefaultsRepository.shared.displayName = user.displayName
             return .success(())
         } catch  {
+            if let error = error as? DecodingError, case .valueNotFound = error {
+                return .failure(HomeViewModelError.roomDoesNotExist)
+            }
             Crashlytics.crashlytics().record(error: error)
             return .failure(HomeViewModelError.joinRoomError)
         }

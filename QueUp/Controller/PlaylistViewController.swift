@@ -167,14 +167,22 @@ extension PlaylistViewController: RoomViewModelDelegate {
 
 extension PlaylistViewController: SearchViewControllerDelegate {
     
-    func searchViewController(searchViewController: SearchViewController, didUpdatSpotifyWith song: Song) -> Bool {
-        if roomVM.isSpotifyLinked() && roomVM.isTokenExpired() {
-            return false
-        } else {
-            playlistVM.shouldUpdateSpotifyPlaylist = true
-            return true
+    func searchViewController(searchViewController: SearchViewController, addButtonPressedFor cell: SearchResultTableViewCell) {
+        Task {
+            self.playlistVM.shouldUpdateSpotifyPlaylist = self.roomVM.isSpotifyLinked() && !self.roomVM.isTokenExpired()
+            let result = await self.playlistVM.addSong(song: cell.searchResultItem.song)
+            if case .failure(let error) = result {
+                self.showAlert(title: error.localizedDescription)
+                self.playlistVM.shouldUpdateSpotifyPlaylist = false
+            }
+            searchViewController.showHeaderView(!self.playlistVM.shouldUpdateSpotifyPlaylist)
         }
     }
+    
+//    func searchViewController(searchViewController: SearchViewController, didUpdatSpotifyWith song: Song) -> Bool {
+//        playlistVM.shouldUpdateSpotifyPlaylist = roomVM.isSpotifyLinked() && !roomVM.isTokenExpired()
+//        return playlistVM.shouldUpdateSpotifyPlaylist
+//    }
 }
 
 extension PlaylistViewController: UICollectionViewDataSource {
@@ -251,14 +259,14 @@ extension PlaylistViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard roomVM.isHost(usersVM.signedInUser()) else { return nil }
         let action = UIContextualAction(style: .normal, title: "Remove") { (action, view, completionHandler) in
             Task {
+                self.playlistVM.shouldUpdateSpotifyPlaylist = self.roomVM.isSpotifyLinked() && !self.roomVM.isTokenExpired()
                 let result = await self.playlistVM.removeSong(at: indexPath.row)
-                switch result {
-                case.success:
-                    print("removed song")
-                case .failure(let error):
+                if case .failure(let error) = result {
                     self.showAlert(title: error.localizedDescription)
+                    self.playlistVM.shouldUpdateSpotifyPlaylist = false
                 }
             }
             completionHandler(true)

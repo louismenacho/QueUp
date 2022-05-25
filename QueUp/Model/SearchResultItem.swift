@@ -8,6 +8,6 @@
 import Foundation
 
 struct SearchResultItem {
-    var song: Song
-    var isAdded: Bool
+    var song: Song = Song()
+    var isAdded: Bool = false
 }

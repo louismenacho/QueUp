@@ -13,6 +13,8 @@ class PlaylistViewModel {
     enum PlaylistViewModelError: LocalizedError {
         case playlistListenerError
         case playSongError
+        case addSongError
+        case duplicateSongError
         case removeSongError
         case updateSpotifyPlaylistError
         case spotifyPlayerInactive
@@ -23,6 +25,10 @@ class PlaylistViewModel {
                return "Could not sync playlist data"
             case .playSongError:
                return "Could not play song"
+            case .addSongError:
+                return "Could not add song"
+            case .duplicateSongError:
+                return "This song has already been added"
             case .removeSongError:
                return "Could not remove song"
             case .updateSpotifyPlaylistError:
@@ -68,6 +74,19 @@ class PlaylistViewModel {
         } catch {
             Crashlytics.crashlytics().record(error: error)
             return .failure(PlaylistViewModelError.playSongError)
+        }
+    }
+    
+    func addSong(song: Song) async -> Result<(), Error> {
+        guard !playlist.contains(where: { $0.song.id == song.id }) else {
+            return .failure(PlaylistViewModelError.duplicateSongError)
+        }
+        do {
+            try service.addSong(song, addedBy: auth.signedInUser)
+            return .success(())
+        } catch {
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(PlaylistViewModelError.addSongError)
         }
     }
     
