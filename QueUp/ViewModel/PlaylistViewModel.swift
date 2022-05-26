@@ -16,6 +16,7 @@ class PlaylistViewModel {
         case addSongError
         case duplicateSongError
         case removeSongError
+        case clearPlaylistError
         case updateSpotifyPlaylistError
         case spotifyPlayerInactive
         
@@ -31,6 +32,8 @@ class PlaylistViewModel {
                 return "This song has already been added"
             case .removeSongError:
                return "Could not remove song"
+            case .clearPlaylistError:
+                return "Could not clear playlist"
             case .updateSpotifyPlaylistError:
                return "Could not update Spotify playlist"
             case .spotifyPlayerInactive:
@@ -98,6 +101,16 @@ class PlaylistViewModel {
         } catch {
             Crashlytics.crashlytics().record(error: error)
             return .failure(PlaylistViewModelError.removeSongError)
+        }
+    }
+    
+    func clearPlaylist() async -> Result<(), Error> {
+        do {
+            try await service.removeAllSongs()
+            return .success(())
+        } catch {
+            Crashlytics.crashlytics().record(error: error)
+            return .failure(PlaylistViewModelError.clearPlaylistError)
         }
     }
     

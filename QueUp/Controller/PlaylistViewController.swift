@@ -41,6 +41,8 @@ class PlaylistViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! RoomInfoViewController
         vc.roomVM = roomVM
+        vc.playlistVM = playlistVM
+        vc.delegate = self
     }
     
     @objc func willEnterForeground() {
@@ -63,7 +65,7 @@ class PlaylistViewController: UIViewController {
                         self.navigationItem.rightBarButtonItem = nil
                     }
                     
-                    if self.roomVM.isSpotifyLinked()  {
+                    if self.roomVM.isSpotifyLinked() {
                         self.headerLabel.text = "Spotify is not linked. Unable to sync."
                         self.headerViewHeight.constant = self.roomVM.isTokenExpired() ? 43 : 0
                         UIView.animate(withDuration: 0.3) {
@@ -178,11 +180,6 @@ extension PlaylistViewController: SearchViewControllerDelegate {
             searchViewController.showHeaderView(!self.playlistVM.shouldUpdateSpotifyPlaylist)
         }
     }
-    
-//    func searchViewController(searchViewController: SearchViewController, didUpdatSpotifyWith song: Song) -> Bool {
-//        playlistVM.shouldUpdateSpotifyPlaylist = roomVM.isSpotifyLinked() && !roomVM.isTokenExpired()
-//        return playlistVM.shouldUpdateSpotifyPlaylist
-//    }
 }
 
 extension PlaylistViewController: UICollectionViewDataSource {
@@ -288,6 +285,25 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
                 showAlert(title: error.localizedDescription)
             }
             cell.playButton.isEnabled = true
+        }
+    }
+}
+
+extension PlaylistViewController: RoomInfoViewControllerDelegate {
+    
+    func roomInfoViewController(_ roomInfoViewController: RoomInfoViewController, shouldPlaylistClear: Bool) {
+        Task {
+            let clearResult = await self.playlistVM.clearPlaylist()
+            switch clearResult {
+            case.success:
+                self.playlistVM.playlist = []
+                let updateResult = await self.playlistVM.updateSpotifyPlaylist()
+                if case .failure(let error) = updateResult {
+                    roomInfoViewController.showAlert(title: error.localizedDescription)
+                }
+            case .failure(let error):
+                roomInfoViewController.showAlert(title: error.localizedDescription)
+            }
         }
     }
 }

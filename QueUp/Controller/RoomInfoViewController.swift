@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol RoomInfoViewControllerDelegate: AnyObject {
+    func roomInfoViewController(_ roomInfoViewController: RoomInfoViewController, shouldPlaylistClear: Bool)
+}
+
 class RoomInfoViewController: UIViewController {
+    
+    weak var delegate: RoomInfoViewControllerDelegate?
     
     var roomVM = RoomViewModel()
     var playlistVM = PlaylistViewModel()
@@ -44,22 +50,11 @@ class RoomInfoViewController: UIViewController {
                 self.showAlert(title: error.localizedDescription)
             }
         }
-        
-        playlistVM.playlistListener { result in
-            print("playlistListener fired")
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                self.showAlert(title: error.localizedDescription)
-            }
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         roomVM.stopListener()
-        playlistVM.stopListener()
     }
 }
 
@@ -118,15 +113,7 @@ extension RoomInfoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             showActionSheet(title: "Are you sure you want to clear playlist?", action: .init(title: "Clear Playlist", style: .destructive) {  action in
-                Task {
-                    let result = await self.roomVM.clearPlaylist()
-                    switch result {
-                    case.success:
-                        print("cleared playlist")
-                    case .failure(let error):
-                        self.showAlert(title: error.localizedDescription)
-                    }
-                }
+                self.delegate?.roomInfoViewController(self, shouldPlaylistClear: true)
             })
         }
         if indexPath.section == 2 {

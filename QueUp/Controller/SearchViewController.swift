@@ -137,24 +137,5 @@ extension SearchViewController: SearchResultTableViewCellDelegate {
     
     func searchTableViewCell(addButtonPressedFor cell: SearchResultTableViewCell) {
         delegate?.searchViewController(searchViewController: self, addButtonPressedFor: cell)
-//        Task {
-//            let result = try await vm.addSong(at: indexPath.row)
-//            switch result {
-//            case.success(let song):
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//
-//                    guard let delegate = self.delegate else { return }
-//                    let didUpdatSpotify = delegate.searchViewController(searchViewController: self, didUpdatSpotifyWith: song)
-//                    self.headerLabel.text = "Spotify is not linked. Unable to sync."
-//                    self.headerViewHeight.constant = didUpdatSpotify ? 0 : 43
-//                    UIView.animate(withDuration: 0.3) {
-//                        self.view.layoutIfNeeded()
-//                    }
-//                }
-//            case .failure(let error):
-//                showAlert(title: error.localizedDescription)
-//            }
-//        }
     }
 }

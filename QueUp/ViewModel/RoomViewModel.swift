@@ -19,7 +19,6 @@ class RoomViewModel {
         case roomUpdateError
         case spotifyTokenGenerationError
         case spotifyLinkError
-        case clearPlaylistError
         case endRoomSessionError
         
         var errorDescription: String? {
@@ -32,8 +31,6 @@ class RoomViewModel {
                 return "Coult not generate Spotify token"
             case .spotifyLinkError:
                 return "Could not link with Spotify"
-            case .clearPlaylistError:
-                return "Could not clear playlist"
             case .endRoomSessionError:
                 return "Could not end room session"
             }
@@ -139,16 +136,6 @@ class RoomViewModel {
             }
             Crashlytics.crashlytics().record(error: error)
             return .failure(RoomViewModelError.spotifyLinkError)
-        }
-    }
-    
-    func clearPlaylist() async -> Result<(), Error> {
-        do {
-            try await playlistService.removeAllSongs()
-            return .success(())
-        } catch {
-            Crashlytics.crashlytics().record(error: error)
-            return .failure(RoomViewModelError.clearPlaylistError)
         }
     }
     
