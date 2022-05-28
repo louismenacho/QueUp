@@ -80,10 +80,12 @@ class HomeFormView: UIStackView {
     
     func setRoomId(_ roomId: String) {
         roomIdTextField.text = roomId
+        handleButtonEnablement()
     }
     
     func setDisplayName(_ displayName: String) {
         displayNameTextField.text = displayName
+        handleButtonEnablement()
     }
 }
 
