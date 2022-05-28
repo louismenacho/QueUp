@@ -92,9 +92,11 @@ extension HomeViewController: SwitchControlDelegate {
 extension HomeViewController: HomeFormViewDelegate {
     
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String) {
+        showActivityIndicator()
         homeFormView.joinButton.isEnabled = false
         Task {
             let result = await vm.join(roomId: roomId, displayName: displayName)
+            self.hideActivityIndicator()
             switch result {
             case.success:
                 DispatchQueue.main.async {

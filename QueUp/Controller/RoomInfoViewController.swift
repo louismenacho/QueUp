@@ -134,9 +134,11 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
     
     func spotifyLinkTableViewCell(linkStatusButtonPressedFor cell: SpotifyLinkTableViewCell) {
         cell.linkStatusButton.isEnabled = false
+        showActivityIndicator()
         if cell.linkStatusButton.titleLabel!.text == "Link" {
             Task {
                 let linkResult = await roomVM.linkSpotifyAccount()
+                self.hideActivityIndicator()
                 switch linkResult {
                 case.success(let isLinked):
                     if isLinked {
@@ -157,6 +159,7 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
         if cell.linkStatusButton.titleLabel!.text == "Relink" {
             Task {
                 let result = await roomVM.relinkSpotifyIfNeeded()
+                self.hideActivityIndicator()
                 switch result {
                 case.success(let isLinked):
                     if isLinked {

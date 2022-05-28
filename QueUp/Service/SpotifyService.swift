@@ -30,6 +30,8 @@ class SpotifyService {
         }
     }
     
+    var isAwaitingToken = false
+    
     private init() {}
     
     func initialize() async throws {
@@ -38,9 +40,12 @@ class SpotifyService {
     }
     
     func generateSearchToken() async throws {
+        if isAwaitingToken { return }
+        isAwaitingToken = true
         let token = try await tokenService.generateSearchToken()
         searchAPI.auth = .bearer(token: token.accessToken)
         searchTokenExpiration = Date().addingTimeInterval(Double(token.expiresIn))
+        isAwaitingToken = false
     }
     
     func generateSessionToken() async throws {

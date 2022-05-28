@@ -26,6 +26,8 @@
 		9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9828143210008E6FF3 /* Main.storyboard */; };
 		9559FB9C28143211008E6FF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9B28143211008E6FF3 /* Assets.xcassets */; };
 		9559FB9F28143211008E6FF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9D28143211008E6FF3 /* LaunchScreen.storyboard */; };
+		9573F65E283F3F0A00CB1642 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 9573F65D283F3F0A00CB1642 /* NVActivityIndicatorView */; };
+		9573F660283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9573F65F283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift */; };
 		9576DAF8282F6E2E00AE1F5E /* SpotifyTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAF7282F6E2E00AE1F5E /* SpotifyTokenService.swift */; };
 		9576DAFB28305B4400AE1F5E /* SpotifyUsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAFA28305B4400AE1F5E /* SpotifyUsersAPI.swift */; };
 		9576DAFD283069CA00AE1F5E /* SpotifyUsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAFC283069CA00AE1F5E /* SpotifyUsersResponse.swift */; };
@@ -110,6 +112,7 @@
 		9559FB9B28143211008E6FF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9559FB9E28143211008E6FF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9559FBA028143211008E6FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9573F65F283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ActivityIndicator.swift"; sourceTree = "<group>"; };
 		9576DAF7282F6E2E00AE1F5E /* SpotifyTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyTokenService.swift; sourceTree = "<group>"; };
 		9576DAFA28305B4400AE1F5E /* SpotifyUsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUsersAPI.swift; sourceTree = "<group>"; };
 		9576DAFC283069CA00AE1F5E /* SpotifyUsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUsersResponse.swift; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 			files = (
 				9537A46A282E302F0090A013 /* SDWebImage in Frameworks */,
 				95B9A962282B967500146B92 /* FirebaseFirestoreSwift in Frameworks */,
+				9573F65E283F3F0A00CB1642 /* NVActivityIndicatorView in Frameworks */,
 				95B9A95E282B967500146B92 /* FirebaseCrashlytics in Frameworks */,
 				95B9A960282B967500146B92 /* FirebaseFirestore in Frameworks */,
 				95B3344D281A6B02001BF021 /* SpotifyiOS.xcframework in Frameworks */,
@@ -361,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */,
+				9573F65F283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -489,6 +494,7 @@
 				95B9A95F282B967500146B92 /* FirebaseFirestore */,
 				95B9A961282B967500146B92 /* FirebaseFirestoreSwift */,
 				9537A469282E302F0090A013 /* SDWebImage */,
+				9573F65D283F3F0A00CB1642 /* NVActivityIndicatorView */,
 			);
 			productName = QueUp;
 			productReference = 9559FB8F28143210008E6FF3 /* QueUp.app */;
@@ -521,6 +527,7 @@
 			packageReferences = (
 				95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9537A468282E302F0090A013 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				9573F65C283F3F0A00CB1642 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 			);
 			productRefGroup = 9559FB9028143210008E6FF3 /* Products */;
 			projectDirPath = "";
@@ -617,6 +624,7 @@
 				95B9A964282CB31400146B92 /* UsersViewModel.swift in Sources */,
 				95B334302819E913001BF021 /* SearchResultTableViewCell.swift in Sources */,
 				95CDF5D12815777700E98B91 /* User.swift in Sources */,
+				9573F660283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift in Sources */,
 				95420BCD2827AD2400EEAE05 /* SearchResultItem.swift in Sources */,
 				95DD898B28275E3B0021DB18 /* HTTPAuthorization.swift in Sources */,
 				95B334232819A352001BF021 /* Song.swift in Sources */,
@@ -860,6 +868,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		9573F65C283F3F0A00CB1642 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ninjaprox/NVActivityIndicatorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		95B9A95A282B967500146B92 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "http://github.com/firebase/firebase-ios-sdk.git";
@@ -875,6 +891,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9537A468282E302F0090A013 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		9573F65D283F3F0A00CB1642 /* NVActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9573F65C283F3F0A00CB1642 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */;
+			productName = NVActivityIndicatorView;
 		};
 		95B9A95B282B967500146B92 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -99,7 +99,7 @@ class RoomViewModel {
     
     func relinkSpotifyIfNeeded() async -> Result<(Bool), Error> {
         do {
-            guard isSpotifyLinked() && spotify.isTokenExpired(tokenExpiration: room.spotifyTokenExpiration) else {
+            guard isSpotifyLinked() && isTokenExpired() else {
                 return .success((false))
             }
             try await spotify.generateSessionToken()

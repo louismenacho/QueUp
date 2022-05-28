@@ -48,7 +48,6 @@ class PlaylistViewController: UIViewController {
     @objc func willEnterForeground() {
         guard roomVM.isHost(usersVM.signedInUser()) else { return }
         roomVM.resetTokenTimer()
-        relinkSpotifyIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -148,12 +147,11 @@ class PlaylistViewController: UIViewController {
     }
     
     func relinkSpotifyIfNeeded() {
+        showActivityIndicator()
         Task {
             let result = await roomVM.relinkSpotifyIfNeeded()
-            switch result {
-            case.success(let bool):
-                print("Spotify token generated: \(bool)")
-            case .failure(let error):
+            self.hideActivityIndicator()
+            if case .failure(let error) = result {
                 showAlert(title: error.localizedDescription)
             }
         }
