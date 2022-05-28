@@ -32,7 +32,6 @@ class SearchViewController: UIViewController {
         updateSearchBarFont()
         tableView.dataSource = self
         tableView.delegate = self
-        headerViewHeight.constant = 0
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -46,7 +45,7 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        showHeaderView(false)
+        headerViewHeight.constant = 0
     }
     
     @objc func search() {
