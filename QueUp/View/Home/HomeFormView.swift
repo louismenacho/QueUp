@@ -40,13 +40,12 @@ class HomeFormView: UIStackView {
     }
     
     @IBAction func displayNameTextFieldDidChange(_ sender: UITextField) {
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
-        hostButton.isEnabled = !displayNameTextField.text!.isEmpty
+        handleButtonEnablement()
     }
     
     @IBAction func roomIdTextFieldDidChange(_ sender: UITextField) {
-        roomIdTextField.text = roomIdTextField.text?.uppercased()
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
+        handleButtonEnablement()
+        roomIdTextField.text = roomIdTextField.text!.uppercased()
         delegate?.homeFormView(self, roomIdTextFieldDidChange: roomIdTextField.text!)
     }
     
@@ -62,25 +61,29 @@ class HomeFormView: UIStackView {
         roomIdTextField.isHidden = false
         joinButton.isHidden = false
         hostButton.isHidden = true
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
+        handleButtonEnablement()
     }
     
     private func showCreateRoomOptions() {
         roomIdTextField.isHidden = true
         joinButton.isHidden = true
         hostButton.isHidden = false
+        handleButtonEnablement()
+    }
+    
+    func handleButtonEnablement() {
+        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
+        joinButton.alpha = joinButton.isEnabled ? 1 : 0.5
         hostButton.isEnabled = !displayNameTextField.text!.isEmpty
+        hostButton.alpha = hostButton.isEnabled ? 1 : 0.5
     }
     
     func setRoomId(_ roomId: String) {
         roomIdTextField.text = roomId
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
     }
     
     func setDisplayName(_ displayName: String) {
         displayNameTextField.text = displayName
-        joinButton.isEnabled = !displayNameTextField.text!.isEmpty && roomIdTextField.text!.count == 4
-        hostButton.isEnabled = !displayNameTextField.text!.isEmpty
     }
 }
 
