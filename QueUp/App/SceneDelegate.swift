@@ -49,7 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else {
-            print("Invalid open URL")
+//            print("Invalid open URL")
             return
         }
         SpotifyTokenService.shared.handleOpenURLCallback(url: url)

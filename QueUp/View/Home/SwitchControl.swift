@@ -31,11 +31,11 @@ class SwitchControl: UIControl {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesBegan")
+//        print("touchesBegan")
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touchesEnded")
+//        print("touchesEnded")
         toggle()
     }
     

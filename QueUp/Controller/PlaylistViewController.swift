@@ -60,7 +60,7 @@ class PlaylistViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         roomVM.roomListener { result in
-            print("roomListener fired")
+//            print("roomListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -92,7 +92,7 @@ class PlaylistViewController: UIViewController {
         }
         
         usersVM.usersListener { result in
-            print("usersListener fired")
+//            print("usersListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -111,7 +111,7 @@ class PlaylistViewController: UIViewController {
         }
         
         playlistVM.playlistListener { result in
-            print("playlistListener fired")
+//            print("playlistListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
@@ -125,7 +125,7 @@ class PlaylistViewController: UIViewController {
                         let updateResult = await self.playlistVM.updateSpotifyPlaylist()
                         switch updateResult {
                         case .success(let didUpdate):
-                            print("Did update Spotify: \(didUpdate)")
+//                            print("Did update Spotify: \(didUpdate)")
                             if !didUpdate {
                                 self.roomVM.triggerListener()
                             }

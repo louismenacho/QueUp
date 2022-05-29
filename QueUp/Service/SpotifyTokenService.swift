@@ -74,17 +74,17 @@ class SpotifyTokenService: NSObject {
 extension SpotifyTokenService: SPTSessionManagerDelegate {
     
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-        print("sessionManager did initiate session")
+//        print("sessionManager did initiate session")
         sessionDelegateCallback?(.success(session))
     }
     
     func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-        print("sessionManager did renew session")
+//        print("sessionManager did renew session")
         sessionDelegateCallback?(.success(session))
     }
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-        print("sessionManager did fail with error")
+//        print("sessionManager did fail with error")
         sessionDelegateCallback?(.failure(error))
     }
 }

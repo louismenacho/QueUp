@@ -33,7 +33,7 @@ class RoomInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         roomVM.roomListener { result in
-            print("roomListener fired")
+//            print("roomListener fired")
             switch result {
             case .success:
                 DispatchQueue.main.async {
