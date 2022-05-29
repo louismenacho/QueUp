@@ -39,10 +39,18 @@ class PlaylistViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! RoomInfoViewController
-        vc.roomVM = roomVM
-        vc.playlistVM = playlistVM
-        vc.delegate = self
+        if segue.identifier == "SongInfoViewController" {
+            let vc = segue.destination as! SongInfoViewController
+            if let playlistItem =  playlistVM.selectedPlaylistItem {
+                vc.vm.song = playlistItem.song
+            }
+        }
+        if segue.identifier == "RoomInfoViewController" {
+            let vc = segue.destination as! RoomInfoViewController
+            vc.roomVM = roomVM
+            vc.playlistVM = playlistVM
+            vc.delegate = self
+        }
     }
     
     @objc func willEnterForeground() {
@@ -250,6 +258,8 @@ extension PlaylistViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        playlistVM.selectedPlaylistItem = playlistVM.playlist[indexPath.row]
+        performSegue(withIdentifier: "SongInfoViewController", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

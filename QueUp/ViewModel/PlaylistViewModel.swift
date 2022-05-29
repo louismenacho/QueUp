@@ -47,6 +47,8 @@ class PlaylistViewModel {
     var spotify = SpotifyService.shared
     
     var playlist = [PlaylistItem]()
+    var selectedPlaylistItem: PlaylistItem?
+    
     var shouldUpdateSpotifyPlaylist: Bool = false
     var fairMode: Bool = true
     
