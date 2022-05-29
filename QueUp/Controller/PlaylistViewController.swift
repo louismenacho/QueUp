@@ -183,7 +183,9 @@ extension PlaylistViewController: SearchViewControllerDelegate {
                 self.showAlert(title: error.localizedDescription)
                 self.playlistVM.shouldUpdateSpotifyPlaylist = false
             }
-            searchViewController.showHeaderView(!self.playlistVM.shouldUpdateSpotifyPlaylist)
+            if self.roomVM.isSpotifyLinked() {
+                searchViewController.showHeaderView(!self.playlistVM.shouldUpdateSpotifyPlaylist)
+            }
         }
     }
 }
