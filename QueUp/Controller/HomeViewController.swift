@@ -36,8 +36,13 @@ class HomeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! PlaylistViewController
-        vc.roomVM.room = vm.room
+        if segue.identifier == "PlaylistViewController" {
+            let vc = segue.destination as! PlaylistViewController
+            vc.roomVM.room = vm.room
+        }
+        if segue.identifier == "PolicyViewController" {
+            
+        }
     }
     
     private func addKeyboardObserver() {

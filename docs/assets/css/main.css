@@ -2767,7 +2767,7 @@ input, select, textarea {
 			}
 
 		.spotlight .content {
-			width: 100%;
+			width: 70%;
 		}
 
 			.spotlight .content > :last-child {
@@ -2818,7 +2818,7 @@ input, select, textarea {
 
 			.spotlight .content {
 				width: 100%;
-				text-align: left !important;
+				text-align: center !important;
 			}
 
 	}
