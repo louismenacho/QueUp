@@ -297,7 +297,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaylistTableViewCell" rowHeight="68" id="7HM-A1-WTO" userLabel="SearchResultTableViewCell" customClass="PlaylistTableViewCell" customModule="QueUp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PlaylistTableViewCell" rowHeight="68" id="7HM-A1-WTO" customClass="PlaylistTableViewCell" customModule="QueUp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="146" width="390" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7HM-A1-WTO" id="YDY-lT-JlM">
@@ -832,7 +832,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1r4-rZ-8pY"/>
+        <segue reference="GKP-z4-7Yd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="a.circle.fill" catalog="system" width="128" height="121"/>

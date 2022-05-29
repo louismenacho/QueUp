@@ -245,7 +245,8 @@ extension PlaylistViewController: UITableViewDataSource {
         cell.update(with: playlistVM.playlist[indexPath.row])
         if  roomVM.isHost(usersVM.signedInUser()) &&
             roomVM.isSpotifyLinked() &&
-            roomVM.isSpotifyProductPremium()
+            roomVM.isSpotifyProductPremium() &&
+            !roomVM.isTokenExpired()
         {
             cell.showPlayButton()
         }
