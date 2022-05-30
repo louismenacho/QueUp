@@ -32,7 +32,7 @@ class PlaylistTableViewCell: UITableViewCell {
     
     func update(with playlistItem: PlaylistItem) {
         songTitleLabel.text = playlistItem.song.title
-        artistNamesLabel.text = playlistItem.song.artists.joined(separator: ",")
+        artistNamesLabel.text = playlistItem.song.artists.joined(separator: ", ")
         addedByUserLabel.text = "Added by " + playlistItem.addedBy.displayName
         albumImageView.sd_setImage(with: URL(string: playlistItem.song.artworkURL)!, placeholderImage: UIImage(systemName: "image"))
         playButton.isHidden = true
