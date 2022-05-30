@@ -267,7 +267,7 @@ extension PlaylistViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard roomVM.isHost(usersVM.signedInUser()) else { return nil }
+        guard roomVM.isHost(usersVM.signedInUser()) || usersVM.signedInUser().id == playlistVM.playlist[indexPath.row].addedBy.id else { return nil }
         let action = UIContextualAction(style: .normal, title: "Remove") { (action, view, completionHandler) in
             Task {
                 self.playlistVM.shouldUpdateSpotifyPlaylist = self.roomVM.isSpotifyLinked() && !self.roomVM.isTokenExpired()
