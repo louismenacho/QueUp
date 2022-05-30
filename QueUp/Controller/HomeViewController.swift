@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var formView: HomeFormView!
     
-    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackViewCenterConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +58,8 @@ class HomeViewController: UIViewController {
                 headerView.isHidden = true
                 let viewHeight = view.frame.height
                 let keyboardHeight = keyboardRect.height
-                let remainingSpace = viewHeight - keyboardHeight
-                headerViewTopConstraint.constant = remainingSpace/2 - formView.frame.height/2 - 48
+                let remainingSpace = viewHeight - keyboardHeight - 88
+                stackViewCenterConstraint.constant = (remainingSpace/2 + 88) - viewHeight/2
                 view.layoutIfNeeded()
             }
         }
@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
         UIView.animate(withDuration: 0.1) { [self] in
             headerView.alpha = 1
             headerView.isHidden = false
-            headerViewTopConstraint.constant = 0
+            stackViewCenterConstraint.constant = -25
             view.layoutIfNeeded()
         }
     }
@@ -115,9 +115,11 @@ extension HomeViewController: HomeFormViewDelegate {
     }
     
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String) {
+        showActivityIndicator()
         homeFormView.hostButton.isEnabled = false
         Task {
             let result = await vm.host(displayName: displayName)
+            self.hideActivityIndicator()
             switch result {
             case.success:
                 DispatchQueue.main.async {
