@@ -59,8 +59,6 @@ class HomeViewController: UIViewController {
             let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
             let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
             self.stackViewCenterConstraint.constant = -(remainingSpace - (statusBarHeight + navigationBarHeight))/2 + (statusBarHeight + navigationBarHeight) - 83.5
-            print(statusBarHeight)
-            print(navigationBarHeight)
             UIView.animate(withDuration: 0.1) {
                 self.headerView.alpha = 0
                 self.headerView.isHidden = true
