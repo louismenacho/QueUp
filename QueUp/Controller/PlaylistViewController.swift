@@ -307,10 +307,12 @@ extension PlaylistViewController: RoomInfoViewControllerDelegate {
             let clearResult = await self.playlistVM.clearPlaylist()
             switch clearResult {
             case.success:
-                self.playlistVM.playlist = []
-                let updateResult = await self.playlistVM.updateSpotifyPlaylist()
-                if case .failure(let error) = updateResult {
-                    roomInfoViewController.showAlert(title: error.localizedDescription)
+                if self.roomVM.isSpotifyLinked() && !self.roomVM.isTokenExpired() {
+                    self.playlistVM.playlist = []
+                    let updateResult = await self.playlistVM.updateSpotifyPlaylist()
+                    if case .failure(let error) = updateResult {
+                        roomInfoViewController.showAlert(title: error.localizedDescription)
+                    }
                 }
             case .failure(let error):
                 roomInfoViewController.showAlert(title: error.localizedDescription)
