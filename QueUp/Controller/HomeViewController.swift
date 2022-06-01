@@ -137,7 +137,7 @@ extension HomeViewController: HomeFormViewDelegate {
     }
     
     func homeFormView(_ homeFormView: HomeFormView, roomIdTextFieldDidChange text: String) {
-        if vm.lastRoomId == text {
+        if !vm.lastRoomId.isEmpty && vm.lastRoomId == formView.roomIdTextField.text {
             formView.joinButton.setTitle("REJOIN", for: .normal)
         } else {
             formView.joinButton.setTitle("JOIN", for: .normal)
