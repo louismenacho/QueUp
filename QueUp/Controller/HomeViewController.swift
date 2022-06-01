@@ -53,24 +53,28 @@ class HomeViewController: UIViewController {
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRect = keyboardFrame.cgRectValue
-            UIView.animate(withDuration: 0.1) { [self] in
-                headerView.alpha = 0
-                headerView.isHidden = true
-                let viewHeight = view.frame.height
-                let keyboardHeight = keyboardRect.height
-                let remainingSpace = viewHeight - keyboardHeight - 88
-                stackViewCenterConstraint.constant = (remainingSpace/2 + 88) - viewHeight/2
-                view.layoutIfNeeded()
+            let keyboardHeight = keyboardRect.height
+            let remainingSpace = self.view.frame.height - keyboardHeight
+            let window = UIApplication.shared.windows.filter( { $0.isKeyWindow }).first
+            let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            let navigationBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
+            self.stackViewCenterConstraint.constant = -(remainingSpace - (statusBarHeight + navigationBarHeight))/2 + (statusBarHeight + navigationBarHeight) - 83.5
+            print(statusBarHeight)
+            print(navigationBarHeight)
+            UIView.animate(withDuration: 0.1) {
+                self.headerView.alpha = 0
+                self.headerView.isHidden = true
+                self.view.layoutIfNeeded()
             }
         }
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
-        UIView.animate(withDuration: 0.1) { [self] in
-            headerView.alpha = 1
-            headerView.isHidden = false
-            stackViewCenterConstraint.constant = -25
-            view.layoutIfNeeded()
+        stackViewCenterConstraint.constant = 0
+        UIView.animate(withDuration: 0.1) {
+            self.headerView.alpha = 1
+            self.headerView.isHidden = false
+            self.view.layoutIfNeeded()
         }
     }
     
