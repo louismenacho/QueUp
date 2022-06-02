@@ -62,7 +62,7 @@ class RoomInfoViewController: UIViewController {
 extension RoomInfoViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,7 +106,7 @@ extension RoomInfoViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 0 {
-            return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\". Spotify Premium users can play music on demand."
+            return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\". Spotify Premium users can play music on demand from QueUp. (Spotify must be playing music)"
         }
         if section == 1 {
             return "When turned on, songs in playlist are arranged in fair order. Otherwise, songs are arranged in the order they were added."
@@ -115,18 +115,18 @@ extension RoomInfoViewController: UITableViewDelegate {
             return "Remove all songs from playlist. If Spotify is linked, all songs from the \"QueUp Room \(roomVM.room.id)\" playlist will remain."
         }
         if section == 3 {
-            return ""
+            return "Delete room \(roomVM.room.id) with all songs from playlist. If Spotify is linked, all songs from the \"QueUp Room \(roomVM.room.id)\" playlist will remain."
         }
         return nil
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             showActionSheet(title: "Are you sure you want to clear playlist?", action: .init(title: "Clear Playlist", style: .destructive) {  action in
                 self.delegate?.roomInfoViewController(self, shouldPlaylistClear: true)
             })
         }
-        if indexPath.section == 2 {
+        if indexPath.section == 3 {
             showActionSheet(title: "Are you sure you want to end room session?", action: .init(title: "End Room Session", style: .destructive) {  action in
                 Task {
                     let result = await self.roomVM.endRoomSession()
