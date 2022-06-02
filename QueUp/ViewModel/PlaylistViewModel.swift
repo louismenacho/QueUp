@@ -77,6 +77,9 @@ class PlaylistViewModel {
             try await spotify.startPlayback(uri: song.id)
             return .success(())
         } catch {
+            if let clientError = error as? APIClientError, clientError.statusCode == 404 {
+                return .failure(PlaylistViewModelError.spotifyPlayerInactive)
+            }
             Crashlytics.crashlytics().record(error: error)
             return .failure(PlaylistViewModelError.playSongError)
         }
