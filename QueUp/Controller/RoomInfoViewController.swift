@@ -76,12 +76,17 @@ extension RoomInfoViewController: UITableViewDataSource {
             return cell
         }
         if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FairQueueSwitchTableViewCell", for: indexPath) as! FairQueueSwitchTableViewCell
+            cell.delegate = self
+            return cell
+        }
+        if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RoomInfoTableViewCell", for: indexPath)
             cell.textLabel?.text = "Clear Playlist"
             cell.textLabel?.textColor = .label
             return cell
         }
-        if indexPath.section == 2 {
+        if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RoomInfoTableViewCell", for: indexPath)
             cell.textLabel?.text = "End Room Session"
             cell.textLabel?.textColor = .red
@@ -102,9 +107,12 @@ extension RoomInfoViewController: UITableViewDelegate {
             return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\". Spotify Premium users can play music on demand."
         }
         if section == 1 {
-            return "Remove all songs from playlist. If Spotify is linked, all songs from the \"QueUp Room \(roomVM.room.id)\" playlist will remain."
+            return "When turned on, songs in playlist are arranged in fair order."
         }
         if section == 2 {
+            return "Remove all songs from playlist. If Spotify is linked, all songs from the \"QueUp Room \(roomVM.room.id)\" playlist will remain."
+        }
+        if section == 3 {
             return ""
         }
         return nil
@@ -177,5 +185,12 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
                 }
             }
         }
+    }
+}
+
+extension RoomInfoViewController: FairQueueSwitchTableViewCellDelegate {
+    
+    func fairQueueSwitchTableViewCell(switchStateDidChange isOn: Bool) {
+        print(isOn)
     }
 }
