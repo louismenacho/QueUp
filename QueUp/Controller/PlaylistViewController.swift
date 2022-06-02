@@ -68,6 +68,8 @@ class PlaylistViewController: UIViewController {
                     self.tableView.reloadData()
                     self.collectionView.reloadData()
                     
+                    self.playlistVM.setFairQueue(self.roomVM.room.isQueueFair)
+                    
                     if !self.roomVM.isHost(self.usersVM.signedInUser()) {
                         self.navigationItem.rightBarButtonItem = nil
                     }
@@ -121,18 +123,7 @@ class PlaylistViewController: UIViewController {
                     self.tableView.reloadSections(.init(integer: 0), with: .none)
                 }
                 if self.playlistVM.shouldUpdateSpotifyPlaylist && self.roomVM.isSpotifyLinked() {
-                    Task {
-                        let updateResult = await self.playlistVM.updateSpotifyPlaylist()
-                        switch updateResult {
-                        case .success(let didUpdate):
-//                            print("Did update Spotify: \(didUpdate)")
-                            if !didUpdate {
-                                self.roomVM.triggerListener()
-                            }
-                        case .failure(let error):
-                            self.showAlert(title: error.localizedDescription)
-                        }
-                    }
+                    self.updateSpotifyPlaylist()
                 }
             case .failure(let error):
                 self.showAlert(title: error.localizedDescription)
@@ -161,6 +152,21 @@ class PlaylistViewController: UIViewController {
             self.hideActivityIndicator()
             if case .failure(let error) = result {
                 showAlert(title: error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateSpotifyPlaylist() {
+        Task {
+            let updateResult = await self.playlistVM.updateSpotifyPlaylist()
+            switch updateResult {
+            case .success(let didUpdate):
+                //                            print("Did update Spotify: \(didUpdate)")
+                if !didUpdate {
+                    self.roomVM.triggerListener()
+                }
+            case .failure(let error):
+                self.showAlert(title: error.localizedDescription)
             }
         }
     }
@@ -301,6 +307,13 @@ extension PlaylistViewController: PlaylistTableViewCellDelegate {
 }
 
 extension PlaylistViewController: RoomInfoViewControllerDelegate {
+    
+    func roomInfoViewController(_ roomInfoViewController: RoomInfoViewController, fairQueueStateDidChange isOn: Bool) {
+        playlistVM.setFairQueue(isOn)
+        if roomVM.isSpotifyLinked() {
+            updateSpotifyPlaylist()
+        }
+    }
     
     func roomInfoViewController(_ roomInfoViewController: RoomInfoViewController, shouldPlaylistClear: Bool) {
         Task {

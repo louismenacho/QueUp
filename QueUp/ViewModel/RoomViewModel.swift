@@ -85,6 +85,11 @@ class RoomViewModel {
         return room.hostId == user.id
     }
     
+    func setFairQueue(_ isQueueFair: Bool) {
+        room.isQueueFair = isQueueFair
+        _ = updateRoom(room)
+    }
+    
     func isSpotifyProductPremium() -> Bool {
         return room.spotifyProduct == "premium"
     }

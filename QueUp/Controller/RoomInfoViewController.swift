@@ -8,6 +8,7 @@
 import UIKit
 
 protocol RoomInfoViewControllerDelegate: AnyObject {
+    func roomInfoViewController(_ roomInfoViewController: RoomInfoViewController, fairQueueStateDidChange isOn: Bool)
     func roomInfoViewController(_ roomInfoViewController: RoomInfoViewController, shouldPlaylistClear: Bool)
 }
 
@@ -78,6 +79,7 @@ extension RoomInfoViewController: UITableViewDataSource {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FairQueueSwitchTableViewCell", for: indexPath) as! FairQueueSwitchTableViewCell
             cell.delegate = self
+            cell.fairQueueSwitch.isOn = roomVM.room.isQueueFair
             return cell
         }
         if indexPath.section == 2 {
@@ -107,7 +109,7 @@ extension RoomInfoViewController: UITableViewDelegate {
             return "Create a playlist on Spotify named \"QueUp Room \(roomVM.room.id)\". Spotify Premium users can play music on demand."
         }
         if section == 1 {
-            return "When turned on, songs in playlist are arranged in fair order."
+            return "When turned on, songs in playlist are arranged in fair order. Otherwise, songs are arranged in the order they were added."
         }
         if section == 2 {
             return "Remove all songs from playlist. If Spotify is linked, all songs from the \"QueUp Room \(roomVM.room.id)\" playlist will remain."
@@ -191,6 +193,7 @@ extension RoomInfoViewController: SpotifyLinkTableViewCellDelegate {
 extension RoomInfoViewController: FairQueueSwitchTableViewCellDelegate {
     
     func fairQueueSwitchTableViewCell(switchStateDidChange isOn: Bool) {
-        print(isOn)
+        roomVM.setFairQueue(isOn)
+        delegate?.roomInfoViewController(self, fairQueueStateDidChange: isOn)
     }
 }

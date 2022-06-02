@@ -50,7 +50,7 @@ class PlaylistViewModel {
     var selectedPlaylistItem: PlaylistItem?
     
     var shouldUpdateSpotifyPlaylist: Bool = false
-    var fairMode: Bool = true
+    var isQueueFair: Bool = true
     
     func playlistListener(_ listener: @escaping (Result<(), Error>) -> Void) {
         service.startListener()
@@ -58,7 +58,7 @@ class PlaylistViewModel {
             switch result {
             case .success(let playlist):
                 self.playlist = playlist.sorted(by: { $0.dateAdded < $1.dateAdded })
-                if self.fairMode {
+                if self.isQueueFair {
                     self.playlist = self.sortedFairly(playlist: self.playlist)
                 }
                 listener(.success(()))
@@ -144,7 +144,16 @@ class PlaylistViewModel {
         }
     }
     
-    func sortedFairly(playlist: [PlaylistItem]) -> [PlaylistItem] {
+    func setFairQueue(_ isQueueFair: Bool) {
+        if isQueueFair {
+            playlist = sortedFairly(playlist: self.playlist)
+        } else {
+            playlist = playlist.sorted(by: { $0.dateAdded < $1.dateAdded })
+        }
+        self.isQueueFair = isQueueFair
+    }
+    
+    private func sortedFairly(playlist: [PlaylistItem]) -> [PlaylistItem] {
         let set = NSOrderedSet(array: playlist.map { $0.addedBy.id }).array as! [String]
         var playlist = playlist
         var fairPlaylist = [PlaylistItem]()
