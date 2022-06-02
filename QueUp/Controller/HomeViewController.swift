@@ -99,6 +99,7 @@ extension HomeViewController: SwitchControlDelegate {
 extension HomeViewController: HomeFormViewDelegate {
     
     func homeFormView(_ homeFormView: HomeFormView, joinButtonPressed displayName: String, roomId: String) {
+        if displayName.isEmpty || roomId.isEmpty { return }
         showActivityIndicator()
         homeFormView.joinButton.isEnabled = false
         Task {
@@ -117,6 +118,7 @@ extension HomeViewController: HomeFormViewDelegate {
     }
     
     func homeFormView(_ homeFormView: HomeFormView, hostButtonPressed displayName: String) {
+        if displayName.isEmpty { return }
         showActivityIndicator()
         homeFormView.hostButton.isEnabled = false
         Task {
