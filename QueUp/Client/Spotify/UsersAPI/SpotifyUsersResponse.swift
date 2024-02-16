@@ -53,9 +53,9 @@ struct SpotifyUsersResponse {
         
         // MARK: - Image
         struct Image: Codable {
-            var height: JSONNull?
+            var height: Int?
             var url: String?
-            var width: JSONNull?
+            var width: Int?
         }
         
         // MARK: - Encode/decode helpers

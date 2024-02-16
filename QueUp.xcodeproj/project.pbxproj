@@ -27,6 +27,7 @@
 		9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9828143210008E6FF3 /* Main.storyboard */; };
 		9559FB9C28143211008E6FF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9B28143211008E6FF3 /* Assets.xcassets */; };
 		9559FB9F28143211008E6FF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9559FB9D28143211008E6FF3 /* LaunchScreen.storyboard */; };
+		95696FD92B7F3FA4003DDFA2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95696FD82B7F3FA4003DDFA2 /* GoogleService-Info.plist */; };
 		9573F65E283F3F0A00CB1642 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 9573F65D283F3F0A00CB1642 /* NVActivityIndicatorView */; };
 		9573F660283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9573F65F283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift */; };
 		9576DAF8282F6E2E00AE1F5E /* SpotifyTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9576DAF7282F6E2E00AE1F5E /* SpotifyTokenService.swift */; };
@@ -58,7 +59,6 @@
 		95B9A96C282DFEFF00146B92 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */; };
 		95B9A96F282E0CDD00146B92 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */; };
 		95BBC52D2836133300529D4F /* SwitchControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BBC52C2836133300529D4F /* SwitchControl.swift */; };
-		95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C7087E2814C23B0073A058 /* GoogleService-Info.plist */; };
 		95CABF78283628140082432E /* PolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CABF77283628140082432E /* PolicyViewController.swift */; };
 		95CDF5C9281506E000E98B91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5C8281506E000E98B91 /* HomeViewController.swift */; };
 		95CDF5CC2815071F00E98B91 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */; };
@@ -114,6 +114,7 @@
 		9559FB9B28143211008E6FF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9559FB9E28143211008E6FF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9559FBA028143211008E6FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95696FD82B7F3FA4003DDFA2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9573F65F283F3FC900CB1642 /* UIViewController+ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ActivityIndicator.swift"; sourceTree = "<group>"; };
 		9576DAF7282F6E2E00AE1F5E /* SpotifyTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyTokenService.swift; sourceTree = "<group>"; };
 		9576DAFA28305B4400AE1F5E /* SpotifyUsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUsersAPI.swift; sourceTree = "<group>"; };
@@ -140,7 +141,6 @@
 		95B9A96A282DFEFF00146B92 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
 		95B9A96E282E0CDD00146B92 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		95BBC52C2836133300529D4F /* SwitchControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchControl.swift; sourceTree = "<group>"; };
-		95C7087E2814C23B0073A058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		95CABF77283628140082432E /* PolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolicyViewController.swift; sourceTree = "<group>"; };
 		95CDF5C8281506E000E98B91 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		95CDF5CB2815071F00E98B91 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -420,7 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				9559FBA028143211008E6FF3 /* Info.plist */,
-				95C7087E2814C23B0073A058 /* GoogleService-Info.plist */,
+				95696FD82B7F3FA4003DDFA2 /* GoogleService-Info.plist */,
 				95B33446281A0034001BF021 /* QueUp-Bridging-Header.h */,
 			);
 			path = SupportFiles;
@@ -483,8 +483,8 @@
 				9559FB8B28143210008E6FF3 /* Sources */,
 				9559FB8C28143210008E6FF3 /* Frameworks */,
 				9559FB8D28143210008E6FF3 /* Resources */,
-				95C7087D2814BEF60073A058 /* ShellScript */,
 				95B3344F281A6B02001BF021 /* Embed Frameworks */,
+				95C7087D2814BEF60073A058 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -548,7 +548,7 @@
 			files = (
 				9559FB9F28143211008E6FF3 /* LaunchScreen.storyboard in Resources */,
 				9559FB9C28143211008E6FF3 /* Assets.xcassets in Resources */,
-				95C7087F2814C23B0073A058 /* GoogleService-Info.plist in Resources */,
+				95696FD92B7F3FA4003DDFA2 /* GoogleService-Info.plist in Resources */,
 				9559FB9A28143210008E6FF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -885,7 +885,7 @@
 			repositoryURL = "http://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				minimumVersion = 10.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
